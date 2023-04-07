@@ -4,8 +4,8 @@
 	display: flex;
 	gap: 20px;
 	background-color: hsla(230,40%,50%,1);
-	width: 100%;
 	box-sizing: border-box;
+	width: auto;
 }
 
 .appName{
