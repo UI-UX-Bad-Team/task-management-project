@@ -1,4 +1,4 @@
-import { Menu, Image } from 'antd';
+import { Menu } from 'antd';
 import { MailOutlined, SettingOutlined,AppstoreOutlined } from '@ant-design/icons';
 import Logo from '../logo/Logo';
 
@@ -40,9 +40,9 @@ const Navigation = () => {
 		<div className="navigation">
 			<Menu
 			  style={{
-				width: 200,
+				width: 220,
 			  }}
-			  mode="inline"
+			  mode="block"
 			  items={items}
 			/>
 		</div>

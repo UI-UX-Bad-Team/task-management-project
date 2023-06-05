@@ -1,0 +1,31 @@
+.notificationBox {
+	display: flex;
+	gap: 10px;
+	border-radius: 5px;
+	padding: 6px 10px;
+}
+.notificationBoxYetRead {
+	display: flex;
+	gap: 10px;
+	border-radius: 5px;
+	padding: 5px;
+	background-color: rgba(28, 44, 107, 0.1);
+}
+
+.notificationBox:hover {
+	background-color: rgba(28, 44, 107, 0.1);
+	cursor: pointer;
+}
+.notiMain {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+.notiTime {
+	color: #777;
+}
+
+.notiContent {
+	display: flex;
+	gap: 7px;
+}

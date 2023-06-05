@@ -1,0 +1,16 @@
+.organizationText {
+	margin-top: 30px;
+	font-size: 15px;
+	font-weight: 600;
+}
+.projectInfoText {
+	display: inline-block;
+	margin-left: 10px;
+	font-weight: 600;
+	color: hsla(230,40%,50%,1);
+}
+
+.flexColumn {
+	display: flex;
+	flex-direction: column;
+}

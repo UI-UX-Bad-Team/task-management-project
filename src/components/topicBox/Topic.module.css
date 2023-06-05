@@ -1,0 +1,46 @@
+.topicBox {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20px;
+	padding-top: 15px;
+	display: flex;
+	gap: 15px;
+	/* flex-direction: column; */
+}
+.topicContent {
+	flex-grow: 1;
+}
+.topicTitle {
+	color: #34a8eb;
+	font-size: 18px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+.creatingMember {
+	display: flex;
+	justify-content: flex-end;
+	gap: 7px;
+}
+.creatingMemberName {
+	font-size: 14px;
+	font-weight: 600;
+	color: rgb(30, 121, 241);
+	display: inline-block;
+}
+
+.creatingMemberName:hover {
+	text-decoration: underline;
+	cursor: pointer;
+	line-height: 25px;
+}
+.creatingMemberAccountName {
+	font-size: 12px;
+	color: #777777;
+	line-height: 25px;
+}
+.topicAnswersNum {
+	margin-bottom: 3px;
+}
+.topicAnswersNum,
+.topicViewsNum {
+	color: #777;
+}

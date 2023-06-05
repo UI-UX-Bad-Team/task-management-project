@@ -2,18 +2,30 @@
 
 .logo {
 	display: flex;
-	gap: 20px;
+	gap: 0;
 	background-color: hsla(230,40%,50%,1);
 	box-sizing: border-box;
-	width: auto;
+	align-items: center;
+	width: 240px;
+	padding-left: 5px;
+	border-radius: 0 3px 3px 0;
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	z-index: 999;
+}
+
+.logo:hover{
+	cursor: pointer;
 }
 
 .appName{
 	display: inline-block;
 	color: white;
 	font-family: 'Righteous', serif;
-	font-size: 25px; 
+	font-size: 32px; 
 	text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+	width: 100%;
+	margin-left: 7px;
+	letter-spacing: 2px;
 }
 
 .appName:after {

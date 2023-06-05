@@ -1,0 +1,49 @@
+.assignmentDetail1 {
+	display: flex;
+	gap: 20px;
+	transition: 1s ease;
+	/* width: 60%; */
+}
+.viewNum {
+	display: flex;
+	gap: 5px;
+	align-items: center;
+}
+
+.reporter {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-bottom: 10px;
+	margin-top: 20px;
+}
+
+.reporterName {
+	font-size: 14px;
+	font-weight: 600;
+	color: '#000'
+}
+
+.timeTracking {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.timeLeftPercentage {
+	flex-grow: 1;
+}
+.priority {
+	display: flex;
+	gap: 10px;
+}
+
+.priorityText {
+	font-size: 14px;
+	font-weight: 600;
+	color: '#777'
+}
+.createdTime {
+	display: flex;
+	flex-direction: column;
+}

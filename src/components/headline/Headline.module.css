@@ -1,0 +1,29 @@
+.headline{
+	display: flex;
+	background-color: #fff;
+	width: 100%;
+	justify-content: space-between;
+	gap: 10px;
+	align-items: center;
+	/* box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
+	box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+	z-index: 998;
+}
+.notiIcon:hover {
+	cursor: pointer;
+    position: relative;
+}
+.backButton {
+	margin-left: 20px;
+}
+.backButton:hover {
+	cursor: pointer;
+}
+.notification {
+	position: relative;
+}
+.notificationModal {
+	position: absolute;
+	left: -180px;
+	top: 40px;
+}

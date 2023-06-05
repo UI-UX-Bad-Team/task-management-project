@@ -1,0 +1,57 @@
+.teamName{
+	margin-bottom: 20px;
+	font-size: 27px;
+	font-weight: 800;
+	color: hsla(230,40%,50%,1);
+}
+.overviewTab{
+	display: flex;
+	gap: 100px;
+	margin-bottom: 60px;
+}
+
+.flexColumn{
+	display: flex;
+	flex-direction: column;
+}
+
+.organizationText {
+	margin-top: 30px;
+	font-size: 15px;
+	font-weight: 600;
+}
+.teamInfoText {
+	display: inline-block;
+	margin-left: 10px;
+	font-weight: 600;
+	color: hsla(230,40%,50%,1);
+}
+
+.searchInputContainer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.writeBg {
+	background-color: #fff!important;
+}
+
+.projectName:hover {
+	cursor: pointer;
+}
+
+.discusstionTab {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.searchInputContainer {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 10px;
+}
+
+.searchInput:hover {
+	cursor: pointer;
+}

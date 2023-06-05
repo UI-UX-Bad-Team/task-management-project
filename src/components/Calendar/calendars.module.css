@@ -1,0 +1,4 @@
+.taskProgess {
+	display: 'flex';
+	flex-direction: 'row';
+}

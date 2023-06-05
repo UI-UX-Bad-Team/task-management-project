@@ -1,0 +1,27 @@
+.eventBox {
+	border-radius: 5px;
+	margin-top: 0px;
+	padding: 2px;
+	background-color: #fff;
+	/* display: flex; */
+	overflow-x: scroll;
+	margin-left: 2px;
+}
+
+.timeBox {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 1px 3px!important;
+	font-size: 10px;
+	font-weight: 500;
+	margin-right: 5px;
+	background-color: hsla(230,40%,50%,1);
+	color: #fff;
+}
+
+.eventContent {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: 500;
+	color: hsla(230,40%,50%,1);
+}

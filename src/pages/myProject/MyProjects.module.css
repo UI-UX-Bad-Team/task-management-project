@@ -1,0 +1,11 @@
+.searchInputContainer {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 20px;
+}
+.searchInputContainer:hover {
+	cursor: pointer;
+}
+.projectName:hover {
+	cursor: pointer;
+}

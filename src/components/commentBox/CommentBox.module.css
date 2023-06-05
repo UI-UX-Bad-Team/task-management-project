@@ -1,0 +1,32 @@
+.commentBox {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+	padding: 6px 2px;
+	border-bottom: 1px solid #ccc;
+}
+.commentHeader {
+	display: flex;
+	gap: 8px;
+}
+
+.commentPerson {
+	font-weight: 600;
+	color: #12323d
+}
+
+.commentTime {
+	font-weight: 600;
+	color: #455155
+}
+.commentContent {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.edited {
+	font-size: 14px;
+	font-weight: 600;
+	color: #777;
+}
