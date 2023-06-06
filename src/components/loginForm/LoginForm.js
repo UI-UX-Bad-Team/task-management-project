@@ -216,12 +216,21 @@ const LoginForm = (props) => {
 
 	const navigate = useNavigate();
   	const [click, setClick] = useState(false);
+	const [userName, setUserName] = useState('')
+	const [password, setPassword] = useState('')
+	const [valid, setValid] = useState(true);
 
   	const handleClick = () => setClick(!click);
-  	
+  	console.log(userName);
+
 	const signInButtonClickedHandler = () => {
-		props.successNotification();
-		navigate('/dashboard');
+		if (userName !== 'Tung') {
+			setValid(false);
+		} else {
+			setValid(true);
+			props.successNotification();
+			navigate('/dashboard');
+		}
 	}
 
 
@@ -234,15 +243,27 @@ const LoginForm = (props) => {
 
         <Form className="signin">
           <Title>Sign In</Title>
-          <Input type="email" name="email" id="emailId" placeholder="Email" />
+          <Input 
+		  		type="email" 
+			    name="email" 
+				id="emailId" 
+				placeholder="Email" 
+				onChange={(e) => {
+					setUserName(e.target.value)
+				}}
+			/>
           <Input
             type="password"
             name="password" f
             id="passwordId"
             placeholder="Password"
+			onChange={(e) => {
+				setPassword(e.target.value)
+			}}
           />
           <Link href="#">Forgot Your Password?</Link>
           <Button onClick={signInButtonClickedHandler} style={{backgroundColor: 'hsla(230,40%,50%,1)', color: '#fff', fontSize: '16px', fontWeight: 800,padding: '3px 15px'}}>Sign In</Button>
+		{!valid ? <p style={{position: 'absolute',top: '330px', color:'#fc9003', fontSize: '12px', fontWeight: 400}}>Sorry your username or password is not correct</p> : ''}
         </Form>
 
         <Form className="signup">
@@ -260,6 +281,9 @@ const LoginForm = (props) => {
             name="password"
             id="passwordId"
             placeholder="Password"
+			onChange={(e) => {
+				setPassword(e.target.value)
+			}}
           />
           <Link href="#" onClick={handleClick}>
             Already have an Account?
