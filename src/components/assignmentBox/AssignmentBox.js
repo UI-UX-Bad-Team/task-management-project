@@ -39,7 +39,7 @@ const AssignmentBox = (props) => {
 	};
 	const decline = () => {
 		setChanged(true);
-	  setPercent((prevPercent) => {
+	  	setPercent((prevPercent) => {
 		const newPercent = prevPercent - 10;
 		if (newPercent < 0) {
 		  return 0;

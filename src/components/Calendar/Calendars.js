@@ -181,13 +181,6 @@ const Calendars = (props) => {
 		});
 	};
 
-	const content = (
-		<div>
-		  <p>Content</p>
-		  <p>Content</p>
-		</div>
-	);
-
 	const showModal = () => {
 	  setIsModalOpen(true);
 	};
