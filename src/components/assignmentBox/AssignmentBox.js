@@ -6,9 +6,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 const AssignmentBox = (props) => {
-	const [percent, setPercent] = useState(0);
+	const [percent, setPercent] = useState(localStorage.getItem(`progress${props.assignmentId}`));
+	const [changed, setChanged]= useState(false);
 	const navigate = useNavigate();
 	const increase = () => {
+		setChanged(true);
 	  setPercent((prevPercent) => {
 		const newPercent = prevPercent + 10;
 		if (newPercent > 100) {
@@ -16,8 +18,10 @@ const AssignmentBox = (props) => {
 		}
 		return newPercent;
 	  });
+
 	};
 	const decline = () => {
+		setChanged(true);
 	  setPercent((prevPercent) => {
 		const newPercent = prevPercent - 10;
 		if (newPercent < 0) {
@@ -26,6 +30,10 @@ const AssignmentBox = (props) => {
 		return newPercent;
 	  });
 	};
+
+	const processSaveHandler = () => {
+		localStorage.setItem(`progress${props.assignmentId}` , percent);
+	}
 
 	return (
 		<div className={styles.assignmentBox} >
@@ -53,10 +61,12 @@ const AssignmentBox = (props) => {
 						}}
 						strokeColor={percent < 30 ? 'red' : `${percent < 60 ? 'blue' : 'green'}`}
 						size="small"
+
 					/>
 					<Button.Group>
 						<Button onClick={decline} icon={<MinusOutlined />} />
 						<Button onClick={increase} icon={<PlusOutlined />} />
+						<Button type={changed ? 'primary' : ''} onClick={processSaveHandler}>Save</Button>
 					</Button.Group>
 				</div>
 

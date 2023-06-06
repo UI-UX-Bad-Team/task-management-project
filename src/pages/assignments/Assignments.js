@@ -17,6 +17,7 @@ const initialItems = [
 				].map(assignment => {
 			return (
 				<AssignmentBox
+					id={assignment.id}
 					assignmentId={assignment.id}
 					assignmentDueDate={assignment.assignmentDueDate}
 					assignmentTitle={assignment.assignmentTitle}
