@@ -48,10 +48,91 @@
 
 .searchInputContainer {
 	display: flex;
-	justify-content: flex-end;
-	margin-bottom: 10px;
+	justify-content: space-between;
+	margin-bottom: 20px;
+}
+
+.searchInputContainer:hover {
+	cursor: pointer;
 }
 
 .searchInput:hover {
 	cursor: pointer;
+}
+.addButonContainer1,
+.addButonContainer {
+	display: flex;
+	justify-content: space-between;
+	width: max-content;
+	margin-right: 0;
+	border-radius: 5px;
+	background-color: hsla(230,40%,50%,1);
+	color: #fff;
+	padding: 3px 6px;
+	align-items: center;
+	font-weight: 500;
+	font-size: 15px;
+	border: 1px solid hsla(230,40%,50%,1);
+}
+.addButonContainer1:hover,
+.addButonContainer:hover {
+	background-color: rgb(39, 51, 114);
+	color: #fff;
+	border: 1px solid hsla(230,40%,50%,1);
+	cursor: pointer;
+}
+.addTeamModalContent {
+	display: flex;
+	gap: 20px;
+	margin: 10px 5px;
+	justify-content: space-between;
+}
+.joinTab,
+.createTab {
+	width: 220px;
+	height: 220px;
+	background-color: rgba(204, 204, 204, 0.3);
+	border-radius: 10px;
+}
+.joinTab,
+.createTab {
+	display: flex;
+	gap: 30px;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+}
+.createTab > .createTeamButton {
+	display: none!important;
+}
+
+.createTab > .sloganText {
+	display: inline-block!important;
+}
+
+.createTab:hover > .createTeamButton {
+	display: block!important;
+	transition: 1s ease;
+}
+
+.createTab:hover > .sloganText {
+	display: none!important;
+}
+
+.joinTab > .joinButton {
+	display: none!important;
+}
+
+.joinTab > .joinSloganText {
+	display: inline-block!important;
+}
+
+.joinTab:hover > .joinButton {
+	display: flex!important;
+	justify-content: center;
+	transition: 1s ease;
+}
+
+.joinTab:hover > .joinSloganText {
+	display: none!important;
 }

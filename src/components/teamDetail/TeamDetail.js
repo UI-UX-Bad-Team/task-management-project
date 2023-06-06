@@ -2,7 +2,7 @@ import styles from './TeamDetail.module.css';
 import { useState, useRef, useEffect } from 'react';
 import { Select, Pagination, Table, Tag, Tabs, Input, Avatar, List , Tooltip, Button, Modal, notification } from 'antd';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
-import { AudioOutlined, StarOutlined, UserOutlined } from '@ant-design/icons';
+import { AudioOutlined, StarOutlined, UserOutlined, UsergroupAddOutlined, AntDesignOutlined } from '@ant-design/icons';
 import {useParams} from 'react-router-dom';
 import teamsSampleData from '../../data/team';
 import { useNavigate } from 'react-router';
@@ -10,11 +10,13 @@ import projectsSampleData from '../../data/projects';
 import usersSampleData from '../../data/users';
 import TopicBox from '../../components/topicBox/TopicBox';
 import dayjs from 'dayjs';
-import { CriticalIcon, HighIcon, HighestIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+import { HighestIcon } from '../../data/priorityIcon';
 import { BugType } from '../../data/issueTypes';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
+import { ProjectIcon } from '../../data/icon';
 
-const { Search } = Input;
+
+const { Search, TextArea } = Input;
 
 const sampleTopics = [
 	{
@@ -56,6 +58,24 @@ let data1 = [
 	{ Id: 4, Status: 'Close', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'Others', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Michael Suyama', RankId: 1 },
 	{ Id: 5, Status: 'Validate', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Low', Tags: 'Validation', Estimate: 1.5, Assignee: 'Robert King', RankId: 1 }
 ];
+
+const AvatarGroup = () => {
+
+	return (
+		<div style={{display: 'flex', justifyContent: 'center'}}>
+			<Avatar.Group>
+				<Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+				<a href="https://ant.design">
+					<Avatar style={{ backgroundColor: '#f56a00' }}>K</Avatar>
+				</a>
+				<Tooltip title="Ant User" placement="top">
+					<Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+				</Tooltip>
+				<Avatar style={{ backgroundColor: '#1677ff' }} icon={<AntDesignOutlined />} />
+				</Avatar.Group>
+		</div>
+	)
+}
 
 const OverviewTab = (props) => {
 	const params = useParams();
@@ -158,9 +178,30 @@ const OverviewTab = (props) => {
 	)
 }
 
+const openSucessfullyAddNotification = () => {
+	notification.open({
+	  message: <div style={{display: 'flex', gap: '15px'}}>
+					  <svg width="25px" height="25px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+						<path d="M24 4L29.2533 7.83204L35.7557 7.81966L37.7533 14.0077L43.0211 17.8197L41 24L43.0211 30.1803L37.7533 33.9923L35.7557 40.1803L29.2533 40.168L24 44L18.7467 40.168L12.2443 40.1803L10.2467 33.9923L4.97887 30.1803L7 24L4.97887 17.8197L10.2467 14.0077L12.2443 7.81966L18.7467 7.83204L24 4Z" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M17 24L22 29L32 19" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+					  <p style={{color: '#2F88FF', fontWeight: 600}}>Welcome Tung!!</p>,
+				 </div>,
+	  description: 'You has been added to team !',
+	  onClick: () => {
+		console.log('Notification Clicked!');
+	  },
+	});
+};
+
 const ProjectsTab = () => {
 	const [position, setPosition] = useState('bottom');
 	const [align, setAlign] = useState('center');
+	const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] = useState(false);
+	const [joinButtonDisabled, setJoinButtonDisabled] = useState(true);
+	const [createTeamConfirmButtonDisabled, setCreateTeamConfirmButtonDisabled]  = useState(true);
+	const [open, setOpen] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate(); 
 	const params = useParams();
@@ -180,10 +221,105 @@ const ProjectsTab = () => {
 		setLoading(false);
 	}, 1000)
 
+	const showProjectCreateModal = () => {
+		setIsCreateProjectModalOpen(true);
+	};
+	const handleCreateTeamOk = () => {
+		setIsCreateProjectModalOpen(false);
+		handleOk();
+		openSucessfullyAddNotification();
+	};
+	const handleCreateTeamCancel = () => {
+		setIsCreateProjectModalOpen(false);
+	};
+
+	const addTeamModal = () => {
+		setOpen(true);
+	};
+
+	const handleOk = () => {
+		setLoading(true);
+		setTimeout(() => {
+		  setLoading(false);
+		  setOpen(false);
+		}, 1000);
+	  };
+	  const handleCancel = () => {
+		setOpen(false);
+	};
+
+
 	return (
 		<div>
-			<>
+			<Modal title="Create your project" open={isCreateProjectModalOpen} onOk={handleCreateTeamOk} onCancel={handleCreateTeamCancel} okButtonProps={{disabled: createTeamConfirmButtonDisabled}}>
+					<p style={{marginBottom: '6px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Project name: </p>
+					<Input placeholder="Enter team name" onChange={(e) => {
+						if(e.target.value.length > 0) {setCreateTeamConfirmButtonDisabled(false)}
+						else {
+							setCreateTeamConfirmButtonDisabled(true);
+						}
+					}}/>
+					<p style={{marginBottom: '6px', marginTop: '10px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Description: </p>
+					<TextArea showCount maxLength={100} placeholder="Max length is 100 characters" />
+					<p style={{marginBottom: '6px', marginTop: '10px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Privacy: </p>
+					<Select
+						size={'middle'}
+						defaultValue= 'Private - Only team owners can add members'
+						style={{
+							width: 470,
+						}}
+						options={[
+							{label: 'Public - Anyone in your organization can join', value : 1}, 
+							{label: 'Private - Only team member can see it', value : 2}, 
+						]}
+					/>
+			</Modal>
+			<Modal
+					open={open}
+					title="Join or create project"
+					onOk={handleOk}
+					onCancel={handleCancel}
+					footer={[
+					]}
+				>
+					<div className={styles.addTeamModalContent}>
+						<div className={styles.createTab}>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: 'hsla(230,40%,50%,1)', marginTop: '20px'}}>Create a project</p>
+							<AvatarGroup />
+							<p className={styles.sloganText} style={{textAlign: 'center'}}>Bring everyone together and get to work!!</p>
+							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: '80%'}} onClick={addTeamModal}>
+								<div className={styles.addButonContainer1} style={{paddingLeft: '8px'}} onClick={() => {showProjectCreateModal()}}>
+									<ProjectIcon />
+									<p>Create new project</p>
+								</div>
+							</div>
+						</div>
+						<div className={styles.joinTab}>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: 'hsla(230,40%,50%,1)', marginTop: '20px'}}>Join a project with a code</p>
+							<Input placeholder="Enter Code" onChange={(e) => {
+								if(e.target.value.length > 0) {setJoinButtonDisabled(false)}
+								else {
+										setJoinButtonDisabled(true);
+									}
+								}
+							}/>
+							<p className={styles.joinSloganText} style={{textAlign: 'center'}}>Got a code to join a team. Enter it above</p>
+							<div className={styles.joinButton}>
+								<Button disabled={joinButtonDisabled} onClick={() => {
+									openSucessfullyAddNotification();
+									handleOk();
+								}}>Join Project</Button>
+							</div>
+						</div>
+					</div>
+				</Modal>
 				<div className={styles.searchInputContainer}>
+					<div className={styles.addButonContainer}>
+						<ProjectIcon />
+						<p onClick={() => {
+							addTeamModal();
+						}}>Join or create project</p>
+					</div>
 					<Search
 							placeholder="search by name or id"
 							enterButton="Search"
@@ -252,7 +388,6 @@ const ProjectsTab = () => {
 					</List.Item>
 					)}
 				/>
-				</>
 		</div>
 	)
 }
