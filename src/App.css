@@ -138,25 +138,35 @@ html {
 	position: relative;
 	color: hsla(230,40%,50%,1);
 	font-weight: 800;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+.rbc-toolbar-label:hover {
+	cursor: pointer;
 }
 
 .card-template {
 	box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px!important;
 }
-.rbc-toolbar-label::after {
+/* .rbc-toolbar-label::after {
 	content: url('./logo.svg');
 	width: 30px;
 	height: 30px;
 	position: absolute;
-}
+} */
 
 .rbc-btn-group button{
-	border-radius: 0!important;
-	background-color: hsla(230,40%,50%,1)!important;
+	/* border-radius: 0!important; */
+	/* background-color: hsla(230,40%,50%,1)!important; */
 	font-weight: 600;
-	color: #fff!important;
+	/* color: #fff!important; */
 	font-size: 14px!important;
 }
+.rbc-calendar .rbc-btn-group:first-child button {
+	margin-right: 10px!important;
+}
+
 .rbc-toolbar .rbc-btn-group:first-child button:first-child{
 	border-radius: 50px!important;
 	background-color: rgba(204, 204, 204, 0.541)!important;
@@ -196,24 +206,22 @@ html {
 	height: 26px!important;
 }
 
-.rbc-toolbar .rbc-btn-group:nth-child(3) button:hover{
-	color: #fff!important;
-	background-color: hsla(230,40%,50%,1)!important;
-	cursor: pointer!important;
+.rbc-btn-group:nth-child(3) button{
+	background-color: hsla(230,40%,50%,1);
+	color: #fff; 
+	padding: 10px;
+	border-radius: 50px;
+	border: 1px solid hsla(230,40%,50%,1);
 }
-.rbc-toolbar .rbc-btn-group:nth-child(3) button.rbc-active {
-	background-color: hsla(230,40%,50%,1)!important;
-	color: #fff!important;
-}
-
-.rbc-toolbar .rbc-btn-group button {
+.rbc-btn-group:nth-child(3) button:hover {
 	background-color: #fff!important;
-	border: none;
+	color: hsla(230,40%,50%,1)!important;
+	border: 1px solid hsla(230,40%,50%,1);
 }
 
 .rbc-btn-group button:hover{
-	background-color: #fff!important;
-	color: hsla(230,40%,50%,1)!important;
+	color: #fff!important;
+	background-color: hsla(230,40%,50%,1)!important;
 }
 .rbc-day-bg {
 	/* border: solid 1px hsla(230,40%,50%,1); */

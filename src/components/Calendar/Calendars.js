@@ -5,6 +5,7 @@ import EventBox from '../eventBox/EventBox';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import CustomCalendarToolbar from '../customCalendar/CustomCalendarToolbar';
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
@@ -307,13 +308,12 @@ const Calendars = (props) => {
 				showNeighboringMonth={false}
 				components={{
 					event: EventBox,
-					toolbarLabel: Label ,
+					toolbar: CustomCalendarToolbar ,
 				}}
 				messages={{
 					today: 'This Month',
 					previous: <LeftOutlined style={{color: 'hsla(230,40%,50%,1)'}}/>,
 					next: <RightOutlined style={{color: 'hsla(230,40%,50%,1)'}}/>
-
 				}}
 				label="Tung dep trai"
 			/>,
