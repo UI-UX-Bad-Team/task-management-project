@@ -72,11 +72,13 @@ const events = [
 		'title': 'All Day Event very long title',
 		'start': new Date(2023, 5, 6, 14, 0, 0),
 		'end': new Date(2023, 5, 6, 15, 0, 0),
+		type:'personal'
 	  },
 	  {
 		'title': 'Long Event',
 		'start': new Date(2023, 5, 4, 8, 5,0),
 		'end': new Date(2023, 5, 4, 9, 30, 0),
+		type:'personal'
 	  },
 	
 	  {
@@ -199,8 +201,8 @@ const Calendars = (props) => {
 	return (
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
-				<p style={{fontSize: '25px', fontWeight: 600, color: 'hsla(230,40%,50%,1)', marginBottom: '20px', letterSpacing: '1px'}}>My schedule</p>
-				<div style={{position: 'absolute', right: '40px', top: '180px'}}>
+				<p style={{fontSize: '25px', fontWeight: 600, color: '#3d5c98', marginBottom: '20px', letterSpacing: '1px'}}>My schedule</p>
+				<div style={{position: 'absolute', right: '40px', top: '233px'}}>
 					<Button type="primary" shape="circle" icon={<PlusOutlined style={{display: 'inline-flex', alignItems: 'center'}} />} size={'large'} onClick={addEventHandler} />
 				</div>
 			</div>
@@ -312,8 +314,8 @@ const Calendars = (props) => {
 				}}
 				messages={{
 					today: 'This Month',
-					previous: <LeftOutlined style={{color: 'hsla(230,40%,50%,1)'}}/>,
-					next: <RightOutlined style={{color: 'hsla(230,40%,50%,1)'}}/>
+					previous: <LeftOutlined style={{color: '#3d5c98'}}/>,
+					next: <RightOutlined style={{color: '#3d5c98'}}/>
 				}}
 				label="Tung dep trai"
 			/>,

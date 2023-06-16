@@ -56,7 +56,7 @@ const AccountBox = ({name: accountName}) => {
 			</div>
 			<div className={styles.infomation}>
 					<p className={styles.accountName}>{accountName}</p>
-					<DownOutlined style={{color: "hsla(230,40%,50%,1)"}}/>
+					<DownOutlined style={{color: "#3d5c98"}}/>
 			</div>
 		</div>
 	</Dropdown>

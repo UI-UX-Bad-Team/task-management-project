@@ -16,7 +16,7 @@ html {
 .ant-menu-item-selected,
 .ant-menu-item-active {
     background-color: rgba(77, 94, 179, 0.3) !important;
-	border-right: 2px solid hsla(230,40%,50%,1);
+	border-right: 2px solid #3d5c98;
 	color: rgb(30, 47, 131) !important;
 	font-weight: bold;
 }
@@ -47,10 +47,10 @@ html {
 }
 
 .e-header-cells[data-key = 'To Do'] .header-text{
-	color: hsla(230,40%,50%,1)!important;
+	color: #3d5c98!important;
 }
 .e-header-cells[data-key = 'To Do'] .header-icon {
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 }
 
 .e-header-cells[data-key = 'InProgress'] .header-text {
@@ -136,7 +136,7 @@ html {
 
 .rbc-toolbar-label {
 	position: relative;
-	color: hsla(230,40%,50%,1);
+	color: #3d5c98;
 	font-weight: 800;
 	display: flex;
 	align-items: center;
@@ -158,7 +158,7 @@ html {
 
 .rbc-btn-group button{
 	/* border-radius: 0!important; */
-	/* background-color: hsla(230,40%,50%,1)!important; */
+	/* background-color: #3d5c98!important; */
 	font-weight: 600;
 	/* color: #fff!important; */
 	font-size: 14px!important;
@@ -178,13 +178,13 @@ html {
 }
 
 .rbc-toolbar .rbc-btn-group button:first-child:hover{
-	background-color: hsla(230,40%,50%,1)!important;
+	background-color: #3d5c98!important;
 	color: #fff!important;
 }
 .rbc-toolbar .rbc-btn-group:nth-child(3) button{
 	background-color: #fff!important;
 	border: 0;
-	color: hsla(230,40%,50%,1)!important;
+	color: #3d5c98!important;
 	border-radius: 50px!important;
 	padding: 5px 10px;
 	margin: 1px;
@@ -203,28 +203,28 @@ html {
 	background-color: #fff!important;
 	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 	border-radius: 5px;
-	height: 26px!important;
+	height: 50px!important;
 }
 
 .rbc-btn-group:nth-child(3) button{
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 	color: #fff; 
 	padding: 10px;
 	border-radius: 50px;
-	border: 1px solid hsla(230,40%,50%,1);
+	border: 1px solid #3d5c98;
 }
 .rbc-btn-group:nth-child(3) button:hover {
 	background-color: #fff!important;
-	color: hsla(230,40%,50%,1)!important;
-	border: 1px solid hsla(230,40%,50%,1);
+	color: #3d5c98!important;
+	border: 1px solid #3d5c98;
 }
 
 .rbc-btn-group button:hover{
 	color: #fff!important;
-	background-color: hsla(230,40%,50%,1)!important;
+	background-color: #3d5c98!important;
 }
 .rbc-day-bg {
-	/* border: solid 1px hsla(230,40%,50%,1); */
+	/* border: solid 1px #3d5c98; */
 }
 
 .rbc-event {
@@ -247,25 +247,25 @@ html {
 }
 
 .ant-input-affix-wrapper:focus {
-    border-color: hsla(230,40%,50%,1)!important;
+    border-color: #3d5c98!important;
     /* outline: 0; */
     /* -webkit-box-shadow: 0 0 0 2px rgba(87,168,233, .2);
     box-shadow: 0 0 0 2px rgba(87,168,233, .2); */
 }
 .ant-input-group-addon button[type = 'button'] {
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 	color: #fff;
 }
 
 .ant-btn-primary {
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 	color: #fff;
 	font-weight: 500;
 }
 .ant-btn-primary:hover {
 	background-color: #fff!important;
-	color: hsla(230,40%,50%,1)!important;
-	border: 1px solid hsla(230,40%,50%,1);
+	color: #3d5c98!important;
+	border: 1px solid #3d5c98;
 }
 
 .canvasjs-chart-credit {

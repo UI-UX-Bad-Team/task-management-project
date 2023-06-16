@@ -119,7 +119,7 @@ const MainLayout = (props) => {
 					}}
 				>
 					{['Home', ...breadcrumbItems].map(item => {
-						return <Breadcrumb.Item><p style={{color: 'hsla(230,40%,50%,1)'}}>{item}</p></Breadcrumb.Item>
+						return <Breadcrumb.Item><p style={{color: '#3d5c98', fontWeight: 600}}>{item}</p></Breadcrumb.Item>
 					})}
           		</Breadcrumb>
 

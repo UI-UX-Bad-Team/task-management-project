@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
-import {Popover, Calendar, Col, Row, Select, Typography, theme} from 'antd';
+import {Popover, Calendar, Col, Radio, Row, Select, Typography, theme, ColorPicker} from 'antd';
 import {RightOutlined, LeftOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import dayLocaleData from 'dayjs/plugin/localeData';
+import ColorContext from '../../context/ColorContext';
+
 dayjs.extend(dayLocaleData);
 
 const PopoverContent = () => {
@@ -40,6 +42,7 @@ const PopoverContent = () => {
 			  );
 			}
 			const year = value.year();
+			const month = value.month();
 			const options = [];
 			for (let i = year - 10; i < year + 10; i += 1) {
 			  options.push(
@@ -54,8 +57,16 @@ const PopoverContent = () => {
 				  padding: 8,
 				}}
 			  >
-				<Typography.Title level={3}>Select month</Typography.Title>
+				<Typography.Title level={4}>Custom header</Typography.Title>
 				<Row gutter={8}>
+				  <Col>
+					<Radio.Group
+					  size="small"
+					  onChange={(e) => onTypeChange(e.target.value)}
+					  value={type}
+					>
+					</Radio.Group>
+				  </Col>
 				  <Col>
 					<Select
 					  size="small"
@@ -68,6 +79,19 @@ const PopoverContent = () => {
 					  }}
 					>
 					  {options}
+					</Select>
+				  </Col>
+				  <Col>
+					<Select
+					  size="small"
+					  dropdownMatchSelectWidth={false}
+					  value={month}
+					  onChange={(newMonth) => {
+						const now = value.clone().month(newMonth);
+						onChange(now);
+					  }}
+					>
+					  {monthOptions}
 					</Select>
 				  </Col>
 				</Row>
@@ -90,7 +114,7 @@ const CalendarLogo = () => {
 					c0,2.211,1.789,4,4,4h56c2.211,0,4-1.789,4-4V8C64,5.789,62.211,4,60,4z M56,56H8V28h48V56z M56,20H8v-8h8c0,2.211,1.789,4,4,4
 					s4-1.789,4-4h16c0,2.211,1.789,4,4,4s4-1.789,4-4h8V20z"/>
 				<rect x="8" y="28" fill="#fff" width="48" height="28"/>
-				<path fill="hsla(230,40%,50%,1)" d="M56,20H8v-8h8c0,2.211,1.789,4,4,4s4-1.789,4-4h16c0,2.211,1.789,4,4,4s4-1.789,4-4h8V20z"/>
+				<path fill="#3d5c98" d="M56,20H8v-8h8c0,2.211,1.789,4,4,4s4-1.789,4-4h16c0,2.211,1.789,4,4,4s4-1.789,4-4h8V20z"/>
 			</g>
 		</svg>
 	)
@@ -98,20 +122,54 @@ const CalendarLogo = () => {
 
 export default class CustomCalendarToolbar extends Toolbar {
 
+	constructor(props){
+		super(props);
+		this.state = {personalColor : '#1677FF', teamColor: '#3d5c98'};
+		localStorage.setItem('personalColor', '#1677FF');
+		localStorage.setItem('teamColor', '#3d5c98');
+		this.changePersonalColor = this.changePersonalColor.bind(this);
+		this.changeTeamColor = this.changeTeamColor.bind(this);
+	}
+
 	componentDidMount() {
 		const view = this.props.view;
 	}
 
-	render() {
+	componentWillUnmount() {
+
+	}
+
+	changePersonalColor(color) {
+		this.setState({personalColor: color.toHex()})
+		console.log(color);
+		localStorage.removeItem('personalColor');
+		localStorage.setItem('personalColor', color.toHex());
+		window.dispatchEvent(new Event("storage")); //This is the important part
+	}
+	changeTeamColor(color) {
+		this.setState({teamColor: color.toHex()})
+		localStorage.removeItem('teamcolor');
+		localStorage.setItem('teamColor', color.toHex());
+	}
+
+render() {
 		return (
+		<div>
+			<div>				
+				<div className="rbc-btn-group" style={{display: 'flex', gap: '15px', marginBottom: '20px', justifyContent: 'flex-end', alignItems: 'center'}}>
+					<p style={{fontWeight: 600}}>Color picker: </p>
+					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}><ColorPicker onChange={this.changePersonalColor} /><p style={{fontWeight: 600}}>Personal</p></div>
+					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}><ColorPicker onChange={this.changeTeamColor} /><p style={{fontWeight: 600}}>Team</p></div>
+				</div>
+			</div>
 			<div style={{display: 'flex', alignItems: 'center', marginBottom: '20px', justifyContent: 'space-between', paddingRight: '35px'}}>
 				<div className="rbc-btn-group">
-					<button type="button" onClick={() => this.navigate('TODAY')} style={{color: '#000', backgroundColor: '#ccc', padding: '10px', borderRadius: '50px',}}>Today</button>
+					<button type="button" onClick={() => this.navigate('TODAY')} style={{color: '#000', backgroundColor: '#ccc', padding: '10px', borderRadius: '50px',paddingLeft: '20px', paddingRight: '20px'}}>Today</button>
 					<button type="button" onClick={() => this.navigate('PREV')}>
-						<LeftOutlined style={{color: 'hsla(230,40%,50%,1)', fontSize: '20px'}}/>
+						<LeftOutlined style={{color: '#3d5c98', fontSize: '20px'}}/>
 					</button>
 					<button type="button" onClick={() => this.navigate('NEXT')}>
-						<RightOutlined style={{color: 'hsla(230,40%,50%,1)', fontSize: '20px'}}/>
+						<RightOutlined style={{color: '#3d5c98', fontSize: '20px'}}/>
 					</button>
 				</div>
 				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent />} trigger="click">
@@ -125,6 +183,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 					<button type="button" onClick={this.view.bind(null, 'agenda')}>Agenda</button>
 				</div>
 			</div>
+		</div>
 		);
 	}
 }

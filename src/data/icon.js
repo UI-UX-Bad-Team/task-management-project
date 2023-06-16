@@ -12,7 +12,7 @@ const ProjectIcon = () => {
 const MembersIcon = () => {
 
 	return (
-			<svg fill="hsla(230,40%,50%,1)" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
+			<svg fill="#3d5c98" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" 
 					viewBox="0 0 472.615 472.615" xmlSpace="preserve">
 				<g>
 					<g>
@@ -58,7 +58,7 @@ const MembersIcon = () => {
 const OverviewIcon = () => {
 
 	return (
-		<svg fill="hsla(230,40%,50%,1)" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="dashboard" class="icon glyph"><rect x="2" y="2" width="9" height="11" rx="2"></rect><rect x="13" y="2" width="9" height="7" rx="2"></rect><rect x="2" y="15" width="9" height="7" rx="2"></rect><rect x="13" y="11" width="9" height="11" rx="2"></rect></svg>
+		<svg fill="#3d5c98" width="20px" height="20px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="dashboard" class="icon glyph"><rect x="2" y="2" width="9" height="11" rx="2"></rect><rect x="13" y="2" width="9" height="7" rx="2"></rect><rect x="2" y="15" width="9" height="7" rx="2"></rect><rect x="13" y="11" width="9" height="11" rx="2"></rect></svg>
 	)
 }
 

@@ -75,7 +75,7 @@ const MyProjectTab = () => {
 
 	return (
 		<div className={styles.myProjectTab}>
-			<div style={{fontSize: '24px', fontWeight: 700, color: 'hsla(230,40%,50%,1)', marginBottom: '30px' }}>My project list</div>
+			<div style={{fontSize: '24px', fontWeight: 700, color: '#3d5c98', marginBottom: '30px' }}>My project list</div>
 			<div className={styles.searchInputContainer}>
 				<Search
 						placeholder="search by name or id"

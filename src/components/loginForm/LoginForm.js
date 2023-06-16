@@ -22,7 +22,7 @@ const BackgroundBox = styled.div`
   margin: 15rem auto;
   position: relative;
   border-radius: 23px;
-  border: 1px solid hsla(230,40%,50%,1);
+  border: 1px solid #3d5c98;
   .text1 {
     z-index: ${(props) => (props.clicked ? "-700" : "700")};
     transform: ${(props) =>
@@ -89,7 +89,7 @@ const Box1 = styled.div`
 `;
 
 const Box2 = styled.div`
-  background-color: hsla(230,40%,50%,1);
+  background-color: #3d5c98;
   width: 45%;
   height: 100%;
   position: absolute;
@@ -118,14 +118,14 @@ const Form = styled.form`
 const Input = styled.input`
   background-color: #fff;
   border: none;
-  border-bottom: 1px solid hsla(230,40%,50%,1);
+  border-bottom: 1px solid #3d5c98;
   padding: 1rem 1rem;
   margin: 0.5rem 0;
   width: 17vw;
   border-radius: 2px;
   &::placeholder {
     font-size: 14px;
-	color: hsla(230,40%,50%,1);
+	color: #3d5c98;
   }
   &:focus {
 	  
@@ -257,7 +257,7 @@ const LoginForm = (props) => {
 			}}
           />
           <Link href="#">Forgot Your Password?</Link>
-          <Button onClick={signInButtonClickedHandler} style={{backgroundColor: 'hsla(230,40%,50%,1)', color: '#fff', fontSize: '16px', fontWeight: 800,padding: '3px 15px'}}>Sign In</Button>
+          <Button onClick={signInButtonClickedHandler} style={{backgroundColor: '#3d5c98', color: '#fff', fontSize: '16px', fontWeight: 800,padding: '3px 15px'}}>Sign In</Button>
 		{/* {!valid ? <p style={{position: 'absolute',top: '330px', color:'#fc9003', fontSize: '12px', fontWeight: 400}}>Sorry your username or password is not correct</p> : ''} */}
         </Form>
 
@@ -283,7 +283,7 @@ const LoginForm = (props) => {
           <Link href="#" onClick={handleClick}>
             Already have an Account?
           </Link>
-          <Button onClick={signInButtonClickedHandler} style={{backgroundColor: 'hsla(230,40%,50%,1)', color: '#fff', fontSize: 16, fontWeight: 800}}>Sign Up</Button>
+          <Button onClick={signInButtonClickedHandler} style={{backgroundColor: '#3d5c98', color: '#fff', fontSize: 16, fontWeight: 800}}>Sign Up</Button>
         </Form>
 
         <Text className="text1" clicked={click}>

@@ -134,7 +134,7 @@ const OverviewTab = () => {
 	return (
 		<div className={styles.overviewTab}>
 			{/* <div style={{}}>
-				<p style={{fontSize: '20px', color: 'hsla(230,40%,50%,1)', fontWeight: 700, marginBottom: '10px', marginTop: '20px'}}>Description</p>
+				<p style={{fontSize: '20px', color: '#3d5c98', fontWeight: 700, marginBottom: '10px', marginTop: '20px'}}>Description</p>
 				<p style={{marginBottom: '0'}}>This is description of this project. It's so funny. Enjoy it !!</p>
 			</div> */}
 			<div style={{display: 'flex', gap: '30px', marginBottom: '50px'}}>
@@ -154,7 +154,7 @@ const OverviewTab = () => {
 				</div>
 			</div>
 			<div>
-			<p style={{fontSize: '20px', color: 'hsla(230,40%,50%,1)', fontWeight: 700, marginBottom: '20px', marginTop: '20px'}}>Board</p>
+			<p style={{fontSize: '20px', color: '#3d5c98', fontWeight: 700, marginBottom: '20px', marginTop: '20px'}}>Board</p>
 			<KanbanComponent id="kanban" keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }}>
                     <ColumnsDirective>
                     <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} />
@@ -198,7 +198,7 @@ const MembersTab = () => {
 		  render: (text) => 
 		  	(
 			<div>
-				<p style={{color: "hsla(230,40%,50%,1)", fontWeight: 600}}>{text}</p>
+				<p style={{color: "#3d5c98", fontWeight: 600}}>{text}</p>
 				<p style={{}}></p>
 			</div>
 			),

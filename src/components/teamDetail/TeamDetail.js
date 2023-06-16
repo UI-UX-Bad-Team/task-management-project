@@ -165,7 +165,7 @@ const OverviewTab = (props) => {
 					</p>
 				</div>
 			</div>
-			<p style={{fontSize: "24px", fontWeight: "700", color: "hsla(230,40%,50%,1)", marginBottom: '20px'}}>Board</p>
+			<p style={{fontSize: "24px", fontWeight: "700", color: "#3d5c98", marginBottom: '20px'}}>Board</p>
 			<KanbanComponent id="kanban" keyField="Status" dataSource={data1} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }}>
                     <ColumnsDirective>
                     <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} />
@@ -252,16 +252,16 @@ const ProjectsTab = () => {
 	return (
 		<div>
 			<Modal title="Create your project" open={isCreateProjectModalOpen} onOk={handleCreateTeamOk} onCancel={handleCreateTeamCancel} okButtonProps={{disabled: createTeamConfirmButtonDisabled}}>
-					<p style={{marginBottom: '6px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Project name: </p>
+					<p style={{marginBottom: '6px', color: '#3d5c98', fontWeight: 600}}>Project name: </p>
 					<Input placeholder="Enter team name" onChange={(e) => {
 						if(e.target.value.length > 0) {setCreateTeamConfirmButtonDisabled(false)}
 						else {
 							setCreateTeamConfirmButtonDisabled(true);
 						}
 					}}/>
-					<p style={{marginBottom: '6px', marginTop: '10px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Description: </p>
+					<p style={{marginBottom: '6px', marginTop: '10px', color: '#3d5c98', fontWeight: 600}}>Description: </p>
 					<TextArea showCount maxLength={100} placeholder="Max length is 100 characters" />
-					<p style={{marginBottom: '6px', marginTop: '10px', color: 'hsla(230,40%,50%,1)', fontWeight: 600}}>Privacy: </p>
+					<p style={{marginBottom: '6px', marginTop: '10px', color: '#3d5c98', fontWeight: 600}}>Privacy: </p>
 					<Select
 						size={'middle'}
 						defaultValue= 'Private - Only team owners can add members'
@@ -284,7 +284,7 @@ const ProjectsTab = () => {
 				>
 					<div className={styles.addTeamModalContent}>
 						<div className={styles.createTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: 'hsla(230,40%,50%,1)', marginTop: '20px'}}>Create a project</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a project</p>
 							<AvatarGroup />
 							<p className={styles.sloganText} style={{textAlign: 'center'}}>Bring everyone together and get to work!!</p>
 							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: '80%'}} onClick={addTeamModal}>
@@ -295,7 +295,7 @@ const ProjectsTab = () => {
 							</div>
 						</div>
 						<div className={styles.joinTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: 'hsla(230,40%,50%,1)', marginTop: '20px'}}>Join a project with a code</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Join a project with a code</p>
 							<Input placeholder="Enter Code" onChange={(e) => {
 								if(e.target.value.length > 0) {setJoinButtonDisabled(false)}
 								else {
@@ -485,7 +485,7 @@ const MembersTab = () => {
 		  render: (text) => 
 		  	(
 			<div>
-				<p style={{color: "hsla(230,40%,50%,1)", fontWeight: 600}}>{text}</p>
+				<p style={{color: "#3d5c98", fontWeight: 600}}>{text}</p>
 				<p style={{}}></p>
 			</div>
 			),

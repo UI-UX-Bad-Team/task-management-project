@@ -1,7 +1,8 @@
 
 import styles from './EventBox.module.css';
-import {useState} from 'react';
-import {Modal,Button,notification} from 'antd';
+import {useState, createContext, useContext, useEffect} from 'react';
+import {Modal,Button,notification, ColorPicker} from 'antd';
+import ColorContext from '../../context/ColorContext';
 
 const openSucessfullyAddNotification = () => {
 	notification.open({
@@ -21,6 +22,15 @@ const openSucessfullyAddNotification = () => {
 };
 
 const EventBox = (props) => {
+	const [personalColor, setPersonalColor] = useState(localStorage.getItem('personalColor'));
+	const [teamColor, setTeamColor] = useState('1677FF');
+
+	useEffect(() => {
+		  window.addEventListener('storage', () => {
+				setPersonalColor(localStorage.getItem('personalColor'));
+		  });
+	  
+	  }, []);
 
 	const warning = () => {
 		Modal.warning({
@@ -60,7 +70,7 @@ const EventBox = (props) => {
 			]}>
 				<p>Time: {props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</p>
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler}>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalColor}`}}>
 				<div className={styles.timeBox}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
 				<div className={styles.eventContent}>{props.title}</div>
 			</div>

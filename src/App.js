@@ -33,7 +33,7 @@ const successNotification = () => {
 			description:
 			<p style={{color: '#fff', fontWeight: '500'}}>Let's go to kill all tasks !!</p>,
 			icon: <SmileOutlined style={{ color: '#fff' }} />,
-			style: {backgroundColor: 'hsla(230,40%,50%,1)'},
+			style: {backgroundColor: '#3d5c98'},
 			closeIcon: <CloseOutlined style={{ color: '#fff' }}/>
 		});
 };

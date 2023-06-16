@@ -132,7 +132,7 @@ const AssignmentsTable = () => {
 					</Space>
 				</div>
 			</div>
-			<p style={{fontSize: '28px', fontWeight: 700, color: 'hsla(230,40%,50%,1)', marginBottom: '20px'}}>Assignments List</p>
+			<p style={{fontSize: '28px', fontWeight: 700, color: '#3d5c98', marginBottom: '20px'}}>Assignments List</p>
 			<Tabs
 				type="editable-card"
 				onChange={onChange}

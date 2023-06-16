@@ -3,7 +3,7 @@
 .logo {
 	display: flex;
 	gap: 0;
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 	box-sizing: border-box;
 	align-items: center;
 	width: 240px;
@@ -22,7 +22,7 @@
 	color: white;
 	font-family: 'Righteous', serif;
 	font-size: 32px; 
-	text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+	text-shadow: .03em .03em 0 #3d5c98;
 	width: 100%;
 	margin-left: 7px;
 	letter-spacing: 2px;

@@ -30,7 +30,7 @@
 .linkIssueCard:hover,
 .moreCard:hover,
 .attachCard:hover {
-	background-color: hsla(230,40%,50%,1);
+	background-color: #3d5c98;
 	color: #fff;
 	cursor: pointer;
 }
