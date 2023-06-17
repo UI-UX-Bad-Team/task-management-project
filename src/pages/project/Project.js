@@ -304,7 +304,7 @@ const ProjectDetail = () => {
 					</span>
 					),
 					key: id,
-					children: id === '1' ? <OverviewTab /> : (id === '2' ? <MembersTab /> : <AssignmentsTab />)
+					children: id === '1' ? <OverviewTab /> : (id === '2' ? <MembersTab /> : <ProjectIcon color="#3d5c98" />)
 				};
 				})}
   			/>

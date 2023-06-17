@@ -154,7 +154,7 @@ const OverviewTab = (props) => {
 					<p className={styles.organizationText}>Organization: <p className={styles.teamInfoText}>{teamInfo.organization}</p></p>
 					<p className={styles.organizationText}>Department: <p className={styles.teamInfoText}>{teamInfo.department}</p></p>
 					<p className={styles.organizationText}>People in change:
-						<p className={styles.teamInfoText}><Avatar size={25} src={'/images/avatar4.jpg'}/> Đinh Trọng Huy</p>
+						<p className={styles.teamInfoText}>Đinh Trọng Huy <Avatar size={25} src={'/images/avatar4.jpg'}/></p>
 					</p>
 				</div>
 				<div className={styles.flexColumn}>
@@ -315,7 +315,7 @@ const ProjectsTab = () => {
 				</Modal>
 				<div className={styles.searchInputContainer}>
 					<div className={styles.addButonContainer}>
-						<ProjectIcon />
+						<ProjectIcon color="#fff"/>
 						<p onClick={() => {
 							addTeamModal();
 						}}>Join or create project</p>
@@ -344,7 +344,7 @@ const ProjectsTab = () => {
 						}
 						title={
 							<div style={{display: 'flex', justifyContent: 'space-between'}}>
-								<div className={styles.projectName} href="#" style={{color: '#34a8eb', fontWeight: '700', fontSize: '18px'}} onClick={() => {navigate(`/teams/${teamId}/projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
+								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}} onClick={() => {navigate(`/teams/${teamId}/projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
 								<div style = {{display: 'flex', gap: '3px'}}>
 									<StarOutlined style={{fontSize: '19px', height: '100%'}}/>
 									<div style={{color: '#000', fontWeight: '600'}}>{item.starredNum}</div>
