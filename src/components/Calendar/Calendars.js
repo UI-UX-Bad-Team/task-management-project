@@ -6,16 +6,9 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import CustomCalendarToolbar from '../customCalendar/CustomCalendarToolbar';
+import MonthEventBox from '../monthEventBox/MonthEventBox';
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
-
-const Label = () => {
-
-	return (
-		<div>Tung dep trai</div>
-	)
-}
-
 
 const localizer = momentLocalizer(moment);
 
@@ -190,6 +183,7 @@ const Calendars = (props) => {
 	const handleOk = () => {
 	  setIsModalOpen(false);
 	};
+	
 	const handleCancel = () => {
 	  setIsModalOpen(false);
 	};
@@ -312,6 +306,9 @@ const Calendars = (props) => {
 				components={{
 					week : {
 						event: EventBox,
+					},
+					month: {
+						event: MonthEventBox
 					},
 					toolbar: CustomCalendarToolbar ,
 				}}

@@ -1,0 +1,38 @@
+.monthEventBox {
+	height: 100%;
+	width: 100%!important;
+	z-index: 10000;
+}
+.eventBox {
+	border-radius: 5px 5px 0 0;
+	margin-top: 0px;
+	padding: 2px;
+	height: 100%;
+	width: 100%;
+}
+
+.timeBox {
+	display: inline-block;
+	border-radius: 5px;
+	padding: 1px 3px!important;
+	font-size: 10px;
+	font-weight: 500;
+	margin-right: 5px;
+	background-color: #3d5c98;
+	color: #fff;
+}
+.rbc-event-content {
+	width: 100%!important;
+}
+.eventContent {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: 500;
+	color: #3d5c98;
+}
+.eventDetail {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 5px 3px;
+	margin-top: 6px;
+}

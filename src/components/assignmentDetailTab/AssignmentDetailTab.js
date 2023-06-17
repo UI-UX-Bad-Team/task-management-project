@@ -6,7 +6,6 @@ import { SubnodeOutlined, LinkOutlined, MoreOutlined, PlusOutlined, ArrowUpOutli
 import ImageUpload from '../imageUpload/ImageUpload';
 import CommentBox from '../commentBox/CommentBox';
 import { BugType } from '../../data/issueTypes';
-import { HighestIcon } from '../../data/priorityIcon';
 
 const { TextArea } = Input;
 

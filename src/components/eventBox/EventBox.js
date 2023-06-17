@@ -1,8 +1,18 @@
 
 import styles from './EventBox.module.css';
-import {useState, createContext, useContext, useEffect} from 'react';
-import {Modal,Button,notification, ColorPicker} from 'antd';
-import ColorContext from '../../context/ColorContext';
+import {useState, useEffect} from 'react';
+import {Modal,Button,notification, Avatar} from 'antd';
+import { HighestIcon } from '../../data/priorityIcon';
+
+const BugType = () => {
+
+	return (
+		<svg width="20" height="20" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path d="M104 8H24C15.1634 8 8 15.1634 8 24V104C8 112.837 15.1634 120 24 120H104C112.837 120 120 112.837 120 104V24C120 15.1634 112.837 8 104 8Z" fill="#E5493A"/>
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M92 64C92 79.4653 79.4653 92 64 92C48.5347 92 36 79.4653 36 64C36 48.5347 48.5347 36 64 36C79.4653 36 92 48.5347 92 64Z" fill="white"/>
+		</svg>
+	)
+}
 
 const openSucessfullyAddNotification = () => {
 	notification.open({
@@ -68,7 +78,25 @@ const EventBox = (props) => {
 					Remove
 			  	</Button>
 			]}>
-				<p>Time: {props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</p>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Time:</p>
+					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+				</div>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Type:</p>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Bug</p>
+					<BugType />
+				</div>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Priority:</p>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Highest</p>
+					<HighestIcon />
+				</div>
+				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Reported by:</p>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
+					<Avatar src='/images/avatar1.jpg' size={28}/>
+				</div>
 			</Modal>
 			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalColor}`}}>
 				<div className={styles.timeBox}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
