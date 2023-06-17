@@ -68,11 +68,6 @@ const MyProjectTab = () => {
 		setLoading(false);
 	}, 1000)
 
-	// const searchHandler = (event) => {
-	// 	const searchValue = event.target.value;
-	// 	console.log(members.filter(member => member.name.includes(searchValue) || String(member.id).includes((searchValue))));
-	// }
-
 	return (
 		<div className={styles.myProjectTab}>
 			<div style={{fontSize: '24px', fontWeight: 700, color: '#3d5c98', marginBottom: '30px' }}>My project list</div>
@@ -102,7 +97,7 @@ const MyProjectTab = () => {
 						}
 						title={
 							<div style={{display: 'flex', justifyContent: 'space-between'}}>
-								<div className={styles.projectName} href="#" style={{color: '#34a8eb', fontWeight: '700', fontSize: '18px'}}  onClick={() => {navigate(`/my-projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
+								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}}  onClick={() => {navigate(`/my-projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
 								<div style = {{display: 'flex', gap: '3px'}}>
 									<StarOutlined style={{fontSize: '19px', height: '100%'}}/>
 									<div style={{color: '#000', fontWeight: '600'}}>{item.starredNum}</div>

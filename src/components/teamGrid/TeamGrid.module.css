@@ -5,7 +5,7 @@
 .addButonContainer {
 	display: flex;
 	justify-content: space-between;
-	width: 13vw;
+	width: max-content;
 	margin-right: 0;
 	border-radius: 5px;
 	background-color: #3d5c98;

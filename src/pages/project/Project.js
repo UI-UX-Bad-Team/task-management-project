@@ -123,7 +123,7 @@ const OverviewTab = () => {
     }
 
 	const  columnTemplate = (props) => {
-		console.log(props);
+		
         return (
 			<div className="header-template-wrap">
                 <div className={"header-icon e-icons " + props.keyField}></div>
@@ -289,7 +289,7 @@ const ProjectDetail = () => {
 	return (
 		<div className={styles.projectDetail}>
 			<div style={{display: 'flex',gap: '20px', alignItems: 'center', marginBottom: '30px'}}>
-				<p style={{fontSize: '24px', fontWeight: 700, color: '#34a8eb'}}>{projectInfo.name}</p>
+				<p style={{fontSize: '24px', fontWeight: 700, color: '#3d5c98'}}>{projectInfo.name}</p>
 				{!starred ? <StarOutlined style={{fontSize: '21px', height: '100%'}} onClick={markHandler}/> : <StarFilled style={{fontSize: '21px', height: '100%', color: '#ebc034'}} onClick={markHandler} />}
 			</div>
 			<Tabs
