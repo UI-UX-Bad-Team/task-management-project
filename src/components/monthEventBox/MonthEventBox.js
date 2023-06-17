@@ -1,8 +1,78 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './MonthEventBox.module.css';
-import {Modal, Button, notification, Avatar} from 'antd';
+import {Modal, Button, notification, Avatar, DatePicker,Select} from 'antd';
 import { HighestIcon } from '../../data/priorityIcon';
 import lottie from 'lottie-web';
+
+const { RangePicker } = DatePicker;
+
+const IssueTypeSelect = () => {
+	const handleChange = () => {
+
+	}
+
+	return (
+		<Select
+			defaultValue="bug"
+			style={{ width: 120 }}
+			onChange={handleChange}
+			options={[
+				{ value: 'bug', label: 'bug' },
+				{ value: 'new feature', label: 'new feature' },
+				{ value: 'improvement', label: 'improvement' },
+				{ value: 'test', label: 'test', disabled: true },
+			]}
+    	/>
+	)
+}
+
+const PriorityTypeSelect = () => {
+	const handleChange = () => {
+
+	}
+
+	return (
+		<Select
+			defaultValue="critical"
+			style={{ width: 120 }}
+			onChange={handleChange}
+			options={[
+				{ value: 'highest', label: 'highest' },
+				{ value: 'high', label: 'high' },
+				{ value: 'critical', label: 'critical' },
+				{ value: 'low', label: 'low'},
+				{ value: 'lowest', label: 'lowest'},
+			]}
+    	/>
+	)
+}
+
+const ReporterSelect = () => {
+
+	const handleChange = () => {
+
+	}
+	return (
+		<Select
+			mode="multiple"
+			allowClear
+			style={{
+				width: '100%',
+			}}
+			placeholder="Please select"
+			defaultValue={['TungBD']}
+			onChange={handleChange}
+			options={[
+				{ value: 'TungBD', label: 'Bui Danh Tung' },
+				{ value: 'NguyenHD', label: 'Dao Trong Hoan' },
+				{ value: 'TienTD', label: 'Ta Duc Tien' },
+				{ value: 'HuyDt', label: 'Dinh Trong Huy'},
+			]}
+    	/>
+	)
+}
+
+
 
 const BugType = () => {
 
@@ -33,12 +103,11 @@ const openSucessfullyAddNotification = () => {
 
 const MonthEventBox = (props) => {
 	const [showDetail, setShowDetail] = useState(false);
-
+	const [isEditting, setIsEditting] = useState(false);
 	const warning = () => {
 		Modal.warning({
 		  title: 'Are you sure to remove this event ? ',
 		  content: '',
-		  cancelText: 'Cancel',
 		  okText: 'Remove',
 		  onOk: () => {
 			setIsModalOpen(false);
@@ -63,6 +132,7 @@ const MonthEventBox = (props) => {
   
 	const handleCancel = () => {
 	  setIsModalOpen(false);
+	  setIsEditting(false);
 	};
 
 	const showDetailHandler = () => {
@@ -77,6 +147,15 @@ const MonthEventBox = (props) => {
 		setShowDetail(false);
 	}
 
+	const editEventBoxHandler = () => {
+		setIsEditting(true);
+	}
+
+	const saveEventBoxHandler = () => {
+		setIsEditting(false);
+		openSucessfullyAddNotification();
+		//save
+	}
 	const container = useRef(null);
 
 	useEffect(() => {
@@ -96,28 +175,44 @@ const MonthEventBox = (props) => {
 				<Button danger onClick={warning}>
 					Remove
 			  	</Button>,
-				<Button onClick={warning}>
-					Edit
-			  </Button>
+				( !isEditting ?
+					<Button onClick={editEventBoxHandler}>
+						Edit
+					</Button> : 
+					<Button onClick={saveEventBoxHandler}>
+						Save
+					</Button>
+				)
 			]}>	
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Time:</p>
-					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Time:</p>
+					{isEditting ? <RangePicker /> :
+					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
 				</div>
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Type:</p>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Bug</p>
-					<BugType />
+					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Type:</p>
+					{!isEditting ? 
+					<div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Bug</p>
+						<BugType />
+					</div>
+					: <IssueTypeSelect />}
 				</div>
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Priority:</p>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Highest</p>
-					<HighestIcon />
+					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Priority:</p>
+					{!isEditting ? 
+					<div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Highest</p>
+						<HighestIcon />
+					</div> : <PriorityTypeSelect />
+					}
 				</div>
 				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Reported by:</p>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
-					<Avatar src='/images/avatar1.jpg' size={28}/>
+					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Reported by:</p>
+					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
+						<Avatar src='/images/avatar1.jpg' size={28}/>
+					</div> : <ReporterSelect />}
 				</div>
 			</Modal>
 			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#3d5c9849`}}>

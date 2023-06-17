@@ -32,12 +32,15 @@ const openSucessfullyAddNotification = () => {
 };
 
 const EventBox = (props) => {
-	const [personalColor, setPersonalColor] = useState(localStorage.getItem('personalColor'));
+	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalColor'));
+	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor'));
+
 	const [teamColor, setTeamColor] = useState('1677FF');
 
 	useEffect(() => {
 		  window.addEventListener('storage', () => {
-				setPersonalColor(localStorage.getItem('personalColor'));
+				setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
+				setPersonalTextColor(localStorage.getItem('personalTextColor'));
 		  });
 	  
 	  }, []);
@@ -71,12 +74,20 @@ const EventBox = (props) => {
 	const showDetailHandler = () => {
 		showModal();
 	}
+
+	const editEventBoxHandler = () => {
+
+	}
+	
 	return (
 		<div className={styles.eventBoxContainer}>
 			<Modal title={`${props.title}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[
 				<Button danger onClick={warning}>
 					Remove
-			  	</Button>
+			  	</Button>,
+				<Button onClick={editEventBoxHandler}>
+				  Edit
+				</Button>
 			]}>
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Time:</p>
@@ -98,9 +109,9 @@ const EventBox = (props) => {
 					<Avatar src='/images/avatar1.jpg' size={28}/>
 				</div>
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalColor}`}}>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalBackgroundColor}`}}>
 				<div className={styles.timeBox}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent}>{props.title}</div>
+				<div className={styles.eventContent} style={{color: `#${personalTextColor}`}}>{props.title}</div>
 			</div>
 		</div>
 	)
