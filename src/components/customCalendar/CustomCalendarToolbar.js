@@ -204,7 +204,7 @@ render() {
 		<div>
 			<div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 20, marginBottom: 15,}}>
 				{   !this.state.isSetting ?
-					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Cusomize event color</a> :
+					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Customize event color</a> :
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Hide color picker</a>
 				}
 				{/* <SettingOutlined style={{fontSize: '24px', color: '#3d5c98'}}/> */}

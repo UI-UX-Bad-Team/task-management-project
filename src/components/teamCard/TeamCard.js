@@ -18,7 +18,7 @@ const TeamCard = (props) => {
 			<Card
 			    title=""
 				style={{
-					width: 338,
+					width: '23vw',
 					borderRadius: 0,
 				}}
 				className={styles.card}

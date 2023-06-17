@@ -201,9 +201,9 @@ const Calendars = (props) => {
 				</div>
 			</div>
 			<Modal
-				title="Add more event: "
+				title="Add more personal event: "
 				style={{
-				top: 80,
+					top: 80,
 				}}
 				labelAlign="left"
 				open={modal2Open}

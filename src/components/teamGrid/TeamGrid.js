@@ -123,8 +123,8 @@ const TeamGrid = () => {
 							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a team</p>
 							<AvatarGroup />
 							<p className={styles.sloganText} style={{textAlign: 'center'}}>Bring everyone together and get to work!!</p>
-							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: '70%'}} onClick={addTeamModal}>
-								<div className={styles.addButonContainer1} style={{marginLeft: '30px', paddingLeft: '20px'}} onClick={() => {showTeamCreateModal()}}>
+							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: 'max-content'}} onClick={addTeamModal}>
+								<div className={styles.addButonContainer1} style={{marginLeft: '30px', paddingLeft: '20px', width: 'max-content'}} onClick={() => {showTeamCreateModal()}}>
 									<UsergroupAddOutlined />
 									<p>Create team</p>
 								</div>
