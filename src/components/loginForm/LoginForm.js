@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { SmileOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import styled, { keyframes } from "styled-components";
+import styles from './LoginForm.module.css';
 
 const move = keyframes`
 0%{
@@ -132,32 +133,8 @@ const Input = styled.input`
   }
 `;
 
-// const MyButton = styled.button`
-//   border-radius: 3px;
-//   padding: 1rem 3.5rem;
-//   margin-top: 1rem;
-//   border: 1px solid black;
-//   background-color: black;
-//   color: #484d87;
-//   text-transform: uppercase;
-//   cursor: pointer;
-//   letter-spacing: 1px;
-//   box-shadow: 0 7px #999;
-//   &:hover {
-//     background-color: #1b1b1b;
-//   }
-//   &:active {
-//     background-color: black;
-//     box-shadow: 0 5px #666;
-//     transform: translateY(4px);
-//   }
-//   &:focus {
-//     outline: none;
-//   }
-// `;
-
 const Title = styled.h1`
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin-bottom: 2rem;
   color: #fff;
 `;
@@ -237,6 +214,10 @@ const LoginForm = (props) => {
         <ButtonAnimate clicked={click} onClick={handleClick}></ButtonAnimate>
 
         <Form className="signin">
+			<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}>
+				<img src={require("../../images/logo.png")} alt="logo" width="40" height="40"/>
+				<p className={styles.appName}>TASKILLER</p>
+			</div>
           <Title>Sign In</Title>
           <Input 
 		  		type="email" 
@@ -262,6 +243,10 @@ const LoginForm = (props) => {
         </Form>
 
         <Form className="signup">
+			<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}>
+				<img src={require("../../images/logo.png")} alt="logo" width="40" height="40"/>
+				<p className={styles.appName}>TASKILLER</p>
+			</div>
           <Title>Sign Up</Title>
           <Input
             type="text"
