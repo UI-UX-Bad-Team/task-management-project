@@ -112,7 +112,7 @@ const MonthEventBox = (props) => {
 	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
 
 	useEffect(() => {
-		localStorage.setItem('personalBackgroundColor', '3d5c9849');
+		localStorage.setItem('personalBackgroundColor', 'B6BFD0');
 		localStorage.setItem('personalTextColor', '3d5c98');
 		localStorage.setItem('personalTimeboxColor', 'hsla(230,40%,50%,1)');
 
