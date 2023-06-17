@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
 import {Popover, Calendar, Col, Radio, Row, Select, Typography, theme, ColorPicker, Divider} from 'antd';
-import {RightOutlined, LeftOutlined, SettingOutlined} from '@ant-design/icons';
+import {RightOutlined, LeftOutlined} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import dayLocaleData from 'dayjs/plugin/localeData';
-import ColorContext from '../../context/ColorContext';
 import styles from './CustomCalendarToolbar.module.css';
 
 dayjs.extend(dayLocaleData);
 
-const PopoverContent = () => {
+const PopoverContent = (props) => {
 	const { token } = theme.useToken();
 	const onPanelChange = (value, mode) => {
 	  console.log(value.format('YYYY-MM-DD'), mode);
@@ -20,10 +19,21 @@ const PopoverContent = () => {
 	  border: `1px solid ${token.colorBorderSecondary}`,
 	  borderRadius: token.borderRadiusLG,
 	};
+
+	const changeMonthHandler = (month) => {
+		const yearText = parseInt(month.format('YYYY'));
+		const monthText = parseInt(month.format('MM'));
+		props.getMonth(yearText, monthText)
+	}
 	return (
 	  <div style={wrapperStyle}>
 		<Calendar
 		  fullscreen={false}
+		  picker="month"
+		  mode="year"
+		  onChange={
+			  changeMonthHandler
+		  }
 		  headerRender={({ value, type, onChange, onTypeChange }) => {
 			const start = 0;
 			const end = 12;
@@ -43,7 +53,6 @@ const PopoverContent = () => {
 			  );
 			}
 			const year = value.year();
-			const month = value.month();
 			const options = [];
 			for (let i = year - 10; i < year + 10; i += 1) {
 			  options.push(
@@ -58,19 +67,11 @@ const PopoverContent = () => {
 				  padding: 8,
 				}}
 			  >
-				<Typography.Title level={4}>Custom header</Typography.Title>
-				<Row gutter={8}>
-				  <Col>
-					<Radio.Group
-					  size="small"
-					  onChange={(e) => onTypeChange(e.target.value)}
-					  value={type}
-					>
-					</Radio.Group>
-				  </Col>
+				<p style={{fontSize: '17px', color: '#3d5c98', fontWeight: 600, marginBottom: '5px'}}>Select Month</p>
+				<Row gutter={8} justify={"center"}>
 				  <Col>
 					<Select
-					  size="small"
+					  size="medium"
 					  dropdownMatchSelectWidth={false}
 					  className="my-year-select"
 					  value={year}
@@ -80,19 +81,6 @@ const PopoverContent = () => {
 					  }}
 					>
 					  {options}
-					</Select>
-				  </Col>
-				  <Col>
-					<Select
-					  size="small"
-					  dropdownMatchSelectWidth={false}
-					  value={month}
-					  onChange={(newMonth) => {
-						const now = value.clone().month(newMonth);
-						onChange(now);
-					  }}
-					>
-					  {monthOptions}
 					</Select>
 				  </Col>
 				</Row>
@@ -131,7 +119,9 @@ export default class CustomCalendarToolbar extends Toolbar {
 				personalTextColor : '1677FF', 
 				teamTextColor: '3d5c98', 
 				personalTimeboxColor: '3d5c98', 
-				teamTimeboxColor: '3d5c98', 
+				teamTimeboxColor: '3d5c98',
+				showingMonth: 6,
+				showingYear: 2023,
 				isSetting: false
 			};
 		this.changePersonalBackgroundColor = this.changePersonalBackgroundColor.bind(this);
@@ -141,6 +131,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 		this.changePersonalTimeboxColor = this.changePersonalTimeboxColor.bind(this);
 		this.changeTeamTimeboxColor = this.changeTeamTimeboxColor.bind(this);
 		this.showColorSetting = this.showColorSetting.bind(this);
+		this.getMonthHandler = this.getMonthHandler.bind(this);
 	}
 
 	componentDidMount() {
@@ -198,6 +189,17 @@ export default class CustomCalendarToolbar extends Toolbar {
 		}))
 	}
 
+	getMonthHandler = (year, month) => {
+		this.setState({
+			showingMonth : month,
+			showingYear : year,
+		})
+		localStorage.removeItem('showingYear');
+		localStorage.setItem('showingYear', year);
+		localStorage.removeItem('showingMonth');
+		localStorage.setItem('showingMonth', month);
+		window.dispatchEvent(new Event("storage")); //This is the impo
+	}
 
 render() {
 		return (
@@ -246,7 +248,7 @@ render() {
 						<RightOutlined style={{color: '#3d5c98', fontSize: '20px'}}/>
 					</button>
 				</div>
-				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent />} trigger="click">
+				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent getMonth={this.getMonthHandler}/>} trigger="click">
         			{this.props.label}
 					<CalendarLogo />
       			</Popover>

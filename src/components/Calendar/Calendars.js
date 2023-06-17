@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Modal, Progress, Button, DatePicker, Form, Input, Checkbox, notification} from 'antd';
 import { MinusOutlined, PlusOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import EventBox from '../eventBox/EventBox';
@@ -160,6 +160,17 @@ const Calendars = (props) => {
 	const [selectDateTasks, setSelectedDateTasks] = useState([])
 	const [date, setDate] = useState(new Date());
 	const [addEventButtonDisabled, setAddEventButtonDisabled] = useState(true);
+
+	useEffect(() => {
+		window.addEventListener('storage', () => {
+			console.log('changes');
+			const year = localStorage.getItem('showingYear');
+			const month = localStorage.getItem('showingMonth');
+			setDate(new Date(`${year}-${month}-1`));
+		});
+	
+	}, []);
+
 	const openSucessfullyAddNotification = () => {
 		notification.open({
 		  message: <div style={{display: 'flex', gap: '15px'}}>
@@ -295,6 +306,7 @@ const Calendars = (props) => {
 				selectRange={true}
 				date={date}
 				onNavigate={date => {
+					console.log(date);
 				  setDate(date);
 				}}
 				step={60}

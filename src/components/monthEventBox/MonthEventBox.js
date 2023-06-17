@@ -104,6 +104,22 @@ const openSucessfullyAddNotification = () => {
 const MonthEventBox = (props) => {
 	const [showDetail, setShowDetail] = useState(false);
 	const [isEditting, setIsEditting] = useState(false);
+	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor'));
+	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor'));
+	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor'));
+	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor'));
+	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor'));
+	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
+
+	useEffect(() => {
+		window.addEventListener('storage', () => {
+			  setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
+			  setPersonalTextColor(localStorage.getItem('personalTextColor'));
+			  setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
+		});
+	
+	}, []);
+
 	const warning = () => {
 		Modal.warning({
 		  title: 'Are you sure to remove this event ? ',
@@ -215,9 +231,9 @@ const MonthEventBox = (props) => {
 					</div> : <ReporterSelect />}
 				</div>
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#3d5c9849`}}>
-				<div className={styles.timeBox}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent}>{props.title}</div>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalBackgroundColor}`}}>
+				<div className={styles.timeBox} style={{backgroundColor: `#${personalTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+				<div className={styles.eventContent} style={{color: `#${personalTextColor}`}}>{props.title}</div>
 			</div>
 			{true ? <div className={styles.eventDetail} >
 				<div style={{display: 'flex', gap: '3px'}}>
