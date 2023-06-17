@@ -32,8 +32,12 @@ const openSucessfullyAddNotification = () => {
 };
 
 const EventBox = (props) => {
-	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalColor'));
+	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor'));
 	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor'));
+	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor'));
+	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor'));
+	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor'));
+	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
 
 	const [teamColor, setTeamColor] = useState('1677FF');
 
@@ -41,6 +45,7 @@ const EventBox = (props) => {
 		  window.addEventListener('storage', () => {
 				setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
 				setPersonalTextColor(localStorage.getItem('personalTextColor'));
+				setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
 		  });
 	  
 	  }, []);
@@ -110,7 +115,7 @@ const EventBox = (props) => {
 				</div>
 			</Modal>
 			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalBackgroundColor}`}}>
-				<div className={styles.timeBox}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+				<div className={styles.timeBox} style={{backgroundColor: `#${personalTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
 				<div className={styles.eventContent} style={{color: `#${personalTextColor}`}}>{props.title}</div>
 			</div>
 		</div>

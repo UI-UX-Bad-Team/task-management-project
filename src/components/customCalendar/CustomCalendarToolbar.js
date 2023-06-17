@@ -130,10 +130,16 @@ export default class CustomCalendarToolbar extends Toolbar {
 				teamBackgroundColor: '3d5c98', 
 				personalTextColor : '1677FF', 
 				teamTextColor: '3d5c98', 
+				personalTimeboxColor: '3d5c98', 
+				teamTimeboxColor: '3d5c98', 
 				isSetting: false
 			};
 		this.changePersonalBackgroundColor = this.changePersonalBackgroundColor.bind(this);
 		this.changePersonalTextColor = this.changePersonalTextColor.bind(this);
+		this.changeTeamBackgroundColor = this.changeTeamBackgroundColor.bind(this);
+		this.changeTeamTextColor = this.changeTeamTextColor.bind(this);
+		this.changePersonalTimeboxColor = this.changePersonalTimeboxColor.bind(this);
+		this.changeTeamTimeboxColor = this.changeTeamTimeboxColor.bind(this);
 		this.showColorSetting = this.showColorSetting.bind(this);
 	}
 
@@ -155,6 +161,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 		this.setState({teamColor: color.toHex()})
 		localStorage.removeItem('teamBackgroundcolor');
 		localStorage.setItem('teamBackgroundcolor', color.toHex());
+		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changePersonalTextColor(color) {
@@ -168,7 +175,23 @@ export default class CustomCalendarToolbar extends Toolbar {
 		this.setState({teamTextColor: color.toHex()})
 		localStorage.removeItem('teamTextColor');
 		localStorage.setItem('teamTextColor', color.toHex());
+		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
+
+	changePersonalTimeboxColor(color) {
+		this.setState({personalTimeboxColor: color.toHex()})
+		localStorage.removeItem('personalTimeboxColor');
+		localStorage.setItem('personalTimeboxColor', color.toHex());
+		window.dispatchEvent(new Event("storage")); //This is the impo
+	}
+
+	changeTeamTimeboxColor(color) {
+		this.setState({teamTimeboxColor: color.toHex()})
+		localStorage.removeItem('teamTimeboxColor');
+		localStorage.setItem('teamTimeboxColor', color.toHex());
+		window.dispatchEvent(new Event("storage")); //This is the impo
+	}
+
 	showColorSetting() {
 		this.setState((state) => ({
 			isSetting: !state.isSetting
@@ -199,16 +222,16 @@ render() {
 					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
 						<p style={{fontWeight: 700, fontSize: '16px', color: '#3d5c98'}}>Background: </p>
 						<div style={{display: 'flex', gap: '15px'}}>
-							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalBackgroundColor} value={localStorage.getItem('personalColor')}/><p style={{fontWeight: 600}}>personal</p></div>
-							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamBackgroundColor} value={localStorage.getItem('teamColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalBackgroundColor} value={localStorage.getItem('personalBackgroundColor')}/><p style={{fontWeight: 600}}>personal</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamBackgroundColor} value={localStorage.getItem('teamBackgroundColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
 						</div>
 					</div>
 					<Divider type="vertical" style={{borderLeftWidth: '1px', borderLeftColor: '#000' }}/>
 					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
 						<p style={{fontWeight: 700, fontSize: '16px', color: '#3d5c98'}}>TimeBox: </p>
 						<div style={{display: 'flex', gap: '15px'}}>
-							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalColor} value={localStorage.getItem('personalColor')}/><p style={{fontWeight: 600}}>personal</p></div>
-							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamColor} value={localStorage.getItem('teamColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalTimeboxColor} value={localStorage.getItem('personalTimeboxColor')}/><p style={{fontWeight: 600}}>personal</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamTimeboxColor} value={localStorage.getItem('teamTimeboxColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
 						</div>
 					</div>
 				</div>
