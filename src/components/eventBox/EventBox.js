@@ -42,6 +42,10 @@ const EventBox = (props) => {
 	const [teamColor, setTeamColor] = useState('1677FF');
 
 	useEffect(() => {
+		localStorage.setItem('personalBackgroundColor', '3d5c9849')
+		localStorage.setItem('personalTextColor', '3d5c98')
+		localStorage.setItem('personalTimeboxColor', 'hsla(230,40%,50%,1)')
+
 		  window.addEventListener('storage', () => {
 				setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
 				setPersonalTextColor(localStorage.getItem('personalTextColor'));
