@@ -7,7 +7,7 @@
 }
 
 .accountBox:hover {
-	background-color: hsla(230,40%,50%,0.3);
+	background-color: #3d5c9849;
 	cursor: pointer;
 	font-weight: 700;
 }

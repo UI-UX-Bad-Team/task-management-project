@@ -135,7 +135,7 @@ const MainLayout = (props) => {
 				>
 				{props.content}
 				</Content>
-				<div style={{fontWeight: '700', paddingTop: '10px', color: 'hsla(230,40%,50%)'}}>
+				<div style={{fontWeight: '700', paddingTop: '10px', color: '#3d5c98'}}>
 						Power by <div style={{display: 'inline-block', color: 'red'}}>Hedspi Team</div>
 				</div>
 			</Layout>

@@ -62,7 +62,7 @@ const EventBox = (props) => {
 		showModal();
 	}
 	return (
-		<div>
+		<div className={styles.eventBoxContainer}>
 			<Modal title={`${props.title}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[
 				<Button danger onClick={warning}>
 					Remove

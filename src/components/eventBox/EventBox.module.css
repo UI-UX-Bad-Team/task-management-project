@@ -1,11 +1,14 @@
+.eventBoxContainer {
+	height: 100%;
+	width: 100%!important;
+}
 .eventBox {
 	border-radius: 5px;
 	margin-top: 0px;
 	padding: 2px;
-	/* background-color: hsla(230,40%,50%,0.5); */
-	/* display: flex; */
 	margin-left: 2px;
-	height: 50px;
+	height: 100%;
+	width: 100%;
 }
 
 .timeBox {
@@ -18,7 +21,9 @@
 	background-color: #3d5c98;
 	color: #fff;
 }
-
+.rbc-event-content {
+	width: 100%!important;
+}
 .eventContent {
 	display: inline-block;
 	font-size: 11px;

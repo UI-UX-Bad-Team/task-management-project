@@ -1,0 +1,6 @@
+.customizeColorText:hover {
+	cursor: pointer;
+}
+.customizeColorText:active {
+	color: '#3d5c98'
+}

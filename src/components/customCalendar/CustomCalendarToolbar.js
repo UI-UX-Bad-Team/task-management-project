@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
-import {Popover, Calendar, Col, Radio, Row, Select, Typography, theme, ColorPicker} from 'antd';
-import {RightOutlined, LeftOutlined } from '@ant-design/icons';
+import {Popover, Calendar, Col, Radio, Row, Select, Typography, theme, ColorPicker, Divider} from 'antd';
+import {RightOutlined, LeftOutlined, SettingOutlined} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import dayLocaleData from 'dayjs/plugin/localeData';
 import ColorContext from '../../context/ColorContext';
+import styles from './CustomCalendarToolbar.module.css';
 
 dayjs.extend(dayLocaleData);
 
@@ -124,11 +125,10 @@ export default class CustomCalendarToolbar extends Toolbar {
 
 	constructor(props){
 		super(props);
-		this.state = {personalColor : '#1677FF', teamColor: '#3d5c98'};
-		localStorage.setItem('personalColor', '#1677FF');
-		localStorage.setItem('teamColor', '#3d5c98');
+		this.state = {personalColor : '1677FF', teamColor: '3d5c98', isSetting: false};
 		this.changePersonalColor = this.changePersonalColor.bind(this);
 		this.changeTeamColor = this.changeTeamColor.bind(this);
+		this.showColorSetting = this.showColorSetting.bind(this);
 	}
 
 	componentDidMount() {
@@ -151,18 +151,51 @@ export default class CustomCalendarToolbar extends Toolbar {
 		localStorage.removeItem('teamcolor');
 		localStorage.setItem('teamColor', color.toHex());
 	}
+	showColorSetting() {
+		this.setState((state) => ({
+			isSetting: !state.isSetting
+		}))
+	}
+
 
 render() {
 		return (
 		<div>
-			<div>				
-				<div className="rbc-btn-group" style={{display: 'flex', gap: '15px', marginBottom: '20px', justifyContent: 'flex-end', alignItems: 'center'}}>
-					<p style={{fontWeight: 600}}>Color picker: </p>
-					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}><ColorPicker onChange={this.changePersonalColor} /><p style={{fontWeight: 600}}>Personal</p></div>
-					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}><ColorPicker onChange={this.changeTeamColor} /><p style={{fontWeight: 600}}>Team</p></div>
-				</div>
+			<div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 20, marginBottom: 15,}}>
+				{   !this.state.isSetting ?
+					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Cusomize event color</a> :
+					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Hide color picker</a>
+				}
+				{/* <SettingOutlined style={{fontSize: '24px', color: '#3d5c98'}}/> */}
 			</div>
-			<div style={{display: 'flex', alignItems: 'center', marginBottom: '20px', justifyContent: 'space-between', paddingRight: '35px'}}>
+			{this.state.isSetting ? <div style={{width: '100%'}}>				
+				<div className="rbc-btn-group" style={{display: 'flex', gap: '20px', marginBottom: '20px', justifyContent: 'flex-start', alignItems: 'center', overflowX: 'scroll'}}>
+					<div style={{display: 'flex', alignItems: 'center', gap: '10px', width: '100%'}}>
+						<p style={{fontWeight: 700,fontSize: '16px', color: '#3d5c98'}}>Text: </p>
+						<div style={{display: 'flex', gap: '15px'}}>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker/><p style={{fontWeight: 600}}>personal</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker/><p style={{fontWeight: 600}}>collaborative</p></div>
+						</div>
+					</div>
+					<Divider type="vertical" style={{borderLeftWidth: '1px', borderLeftColor: '#000' }}/>
+					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+						<p style={{fontWeight: 700, fontSize: '16px', color: '#3d5c98'}}>Background: </p>
+						<div style={{display: 'flex', gap: '15px'}}>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalColor} value={localStorage.getItem('personalColor')}/><p style={{fontWeight: 600}}>personal</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamColor} value={localStorage.getItem('teamColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
+						</div>
+					</div>
+					<Divider type="vertical" style={{borderLeftWidth: '1px', borderLeftColor: '#000' }}/>
+					<div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+						<p style={{fontWeight: 700, fontSize: '16px', color: '#3d5c98'}}>TimeBox: </p>
+						<div style={{display: 'flex', gap: '15px'}}>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changePersonalColor} value={localStorage.getItem('personalColor')}/><p style={{fontWeight: 600}}>personal</p></div>
+							<div style={{display: 'flex', alignItems: 'center', gap: '7px'}}><ColorPicker onChange={this.changeTeamColor} value={localStorage.getItem('teamColor')} /><p style={{fontWeight: 600}}>collaborative</p></div>
+						</div>
+					</div>
+				</div>
+			</div> : ''}
+			<div style={{display: 'flex', alignItems: 'center', marginBottom: '20px', justifyContent: 'space-between'}}>
 				<div className="rbc-btn-group">
 					<button type="button" onClick={() => this.navigate('TODAY')} style={{color: '#000', backgroundColor: '#ccc', padding: '10px', borderRadius: '50px',paddingLeft: '20px', paddingRight: '20px'}}>Today</button>
 					<button type="button" onClick={() => this.navigate('PREV')}>

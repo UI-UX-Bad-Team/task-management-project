@@ -298,7 +298,7 @@ const ProjectDetail = () => {
 				const id = String(i + 1);
 				return {
 					label: (
-					<span style={{display: 'flex', gap: '7px', color: 'hsla(230,40%,50%,1', fontWeight: 500}}>
+					<span style={{display: 'flex', gap: '7px', color: '#3d5c98', fontWeight: 500}}>
 						<Icon />
 						{id === '1' ? 'overview' : (id === '2' ? 'members' : 'assignments')}
 					</span>

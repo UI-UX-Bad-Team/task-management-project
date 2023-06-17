@@ -77,7 +77,7 @@ const events = [
 	  {
 		'title': 'Long Event',
 		'start': new Date(2023, 5, 4, 8, 5,0),
-		'end': new Date(2023, 5, 4, 9, 30, 0),
+		'end': new Date(2023, 5, 4, 12, 30, 0),
 		type:'personal'
 	  },
 	
@@ -202,7 +202,7 @@ const Calendars = (props) => {
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				<p style={{fontSize: '25px', fontWeight: 600, color: '#3d5c98', marginBottom: '20px', letterSpacing: '1px'}}>My schedule</p>
-				<div style={{position: 'absolute', right: '40px', top: '233px'}}>
+				<div style={{right: '40px', top: '258px'}}>
 					<Button type="primary" shape="circle" icon={<PlusOutlined style={{display: 'inline-flex', alignItems: 'center'}} />} size={'large'} onClick={addEventHandler} />
 				</div>
 			</div>
@@ -303,21 +303,26 @@ const Calendars = (props) => {
 				onNavigate={date => {
 				  setDate(date);
 				}}
+				step={60}
 				value={date}
 			  	startAccessor="start"
 			  	endAccessor="end"
 			  	style={{ height: 650 }}
 				showNeighboringMonth={false}
 				components={{
-					event: EventBox,
+					week : {
+						event: EventBox,
+					},
 					toolbar: CustomCalendarToolbar ,
 				}}
+				selectable={true}
 				messages={{
 					today: 'This Month',
 					previous: <LeftOutlined style={{color: '#3d5c98'}}/>,
 					next: <RightOutlined style={{color: '#3d5c98'}}/>
 				}}
 				label="Tung dep trai"
+				showMultiDayTimes={true}
 			/>,
 		</div>
 	)
