@@ -44,22 +44,22 @@ registerLicense('Mgo+DSMBaFt+QHJqXU1hXk5Hd0BLVGpAblJ3T2ZQdVt5ZDU7a15RRnVfRF1mSX1
 		{contextHolder}
       	<BrowserRouter>
         	<Routes>
-				<Route index element={<Dashboard />} />
-           		<Route path="/" element={<Login successNotification={successNotification}/>} />
-				<Route path="/login" element={<Login successNotification={successNotification}/>} />
-           		<Route path="/dashboard" element={<Dashboard />} />
-				<Route path="/teams" element={<Teams />} />
-				<Route path="/accountBox" element={<AccountBox />} />
-				<Route path="/teams/:teamId" element={<Team />} />
-				<Route path="/my-assignments" element={<Assignments />} />
-				<Route path="/teams/:teamId/projects/:projectId" element={<Project />} />
-				<Route path="/my-assignments/assignments/:assignmentId" element={<AssignmentDetail />} />
-				<Route path="/teams/:teamId/projects/:projectsId/assignments/:assignmentId" element={<AssignmentDetail />} />
-				<Route path="/my-projects/" element={<MyProject />} />
-				<Route path="/teams/:teamId/assignments/:assignmentId" element={<AssignmentDetail />} />
-				<Route path="/my-projects/:projectId/assignments/:assignmentId" element={<AssignmentDetail />} />
-				<Route path="/chat" element={<Chat />} />
-				<Route path="/my-projects/:projectId" element={<Project />} />
+					<Route index element={<Dashboard />} />
+					<Route path="/" element={<Login successNotification={successNotification}/>} />
+					<Route path="/login" element={<Login successNotification={successNotification}/>} />
+					<Route path="/dashboard" element={<Dashboard />} />
+					<Route path="/teams" element={<Teams />} />
+					<Route path="/accountBox" element={<AccountBox />} />
+					<Route path="/teams/:teamId" element={<Team />} />
+					<Route path="/my-assignments" element={<Assignments />} />
+					<Route path="/teams/:teamId/projects/:projectId" element={<Project />} />
+					<Route path="/my-assignments/assignments/:assignmentId" element={<AssignmentDetail />} />
+					<Route path="/teams/:teamId/projects/:projectsId/assignments/:assignmentId" element={<AssignmentDetail />} />
+					<Route path="/my-projects/" element={<MyProject />} />
+					<Route path="/teams/:teamId/assignments/:assignmentId" element={<AssignmentDetail />} />
+					<Route path="/my-projects/:projectId/assignments/:assignmentId" element={<AssignmentDetail />} />
+					<Route path="/chat" element={<Chat />} />
+					<Route path="/my-projects/:projectId" element={<Project />} />
        		</Routes>
      </BrowserRouter>
     </div>
