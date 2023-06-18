@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
-import {Popover, Calendar, Col, Radio, Row, Select, Typography, theme, ColorPicker, Divider} from 'antd';
+import {Popover, Calendar, Col, Row, Select, theme, ColorPicker, Divider} from 'antd';
 import {RightOutlined, LeftOutlined} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -131,7 +131,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 		this.changePersonalTimeboxColor = this.changePersonalTimeboxColor.bind(this);
 		this.changeTeamTimeboxColor = this.changeTeamTimeboxColor.bind(this);
 		this.showColorSetting = this.showColorSetting.bind(this);
-		this.getMonthHandler = this.getMonthHandler.bind(this);
+		// this.getMonthHandler = this.getMonthHandler.bind(this);
 	}
 
 	componentDidMount() {
@@ -143,42 +143,36 @@ export default class CustomCalendarToolbar extends Toolbar {
 	}
 
 	changePersonalBackgroundColor(color) {
-		const oldValue = this.state.personalBackgroundColor;
 		this.setState({personalColor: color.toHex()})
 		localStorage.setItem('personalBackgroundColor', color.toHex());
-		window.dispatchEvent(new Event("storage", {key : 'personalBackgroundColor', oldValue: oldValue, newValue: color.toHex()})); //This is the important part
+		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 	changeTeamBackgroundColor(color) {
 		this.setState({teamColor: color.toHex()})
-		// localStorage.removeItem('teamBackgroundcolor');
 		localStorage.setItem('teamBackgroundcolor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changePersonalTextColor(color) {
 		this.setState({personalTextColor: color.toHex()})
-		// localStorage.removeItem('personalTextColor');
 		localStorage.setItem('personalTextColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changeTeamTextColor(color) {
 		this.setState({teamTextColor: color.toHex()})
-		// localStorage.removeItem('teamTextColor');
 		localStorage.setItem('teamTextColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changePersonalTimeboxColor(color) {
 		this.setState({personalTimeboxColor: color.toHex()})
-		// localStorage.removeItem('personalTimeboxColor');
 		localStorage.setItem('personalTimeboxColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the impo
 	}
 
 	changeTeamTimeboxColor(color) {
 		this.setState({teamTimeboxColor: color.toHex()})
-		// localStorage.removeItem('teamTimeboxColor');
 		localStorage.setItem('teamTimeboxColor', color.toHex());
 		window.dispatchEvent(new Event("storage", {key: 'teamTimeboxColor'})); //This is the impo
 	}
@@ -189,17 +183,15 @@ export default class CustomCalendarToolbar extends Toolbar {
 		}))
 	}
 
-	getMonthHandler = (year, month) => {
-		this.setState({
-			showingMonth : month,
-			showingYear : year,
-		})
-		// localStorage.removeItem('showingYear');
-		localStorage.setItem('showingYear', year);
-		// localStorage.removeItem('showingMonth');
-		localStorage.setItem('showingMonth', month);
-		window.dispatchEvent(new Event("storage")); //This is the impo
-	}
+	// getMonthHandler = (year, month) => {
+	// 	this.setState({
+	// 		showingMonth : month,
+	// 		showingYear : year,
+	// 	})
+	// 	localStorage.setItem('showingYear', year);
+	// 	localStorage.setItem('showingMonth', month);
+	// 	window.dispatchEvent(new Event("storage")); //This is the impo
+	// }
 
 render() {
 		return (
@@ -248,7 +240,7 @@ render() {
 						<RightOutlined style={{color: '#3d5c98', fontSize: '20px'}}/>
 					</button>
 				</div>
-				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent getMonth={this.getMonthHandler}/>} trigger="click">
+				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent getMonth={this.props.getShowingMonth}/>} trigger="click">
         			{this.props.label}
 					<CalendarLogo />
       			</Popover>

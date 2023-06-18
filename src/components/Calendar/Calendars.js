@@ -161,18 +161,18 @@ const Calendars = (props) => {
 	const [date, setDate] = useState(new Date());
 	const [addEventButtonDisabled, setAddEventButtonDisabled] = useState(true);
 
-	useEffect(() => {
+	// useEffect(() => {
 
-		window.addEventListener('storage', function (event){
+	// 	window.addEventListener('storage', function (event){
 			
-			if (event.key === 'showingMonth' || event.key === 'showingYear') {
-				const year = localStorage.getItem('showingYear');
-				const month = localStorage.getItem('showingMonth');
-				setDate(new Date(`${year}-${month}-1`));
-			}
-		});
+	// 		if (event.key === 'showingMonth' || event.key === 'showingYear') {
+	// 			const year = localStorage.getItem('showingYear');
+	// 			const month = localStorage.getItem('showingMonth');
+	// 			setDate(new Date(`${year}-${month}-1`));
+	// 		}
+	// 	});
 	
-	}, []);
+	// }, []);
 
 	const openSucessfullyAddNotification = () => {
 		notification.open({
@@ -190,6 +190,10 @@ const Calendars = (props) => {
 		  },
 		});
 	};
+
+	const getShowingMonthHandler = (year, month) => {
+		setDate(new Date(`${year}-${month}-1`));
+	}
 
 	const showModal = () => {
 	  setIsModalOpen(true);
@@ -325,7 +329,8 @@ const Calendars = (props) => {
 					month: {
 						event: MonthEventBox
 					},
-					toolbar: CustomCalendarToolbar ,
+					toolbar: props => (<CustomCalendarToolbar {...props} getShowingMonth={getShowingMonthHandler} />),
+					// toolbarProps: {getShowingMonth: getShowingMonthHandler}
 				}}
 				selectable={true}
 				messages={{
