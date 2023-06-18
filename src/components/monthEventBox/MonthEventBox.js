@@ -270,7 +270,7 @@ const MonthEventBox = (props) => {
 				{props.event.type === 'collaborative' ? <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Reported by:</p>
 					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
-						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
+						{/* <p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p> */}
 						<Avatar src='/images/avatar1.jpg' size={28}/>
 					</div> : <ReporterSelect />}
 				</div> : ''}
