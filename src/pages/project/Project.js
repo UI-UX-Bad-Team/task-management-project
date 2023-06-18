@@ -6,7 +6,7 @@ import projectsSampleData from '../../data/projects';
 import { MembersIcon, ProjectIcon, OverviewIcon } from '../../data/icon';
 import { StarOutlined, StarFilled, AudioOutlined } from '@ant-design/icons';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
-import { Table, Tabs, Input, Avatar , Tooltip, Button, Modal, Skeleton } from 'antd';
+import { Table, Tabs, Input, Avatar , Tooltip, Button, Modal, Skeleton, Select} from 'antd';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
 import {BugType} from '../../data/issueTypes';
 import { HighestIcon } from '../../data/priorityIcon';
@@ -207,6 +207,30 @@ const MembersTab = () => {
 		  sortDirections: ['descend', 'ascend'],
 		  width: '70%',
 		},
+		{
+			title: 'Role',
+			dataIndex: 'role',
+			key: 'role',
+			render: (text) => 
+				(
+				<Select
+					defaultValue="read"
+					style={{ width: 120 }}
+					// onChange={handleChange}
+					options={[
+					  { value: 'write', label: 'write' },
+					  { value: 'read', label: 'read' },
+					  { value: 'review', label: 'review' },
+					  { value: 'admin', label: 'admin'},
+					  { value: 'maintain', label: 'maintain'},
+					]}
+				  />
+			  ),
+			onFilter: (value, record) => record.name.indexOf(value) === 0,
+			sorter: (a, b) =>  a.name.split(' ')[a.name.split(' ').length - 1].localeCompare(b.name.split(' ')[b.name.split(' ').length - 1]),
+			sortDirections: ['descend', 'ascend'],
+			width: '70%',
+		  },
 		{
 		  title: 'Action',
 		  key: 'action',

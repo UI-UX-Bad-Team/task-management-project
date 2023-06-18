@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { Modal, Progress, Button, DatePicker, Form, Input, Checkbox, notification, Select} from 'antd';
 import { MinusOutlined, PlusOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import EventBox from '../eventBox/EventBox';
@@ -73,83 +73,6 @@ const events = [
 		'end': new Date(2023, 5, 4, 12, 30, 0),
 		type:'personal'
 	  },
-	
-	  {
-		'title': 'DTS STARTS',
-		'start': new Date(2016, 2, 13, 0, 0, 0),
-		'end': new Date(2016, 2, 20, 0, 0, 0)
-	  },
-	
-	  {
-		'title': 'DTS ENDS',
-		'start': new Date(2016, 10, 6, 0, 0, 0),
-		'end': new Date(2016, 10, 13, 0, 0, 0)
-	  },
-	
-	  {
-		'title': 'Some Event',
-		'start': new Date(2015, 3, 9, 0, 0, 0),
-		'end': new Date(2015, 3, 9, 0, 0, 0)
-	  },
-	  {
-		'title': 'Conference',
-		'start': new Date(2015, 3, 11),
-		'end': new Date(2015, 3, 13),
-		desc: 'Big conference for important people'
-	  },
-	  {
-		'title': 'Meeting',
-		'start': new Date(2015, 3, 12, 10, 30, 0, 0),
-		'end': new Date(2015, 3, 12, 12, 30, 0, 0),
-		desc: 'Pre-meeting meeting, to prepare for the meeting'
-	  },
-	  {
-		'title': 'Lunch',
-		'start': new Date(2015, 3, 12, 12, 0, 0, 0),
-		'end': new Date(2015, 3, 12, 13, 0, 0, 0),
-		desc: 'Power lunch'
-	  },
-	  {
-		'title': 'Meeting',
-		'start': new Date(2015, 3, 12, 14, 0, 0, 0),
-		'end': new Date(2015, 3, 12, 15, 0, 0, 0)
-	  },
-	  {
-		'title': 'Happy Hour',
-		'start': new Date(2015, 3, 12, 17, 0, 0, 0),
-		'end': new Date(2015, 3, 12, 17, 30, 0, 0),
-		desc: 'Most important meal of the day'
-	  },
-	  {
-		'title': 'Dinner',
-		'start': new Date(2015, 3, 12, 20, 0, 0, 0),
-		'end': new Date(2015, 3, 12, 21, 0, 0, 0)
-	  },
-	  {
-		'title': 'Birthday Party',
-		'start': new Date(2015, 3, 13, 7, 0, 0),
-		'end': new Date(2015, 3, 13, 10, 30, 0)
-	  },
-	  {
-		'title': 'Birthday Party 2',
-		'start': new Date(2015, 3, 13, 7, 0, 0),
-		'end': new Date(2015, 3, 13, 10, 30, 0)
-	  },
-	  {
-		'title': 'Birthday Party 3',
-		'start': new Date(2015, 3, 13, 7, 0, 0),
-		'end': new Date(2015, 3, 13, 10, 30, 0)
-	  },
-	  {
-		'title': 'Late Night Event',
-		'start': new Date(2015, 3, 17, 19, 30, 0),
-		'end': new Date(2015, 3, 18, 2, 0, 0)
-	  },
-	  {
-		'title': 'Multi-day Event',
-		'start': new Date(2015, 3, 20, 19, 30, 0),
-		'end': new Date(2015, 3, 22, 2, 0, 0)
-	  }
 ]
 
 
@@ -159,7 +82,9 @@ const Calendars = (props) => {
 	const [selectedDate, setSelectedDate] = useState('')
 	const [selectDateTasks, setSelectedDateTasks] = useState([])
 	const [date, setDate] = useState(new Date());
+	const [addEventFormValue, setAddEventFormValue] = useState({});
 	const [addEventButtonDisabled, setAddEventButtonDisabled] = useState(true);
+	const  addEventFormRef = useRef();
 
 	const openSucessfullyAddNotification = () => {
 		notification.open({
@@ -190,9 +115,23 @@ const Calendars = (props) => {
 	  setIsModalOpen(false);
 	};
 
-	const addEventHandler = () => {
+	const openAdModaldEventHandler = () => {
 		setModal2Open(true);
+	}
 
+	const addEventHandler = () => {
+		setModal2Open(false); 
+		openSucessfullyAddNotification()
+		const formValue = addEventFormRef.current.getFieldsValue();
+		console.log(formValue);
+		events.push({
+			title:formValue.eventTitle,
+			description: formValue.eventDescription,
+			priority: formValue.eventPriority,
+			start: formValue.eventTime[0]['$d'],
+			end: formValue.eventTime[1]['$d'],
+		})
+		setAddEventFormValue(formValue);
 	}
 
 	return (
@@ -200,7 +139,7 @@ const Calendars = (props) => {
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				<p style={{fontSize: '25px', fontWeight: 600, color: '#3d5c98', marginBottom: '20px', letterSpacing: '1px'}}>My schedule</p>
 				<div style={{right: '40px', top: '258px'}}>
-					<Button type="primary" shape="circle" icon={<PlusOutlined style={{display: 'inline-flex', alignItems: 'center'}} />} size={'large'} onClick={addEventHandler} />
+					<Button type="primary" shape="circle" icon={<PlusOutlined style={{display: 'inline-flex', alignItems: 'center'}} />} size={'large'} onClick={openAdModaldEventHandler} />
 				</div>
 			</div>
 			<Modal
@@ -211,11 +150,12 @@ const Calendars = (props) => {
 				destroyOnClose={true}
 				labelAlign="left"
 				open={modal2Open}
-				onOk={() => {setModal2Open(false); openSucessfullyAddNotification()}}
+				onOk={() => {addEventHandler()}}
 				onCancel={() => setModal2Open(false)}
 				okButtonProps={{disabled: addEventButtonDisabled}}
 			>
 				<Form
+					ref={addEventFormRef}
 					name="basic"
 					labelCol={{
 					span: 7,
@@ -233,7 +173,7 @@ const Calendars = (props) => {
 				>
 					<Form.Item
 					label="Time of event:   "
-					name="Time of event"
+					name="eventTime"
 					rules={[
 						{
 						required: true,
@@ -241,11 +181,11 @@ const Calendars = (props) => {
 						},
 					]}
 					>
-						<RangePicker />
+						<RangePicker format="YYYY-MM-DD HH:mm:ss"/>
 					</Form.Item>
 					<Form.Item
 					label="Priority"
-					name="event priority"
+					name="eventPriority"
 					rules={[
 						{
 						required: true,
@@ -269,7 +209,7 @@ const Calendars = (props) => {
 
 					<Form.Item
 					label="Event title"
-					name="event title"
+					name="eventTitle"
 					rules={[
 						{
 						required: true,
@@ -288,7 +228,7 @@ const Calendars = (props) => {
 					
 					<Form.Item
 					label="Event description"
-					name="Event description"
+					name="eventDescription"
 					rules={[
 						{
 						required: false,
@@ -337,6 +277,9 @@ const Calendars = (props) => {
 					},
 					month: {
 						event: MonthEventBox
+					},
+					day : {
+						event: EventBox,
 					},
 					toolbar: props => (<CustomCalendarToolbar {...props} getShowingMonth={getShowingMonthHandler} />),
 					// toolbarProps: {getShowingMonth: getShowingMonthHandler}
