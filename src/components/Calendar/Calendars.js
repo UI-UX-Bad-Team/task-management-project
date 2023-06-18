@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Modal, Progress, Button, DatePicker, Form, Input, Checkbox, notification} from 'antd';
+import React, {useState} from 'react';
+import { Modal, Progress, Button, DatePicker, Form, Input, Checkbox, notification, Select} from 'antd';
 import { MinusOutlined, PlusOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import EventBox from '../eventBox/EventBox';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
@@ -161,19 +161,6 @@ const Calendars = (props) => {
 	const [date, setDate] = useState(new Date());
 	const [addEventButtonDisabled, setAddEventButtonDisabled] = useState(true);
 
-	// useEffect(() => {
-
-	// 	window.addEventListener('storage', function (event){
-			
-	// 		if (event.key === 'showingMonth' || event.key === 'showingYear') {
-	// 			const year = localStorage.getItem('showingYear');
-	// 			const month = localStorage.getItem('showingMonth');
-	// 			setDate(new Date(`${year}-${month}-1`));
-	// 		}
-	// 	});
-	
-	// }, []);
-
 	const openSucessfullyAddNotification = () => {
 		notification.open({
 		  message: <div style={{display: 'flex', gap: '15px'}}>
@@ -194,10 +181,7 @@ const Calendars = (props) => {
 	const getShowingMonthHandler = (year, month) => {
 		setDate(new Date(`${year}-${month}-1`));
 	}
-
-	const showModal = () => {
-	  setIsModalOpen(true);
-	};
+	
 	const handleOk = () => {
 	  setIsModalOpen(false);
 	};
@@ -208,6 +192,7 @@ const Calendars = (props) => {
 
 	const addEventHandler = () => {
 		setModal2Open(true);
+
 	}
 
 	return (
@@ -223,6 +208,7 @@ const Calendars = (props) => {
 				style={{
 					top: 80,
 				}}
+				destroyOnClose={true}
 				labelAlign="left"
 				open={modal2Open}
 				onOk={() => {setModal2Open(false); openSucessfullyAddNotification()}}
@@ -241,7 +227,7 @@ const Calendars = (props) => {
 					maxWidth: 600,
 					}}
 					initialValues={{
-					remember: true,
+					remember: false,
 					}}
 					autoComplete="off"
 				>
@@ -256,6 +242,29 @@ const Calendars = (props) => {
 					]}
 					>
 						<RangePicker />
+					</Form.Item>
+					<Form.Item
+					label="Priority"
+					name="event priority"
+					rules={[
+						{
+						required: true,
+						message: "Please input your event's priority",
+						},
+					]}
+					>
+						<Select
+							defaultValue="critical"
+							style={{ width: 120 }}
+							// onChange={handleChange}
+							options={[
+								{ value: 'highest', label: 'highest' },
+								{ value: 'high', label: 'high' },
+								{ value: 'critical', label: 'critical' },
+								{ value: 'low', label: 'low'},
+								{ value: 'lowest', label: 'lowest'},
+							]}
+						/>
 					</Form.Item>
 
 					<Form.Item
@@ -297,7 +306,7 @@ const Calendars = (props) => {
 						span: 16,
 					}}
 					>
-					<Checkbox >Remember me</Checkbox>
+						<Checkbox >Remember me</Checkbox>
 					</Form.Item>
 				</Form>
 			</Modal>

@@ -10,7 +10,9 @@ import styles from './CustomCalendarToolbar.module.css';
 dayjs.extend(dayLocaleData);
 
 const PopoverContent = (props) => {
+
 	const { token } = theme.useToken();
+	const [selectedDate, setSelectedDate] = useState(dayjs(new Date()))
 	const onPanelChange = (value, mode) => {
 	  console.log(value.format('YYYY-MM-DD'), mode);
 	};
@@ -23,17 +25,21 @@ const PopoverContent = (props) => {
 	const changeMonthHandler = (month) => {
 		const yearText = parseInt(month.format('YYYY'));
 		const monthText = parseInt(month.format('MM'));
+		setSelectedDate(dayjs(`${yearText}-${monthText}-01`))
 		props.getMonth(yearText, monthText)
 	}
+	console.log('selectDate: ',selectedDate)
 	return (
 	  <div style={wrapperStyle}>
 		<Calendar
 		  fullscreen={false}
 		  picker="month"
 		  mode="year"
+		  value={selectedDate}
 		  onChange={
 			  changeMonthHandler
 		  }
+
 		  headerRender={({ value, type, onChange, onTypeChange }) => {
 			const start = 0;
 			const end = 12;
@@ -182,16 +188,6 @@ export default class CustomCalendarToolbar extends Toolbar {
 			isSetting: !state.isSetting
 		}))
 	}
-
-	// getMonthHandler = (year, month) => {
-	// 	this.setState({
-	// 		showingMonth : month,
-	// 		showingYear : year,
-	// 	})
-	// 	localStorage.setItem('showingYear', year);
-	// 	localStorage.setItem('showingMonth', month);
-	// 	window.dispatchEvent(new Event("storage")); //This is the impo
-	// }
 
 render() {
 		return (

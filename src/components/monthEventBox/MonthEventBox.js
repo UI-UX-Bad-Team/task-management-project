@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './MonthEventBox.module.css';
-import {Modal, Button, notification, Avatar, DatePicker,Select} from 'antd';
+import {Modal, Button, notification, Avatar, DatePicker,Select, Input} from 'antd';
 import { HighestIcon } from '../../data/priorityIcon';
 import lottie from 'lottie-web';
 
 const { RangePicker } = DatePicker;
+const { TextArea } = Input;
 
 const IssueTypeSelect = () => {
 	const handleChange = () => {
@@ -221,6 +222,12 @@ const MonthEventBox = (props) => {
 						<HighestIcon />
 					</div> : <PriorityTypeSelect />
 					}
+				</div>
+				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Description:</p>
+					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>This is description</p>
+					</div> : <TextArea showCount maxLength={100} />}
 				</div>
 				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Reported by:</p>
