@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './MonthEventBox.module.css';
-import {Modal, Button, notification, Avatar, DatePicker,Select, Input} from 'antd';
+import {Modal, Button, notification, Avatar, DatePicker,Select, Input, Progress} from 'antd';
 import { HighestIcon } from '../../data/priorityIcon';
 import lottie from 'lottie-web';
+import { useNavigate } from "react-router";
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -103,20 +105,25 @@ const openSucessfullyAddNotification = () => {
 };
 
 const MonthEventBox = (props) => {
+	const navigate = useNavigate();
 	const [showDetail, setShowDetail] = useState(false);
 	const [isEditting, setIsEditting] = useState(false);
 	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor') || 'b1c2e3');
 	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor') || '3d5c98');
-	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor'));
-	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor'));
+	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor') || 'b1c2e3');
+	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor') || '3d5c98');
 	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor') || '63337a');
-	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
+	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor') || '63337a');
+	const [percent, setPercent] = useState(0);
 
 	useEffect(() => {
 		window.addEventListener('storage', (event) => {
-			  setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
-			  setPersonalTextColor(localStorage.getItem('personalTextColor'));
-			  setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
+			setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
+			setTeamBackgroundColor(localStorage.getItem('teamBackgroundColor'))
+			setPersonalTextColor(localStorage.getItem('personalTextColor'));
+			setTeamTextColor(localStorage.getItem('teamTextColor'));
+			setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
+			setTeamTimeboxColor(localStorage.getItem('teamTimeboxColor'));
 		});
 	}, []);
 
@@ -185,6 +192,24 @@ const MonthEventBox = (props) => {
 		return () => instance.destroy();
 	  }, [showDetail]);
 
+	  const increase = () => {
+		setPercent((prevPercent) => {
+		  const newPercent = prevPercent + 10;
+		  if (newPercent > 100) {
+			return 100;
+		  }
+		  return newPercent;
+		});
+	  };
+	  const decline = () => {
+		setPercent((prevPercent) => {
+		  const newPercent = prevPercent - 10;
+		  if (newPercent < 0) {
+			return 0;
+		  }
+		  return newPercent;
+		});
+	  };
 	return (
 		<div className={styles.monthEventBox} onMouseEnter={showEventDetailHandler} onMouseLeave={hideEventDetailHandler}>
 			<Modal title={`${props.title}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[
@@ -198,14 +223,17 @@ const MonthEventBox = (props) => {
 					<Button onClick={saveEventBoxHandler}>
 						Save
 					</Button>
-				)
+				),
+				<Button onClick={() => {navigate('/my-assignments/assignments/0')}}>
+					Detail
+			  	</Button>,
 			]}>	
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Time:</p>
-					{isEditting ? <RangePicker /> :
+					{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
 					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
 				</div>
-				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
+				{props.event.type === 'collaborative' ?<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Type:</p>
 					{!isEditting ? 
 					<div style={{display: 'flex', gap: '5px'}}>
@@ -213,12 +241,12 @@ const MonthEventBox = (props) => {
 						<BugType />
 					</div>
 					: <IssueTypeSelect />}
-				</div>
+				</div> : ''}
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Priority:</p>
 					{!isEditting ? 
 					<div style={{display: 'flex', gap: '5px'}}>
-						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Highest</p>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>{props.event.priority}</p>
 						<HighestIcon />
 					</div> : <PriorityTypeSelect />
 					}
@@ -226,22 +254,32 @@ const MonthEventBox = (props) => {
 				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Description:</p>
 					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
-						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>This is description</p>
-					</div> : <TextArea showCount maxLength={100} />}
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>{props.event.description}</p>
+					</div> : <TextArea showCount maxLength={100} defaultValue={props.event.description}/>}
 				</div>
-				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', marginTop: '30px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Progress:</p>
+					<Progress percent={percent} />
+					{isEditting ? 
+					<Button.Group>
+						<Button onClick={decline} icon={<MinusOutlined />} />
+						<Button onClick={increase} icon={<PlusOutlined />} />
+					</Button.Group>
+					: ''}
+				</div>
+				{props.event.type === 'collaborative' ? <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Reported by:</p>
 					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
 						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
 						<Avatar src='/images/avatar1.jpg' size={28}/>
 					</div> : <ReporterSelect />}
-				</div>
+				</div> : ''}
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalBackgroundColor}`}}>
-				<div className={styles.timeBox} style={{backgroundColor: `#${personalTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent} style={{color: `#${personalTextColor}`}}>{props.title}</div>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}`}}>
+				<div className={styles.timeBox} style={{backgroundColor: `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+				<div className={styles.eventContent} style={{color: `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}`}}>{props.title}</div>
 			</div>
-			{true ? <div className={styles.eventDetail} >
+			{showDetail && props.event.type === 'collaborative' ? <div className={styles.eventDetail} >
 				<div style={{display: 'flex', gap: '3px'}}>
 					<BugType width={20} height={20} />
 					{/* <HighestIcon /> */}
@@ -249,7 +287,11 @@ const MonthEventBox = (props) => {
 				</div>
 				<div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '3px'}}>
 					<p style={{color: '#666', fontWeight: 600, fontSize: '12px'}}>Tung</p>
-					<Avatar src='/images/avatar1.jpg' size={28}/>
+					<Avatar.Group>
+						<Avatar src='/images/avatar1.jpg' size={26}/>
+						<Avatar src='/images/avatar2.jpg' size={26}/>
+						<Avatar src='/images/avatar3.jpg' size={26}/>
+					</Avatar.Group>
 				</div>
 			</div> : ''}
 		</div>

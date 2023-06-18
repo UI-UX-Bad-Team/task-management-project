@@ -1,9 +1,13 @@
 
 import styles from './EventBox.module.css';
 import {useState, useEffect} from 'react';
-import {Modal,Button,notification, Avatar} from 'antd';
+import {Modal,Button,notification, Avatar, Progress, DatePicker, Select,Input} from 'antd';
 import { HighestIcon } from '../../data/priorityIcon';
+import { useNavigate } from "react-router";
+import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
+const { RangePicker } = DatePicker;
+const {TextArea} = Input;
 const BugType = () => {
 
 	return (
@@ -31,27 +35,72 @@ const openSucessfullyAddNotification = () => {
 	});
 };
 
+
+const IssueTypeSelect = () => {
+	const handleChange = () => {
+
+	}
+
+	return (
+		<Select
+			defaultValue="bug"
+			style={{ width: 120 }}
+			onChange={handleChange}
+			options={[
+				{ value: 'bug', label: 'bug' },
+				{ value: 'new feature', label: 'new feature' },
+				{ value: 'improvement', label: 'improvement' },
+				{ value: 'test', label: 'test', disabled: true },
+			]}
+    	/>
+	)
+}
+
+const PriorityTypeSelect = () => {
+	const handleChange = () => {
+
+	}
+
+	return (
+		<Select
+			defaultValue="critical"
+			style={{ width: 120 }}
+			onChange={handleChange}
+			options={[
+				{ value: 'highest', label: 'highest' },
+				{ value: 'high', label: 'high' },
+				{ value: 'critical', label: 'critical' },
+				{ value: 'low', label: 'low'},
+				{ value: 'lowest', label: 'lowest'},
+			]}
+    	/>
+	)
+}
+
 const EventBox = (props) => {
+	const navigate = useNavigate();
+	const [isEditting, setIsEditting] = useState(false);
 	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor') || 'b1c2e3');
 	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor')  || '3d5c98');
-	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor'));
-	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor'));
+	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor') || 'b1c2e3');
+	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor')|| '3d5c98');
 	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor') || '63337a');
-	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
-
-	const [teamColor, setTeamColor] = useState('1677FF');
+	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor')|| '63337a');
+	const [percent, setPercent] = useState(0);
 
 	useEffect(() => {
 
 		  window.addEventListener('storage', function (event){
-
 				setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
+				setTeamBackgroundColor(localStorage.getItem('teamBackgroundColor'))
 				setPersonalTextColor(localStorage.getItem('personalTextColor'));
+				setTeamTextColor(localStorage.getItem('teamTextColor'));
 				setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
+				setTeamTimeboxColor(localStorage.getItem('teamTimeboxColor'));
 		  });
 	  
 	  }, []);
-
+	console.log(teamBackgroundColor);
 	const warning = () => {
 		Modal.warning({
 		  title: 'Are you sure to remove this event ? ',
@@ -76,16 +125,35 @@ const EventBox = (props) => {
   
 	const handleCancel = () => {
 	  setIsModalOpen(false);
+	  setIsEditting(false);
 	};
 
+	
 	const showDetailHandler = () => {
 		showModal();
 	}
 
 	const editEventBoxHandler = () => {
-
+		setIsEditting(true);
 	}
-	
+  const increase = () => {
+    setPercent((prevPercent) => {
+      const newPercent = prevPercent + 10;
+      if (newPercent > 100) {
+        return 100;
+      }
+      return newPercent;
+    });
+  };
+  const decline = () => {
+    setPercent((prevPercent) => {
+      const newPercent = prevPercent - 10;
+      if (newPercent < 0) {
+        return 0;
+      }
+      return newPercent;
+    });
+  };
 	return (
 		<div className={styles.eventBoxContainer}>
 			<Modal title={`${props.title}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[
@@ -94,31 +162,60 @@ const EventBox = (props) => {
 			  	</Button>,
 				<Button onClick={editEventBoxHandler}>
 				  Edit
-				</Button>
+				</Button>,
+				<Button onClick={() => {navigate('/my-assignments/assignments/0')}}>
+					Detail
+			  	</Button>,
 			]}>
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Time:</p>
-					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+					{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
+					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
 				</div>
+				{props.event.type === 'collaborative' ?
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Type:</p>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Bug</p>
-					<BugType />
-				</div>
+					{!isEditting ? 
+					<div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Bug</p>
+						<BugType />
+					</div>
+					: <IssueTypeSelect />}
+				</div> : ''}
 				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Priority:</p>
-					<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>Highest</p>
-					<HighestIcon />
+					{!isEditting ? 
+					<div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>{props.event.priority}</p>
+						<HighestIcon />
+					</div> : <PriorityTypeSelect />
+					}
 				</div>
-				<div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Description:</p>
+					{!isEditting ? <div style={{display: 'flex', gap: '5px'}}>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>{props.event.description}</p>
+					</div> : <TextArea showCount maxLength={100} />}
+				</div>
+				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', marginTop: '20px'}}>
+					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Progress:</p>
+					<Progress percent={percent} />
+					{isEditting ? 
+					<Button.Group>
+						<Button onClick={decline} icon={<MinusOutlined />} />
+						<Button onClick={increase} icon={<PlusOutlined />} />
+					</Button.Group>
+					: ''}
+				</div>
+				{props.event.type === 'collaborative' ? <div style={{display: 'flex', gap: '10px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#3d5c98'}}>Reported by:</p>
 					<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>tung</p>
 					<Avatar src='/images/avatar1.jpg' size={28}/>
-				</div>
+				</div> : ''}
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${personalBackgroundColor}`}}>
-				<div className={styles.timeBox} style={{backgroundColor: `#${personalTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent} style={{color: `#${personalTextColor}`}}>{props.title}</div>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}`}}>
+				<div className={styles.timeBox} style={{backgroundColor: `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+				<div className={styles.eventContent} style={{color: `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}`}}>{props.title}</div>
 			</div>
 		</div>
 	)

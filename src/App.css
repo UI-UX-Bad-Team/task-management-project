@@ -146,6 +146,9 @@ html {
 .rbc-toolbar-label:hover {
 	cursor: pointer;
 }
+.rbc-day-bg {
+	overflow-y: scroll!important;
+}
 .rbc-today {
 	background-color: #3d5c9849!important;
 }

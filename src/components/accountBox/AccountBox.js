@@ -2,9 +2,6 @@ import styles from './AccountBox.module.css';
 import { UserOutlined, DownOutlined } from '@ant-design/icons';
 import { Dropdown , Avatar} from 'antd';
 import { useNavigate } from "react-router";
-
-
-
   
 const AccountBox = ({name: accountName}) => {
 

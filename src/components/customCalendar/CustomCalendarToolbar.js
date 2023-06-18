@@ -149,13 +149,13 @@ export default class CustomCalendarToolbar extends Toolbar {
 	}
 
 	changePersonalBackgroundColor(color) {
-		this.setState({personalColor: color.toHex()})
+		this.setState({personalBackgroundColor: color.toHex()})
 		localStorage.setItem('personalBackgroundColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 	changeTeamBackgroundColor(color) {
-		this.setState({teamColor: color.toHex()})
-		localStorage.setItem('teamBackgroundcolor', color.toHex());
+		this.setState({teamBackgroundColor: color.toHex()})
+		localStorage.setItem('teamBackgroundColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
@@ -180,7 +180,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 	changeTeamTimeboxColor(color) {
 		this.setState({teamTimeboxColor: color.toHex()})
 		localStorage.setItem('teamTimeboxColor', color.toHex());
-		window.dispatchEvent(new Event("storage", {key: 'teamTimeboxColor'})); //This is the impo
+		window.dispatchEvent(new Event("storage")); //This is the impo
 	}
 
 	showColorSetting() {

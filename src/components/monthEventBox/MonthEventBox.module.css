@@ -31,8 +31,10 @@
 	color: #3d5c98;
 }
 .eventDetail {
+	/* position: absolute; */
 	display: flex;
 	justify-content: space-between;
 	padding: 0 5px 3px;
 	margin-top: 6px;
+	z-index: 1000;
 }

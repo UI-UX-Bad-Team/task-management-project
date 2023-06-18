@@ -4,8 +4,9 @@ import MainLayout from '../../components/layout/MainLayout';
 import {useParams} from 'react-router-dom';
 import projectsSampleData from '../../data/projects';
 import { MembersIcon, ProjectIcon, OverviewIcon } from '../../data/icon';
-import { StarOutlined, StarFilled, AudioOutlined } from '@ant-design/icons';
+import { StarOutlined, StarFilled, AudioOutlined, PlusOutlined } from '@ant-design/icons';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
+import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import { Table, Tabs, Input, Avatar , Tooltip, Button, Modal, Skeleton, Select} from 'antd';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
 import {BugType} from '../../data/issueTypes';
@@ -17,10 +18,11 @@ const initialItems = [
 	{
 		label: 'Upcomming',
 		children: [
-					{id: 0, assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer'},
-					{id: 1, assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer'},
-					{id: 2, assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer'},
-					{id: 3, assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer'},
+					{id: 'DEV-011', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer', assignee: 'Bui Danh Tung'},
+					{id: 'DEV-012', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer', assignee: 'Dinh Trong Huy'},
+					{id: 'DEV-013', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer',  assignee: 'Bui Danh Tung'},
+					{id: 'DEV-014', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer',  assignee: 'Dao Trong Hoan'},
+					{id: 'DEV-015', assignmentDueDate: 'Jun 2nd Fri Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '7:45 AM', assignmentTeam: 'Frontend 1',  assignee: 'Dao Trong Hoan'},
 				].map(assignment => {
 			return (
 				<AssignmentBox
@@ -60,12 +62,14 @@ const suffix = (
 const OverviewTab = () => {
 
 	let kanbanData = [
-		{ Id: 1, Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Nancy Davloio', RankId: 1 },
-		{ Id: 2, Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Release Breaker', Tags: 'IE', Estimate: 2.5, Assignee: 'Janet Leverling', RankId: 2  },
-		{ Id: 3, Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'Low', Tags: 'Customer', Estimate: '3.5', Assignee: 'Steven walker', RankId: 1 },
-		{ Id: 4, Status: 'Close', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'Others', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Michael Suyama', RankId: 1 },
-		{ Id: 5, Status: 'Validate', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Low', Tags: 'Validation', Estimate: 1.5, Assignee: 'Robert King', RankId: 1 }
+		{ Id: 'DEV-011', Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung', RankId: 1 },
+		{ Id: 'DEV-012', Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Release Breaker', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy', RankId: 2  },
+		{ Id: 'DEV-013', Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'Low', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung', RankId: 1 },
+		{ Id: 'DEV-014', Status: 'Close', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'Others', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy', RankId: 1 },
+		{ Id: 'DEV-015', Status: 'Validate', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Low', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung', RankId: 1 },
+		// { Id: 'DEV-016', Status: 'Validate', Summary: 'Validate new 1', Type: 'Improvement', Priority: 'High', Tags: 'Validation', Estimate: 2, Assignee: 'Bui Danh Tung', RankId: 1 }
 	];
+
 	const cardTemplate = (props) => {
 
         return (
@@ -131,6 +135,16 @@ const OverviewTab = () => {
             </div>);
     }
 
+	const changeSprintHandler = () => {
+
+	}
+
+	const fields = [
+		{ text: 'ID', key: 'Id', type: 'TextBox' },
+        { key: 'Status', type: 'DropDown' },
+        { key: 'Estimate', type: 'Numeric' },
+        { key: 'Summary', type: 'TextArea' }
+	]
 	return (
 		<div className={styles.overviewTab}>
 			{/* <div style={{}}>
@@ -154,8 +168,45 @@ const OverviewTab = () => {
 				</div>
 			</div>
 			<div>
-			<p style={{fontSize: '20px', color: '#3d5c98', fontWeight: 700, marginBottom: '20px', marginTop: '20px'}}>Board</p>
-			<KanbanComponent id="kanban" keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }}>
+				<div style={{display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'space-between'}}>
+					<div style={{display: 'flex', alignItems: 'center', gap: '20px'}}>
+						<p style={{fontSize: '20px', color: '#3d5c98', fontWeight: 700, marginBottom: '20px', marginTop: '20px'}}>Board</p>
+						<Select
+							defaultValue="Sprint 14"
+							style={{
+								width: 120,
+								// borderWidth: 1,
+								// borderColor: '#3d5c98'
+							}}
+							bordered
+							onChange={changeSprintHandler}
+							options={[
+								{
+								value: 'sprint 14',
+								label: 'sprint 14',
+								},
+								{
+								value: 'sprint 13',
+								label: 'sprint 13',
+								},
+								{
+								value: 'sprint 12',
+								label: 'sprint 12',
+								},
+								{
+								value: 'sprint 11',
+								label: 'sprint 11',
+								disabled: true,
+								},
+							]}
+						/>
+
+					</div>
+					<div>
+						<Button shape="circle" icon={<PlusOutlined />} size={"large"} style={{backgroundColor: '#3d5c98', color: '#fff'}}/>
+					</div>
+				</div>
+			<KanbanComponent id="kanban" keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }} dialogSettings={{ fields : fields}} swimlaneSettings={{ keyField: "Assignee", textField: 'AssigneeName' }}>
                     <ColumnsDirective>
                     <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} />
                     <ColumnDirective headerText="In Progress" keyField="InProgress" template={columnTemplate}/>
@@ -227,8 +278,8 @@ const MembersTab = () => {
 				  />
 			  ),
 			onFilter: (value, record) => record.name.indexOf(value) === 0,
-			sorter: (a, b) =>  a.name.split(' ')[a.name.split(' ').length - 1].localeCompare(b.name.split(' ')[b.name.split(' ').length - 1]),
-			sortDirections: ['descend', 'ascend'],
+			// sorter: (a, b) =>  a.name.split(' ')[a.name.split(' ').length - 1].localeCompare(b.name.split(' ')[b.name.split(' ').length - 1]),
+			// sortDirections: ['descend', 'ascend'],
 			width: '70%',
 		  },
 		{
