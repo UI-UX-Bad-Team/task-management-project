@@ -143,44 +143,44 @@ export default class CustomCalendarToolbar extends Toolbar {
 	}
 
 	changePersonalBackgroundColor(color) {
+		const oldValue = this.state.personalBackgroundColor;
 		this.setState({personalColor: color.toHex()})
-		localStorage.removeItem('personalBackgroundColor');
 		localStorage.setItem('personalBackgroundColor', color.toHex());
-		window.dispatchEvent(new Event("storage")); //This is the important part
+		window.dispatchEvent(new Event("storage", {key : 'personalBackgroundColor', oldValue: oldValue, newValue: color.toHex()})); //This is the important part
 	}
 	changeTeamBackgroundColor(color) {
 		this.setState({teamColor: color.toHex()})
-		localStorage.removeItem('teamBackgroundcolor');
+		// localStorage.removeItem('teamBackgroundcolor');
 		localStorage.setItem('teamBackgroundcolor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changePersonalTextColor(color) {
 		this.setState({personalTextColor: color.toHex()})
-		localStorage.removeItem('personalTextColor');
+		// localStorage.removeItem('personalTextColor');
 		localStorage.setItem('personalTextColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changeTeamTextColor(color) {
 		this.setState({teamTextColor: color.toHex()})
-		localStorage.removeItem('teamTextColor');
+		// localStorage.removeItem('teamTextColor');
 		localStorage.setItem('teamTextColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the important part
 	}
 
 	changePersonalTimeboxColor(color) {
 		this.setState({personalTimeboxColor: color.toHex()})
-		localStorage.removeItem('personalTimeboxColor');
+		// localStorage.removeItem('personalTimeboxColor');
 		localStorage.setItem('personalTimeboxColor', color.toHex());
 		window.dispatchEvent(new Event("storage")); //This is the impo
 	}
 
 	changeTeamTimeboxColor(color) {
 		this.setState({teamTimeboxColor: color.toHex()})
-		localStorage.removeItem('teamTimeboxColor');
+		// localStorage.removeItem('teamTimeboxColor');
 		localStorage.setItem('teamTimeboxColor', color.toHex());
-		window.dispatchEvent(new Event("storage")); //This is the impo
+		window.dispatchEvent(new Event("storage", {key: 'teamTimeboxColor'})); //This is the impo
 	}
 
 	showColorSetting() {
@@ -194,9 +194,9 @@ export default class CustomCalendarToolbar extends Toolbar {
 			showingMonth : month,
 			showingYear : year,
 		})
-		localStorage.removeItem('showingYear');
+		// localStorage.removeItem('showingYear');
 		localStorage.setItem('showingYear', year);
-		localStorage.removeItem('showingMonth');
+		// localStorage.removeItem('showingMonth');
 		localStorage.setItem('showingMonth', month);
 		window.dispatchEvent(new Event("storage")); //This is the impo
 	}

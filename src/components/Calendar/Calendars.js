@@ -162,11 +162,14 @@ const Calendars = (props) => {
 	const [addEventButtonDisabled, setAddEventButtonDisabled] = useState(true);
 
 	useEffect(() => {
-		window.addEventListener('storage', () => {
-			console.log('changes');
-			const year = localStorage.getItem('showingYear');
-			const month = localStorage.getItem('showingMonth');
-			setDate(new Date(`${year}-${month}-1`));
+
+		window.addEventListener('storage', function (event){
+			
+			if (event.key === 'showingMonth' || event.key === 'showingYear') {
+				const year = localStorage.getItem('showingYear');
+				const month = localStorage.getItem('showingMonth');
+				setDate(new Date(`${year}-${month}-1`));
+			}
 		});
 	
 	}, []);

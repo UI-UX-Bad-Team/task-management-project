@@ -32,21 +32,19 @@ const openSucessfullyAddNotification = () => {
 };
 
 const EventBox = (props) => {
-	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor'));
-	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor'));
+	const [personalBackgroundColor, setPersonalBackgroundColor] = useState(localStorage.getItem('personalBackgroundColor') || 'b1c2e3');
+	const [personalTextColor, setPersonalTextColor] = useState(localStorage.getItem('personalTextColor')  || '3d5c98');
 	const [teamBackgroundColor, setTeamBackgroundColor] = useState(localStorage.getItem('teamBackgroundColor'));
 	const [teamTextColor, setTeamTextColor] = useState(localStorage.getItem('teamTextColor'));
-	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor'));
+	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor') || '63337a');
 	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor'));
 
 	const [teamColor, setTeamColor] = useState('1677FF');
 
 	useEffect(() => {
-		localStorage.setItem('personalBackgroundColor', 'B6BFD0')
-		localStorage.setItem('personalTextColor', '3d5c98')
-		localStorage.setItem('personalTimeboxColor', 'hsla(230,40%,50%,1)')
 
-		  window.addEventListener('storage', () => {
+		  window.addEventListener('storage', function (event){
+
 				setPersonalBackgroundColor(localStorage.getItem('personalBackgroundColor'));
 				setPersonalTextColor(localStorage.getItem('personalTextColor'));
 				setPersonalTimeboxColor(localStorage.getItem('personalTimeboxColor'));
