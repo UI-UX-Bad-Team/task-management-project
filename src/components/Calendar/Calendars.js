@@ -96,8 +96,8 @@ const events = [
 	  {
 		'title': 'ITSS coding',
 		'description' : 'Interface design for ITSS time attendance application',
-		'start': new Date(2023, 5, 7, 13, 5,0),
-		'end': new Date(2023, 5, 7, 16, 30, 0),
+		'start': new Date(2023, 5, 24, 13, 5,0),
+		'end': new Date(2023, 5, 26, 16, 30, 0),
 		'priority': 'high',
 		type:'personal'
 	  },
@@ -144,30 +144,30 @@ const events = [
 	  {
 		'title': 'Japanese learning',
 		'description' : 'Practice vocabulary and read JLPT N1 to prepare for the upcoming exam',
-		'start': new Date(2023, 5, 9, 19, 20,0),
-		'end': new Date(2023, 5, 9, 22, 30, 0),
+		'start': new Date(2023, 5, 28, 19, 20,0),
+		'end': new Date(2023, 5, 29, 22, 30, 0),
 		'priority': 'low',
 		type:'personal'
 	  },
 	  {
 		'title': 'Optimizing Utils I18n',
 		'description' : 'In i18n there are some regex that not optimized. Optimize them to Util work more efficent!',
-		'start': new Date(2023, 5, 5, 12, 40,0),
-		'end': new Date(2023, 5, 5, 15, 30, 0),
+		'start': new Date(2023, 5, 29, 12, 40,0),
+		'end': new Date(2023, 5, 30, 15, 30, 0),
 		type:'collaborative'
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
 		'description' : 'The color picker in Ui-kit is not showing properly. It show old value instead of new value. Please fix it. ',
-		'start': new Date(2023, 5, 5, 17, 40,0),
-		'end': new Date(2023, 5, 5, 20, 30, 0),
+		'start': new Date(2023, 5, 30, 17, 40,0),
+		'end': new Date(2023, 5, 30, 20, 30, 0),
 		type:'collaborative',
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
 		'description' : 'The color picker in Ui-kit is not showing properly. It show old value instead of new value. Please fix it. ',
-		'start': new Date(2023, 5, 5, 17, 40,0),
-		'end': new Date(2023, 5, 5, 20, 30, 0),
+		'start': new Date(2023, 5, 30, 17, 40,0),
+		'end': new Date(2023, 5, 30, 20, 30, 0),
 		type:'collaborative',
 	  },
 ]

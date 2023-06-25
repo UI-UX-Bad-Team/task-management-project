@@ -115,6 +115,18 @@ const MonthEventBox = (props) => {
 	const [personalTimeboxColor, setPersonalTimeboxColor] = useState(localStorage.getItem('personalTimeboxColor') || '63337a');
 	const [teamTimeboxColor, setTeamTimeboxColor] = useState(localStorage.getItem('teamTimeboxColor') || '63337a');
 	const [percent, setPercent] = useState(0);
+	const currentDate = new Date();
+	let comparedDate = 0;
+
+	if (props.event.start <= currentDate && currentDate <=  props.event.end) {
+		comparedDate = 0;
+	} else if (props.event.start > currentDate) {
+		comparedDate = 1;
+	} else {
+		comparedDate = -1;
+	}
+
+
 
 	useEffect(() => {
 		window.addEventListener('storage', (event) => {
@@ -275,8 +287,8 @@ const MonthEventBox = (props) => {
 					</div> : <ReporterSelect />}
 				</div> : ''}
 			</Modal>
-			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}`}}>
-				<div className={styles.timeBox} style={{backgroundColor: `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}`}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}` : (comparedDate === -1 ? "#ccc" : "#8bc9a5")}}>
+				<div className={styles.timeBox} style={{backgroundColor:  comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}` : (comparedDate === -1 ? '#555' : '#17783f')}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
 				<div className={styles.eventContent} style={{color: `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}`}}>{props.title}</div>
 			</div>
 			{showDetail && props.event.type === 'collaborative' ? <div className={styles.eventDetail} >

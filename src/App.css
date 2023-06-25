@@ -146,6 +146,9 @@ html {
 .rbc-toolbar-label:hover {
 	cursor: pointer;
 }
+.rbc-month-row {
+	height: 120px!important;
+}
 .rbc-day-bg {
 	overflow-y: scroll!important;
 }
