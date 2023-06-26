@@ -8,7 +8,7 @@ import projectsSampleData from "../../data/projects";
 import usersSampleData from "../../data/users";
 
 const {Content, Sider} = Layout;
-const navBarLabels = ['Dashboard', 'Teams', 'My projects', 'My assignments', 'Chat'];
+const navBarLabels = ['Dashboard', 'Workspaces', 'My teams', 'My assignments', 'Chat'];
 
 
 const menuItems = [HomeOutlined, LaptopOutlined,ProjectOutlined, NotificationOutlined, MessageOutlined].map((icon, index) => {
@@ -38,11 +38,11 @@ const MainLayout = (props) => {
 			
 		}
 		if(isNumeric(part)) {
-			if(pathNamePart[id-1] === 'teams') {
+			if(pathNamePart[id-1] === 'workspaces') {
 				breadcrumbItems.push(teamsSampleData[parseInt(part)].name)
 			}
 
-			if(pathNamePart[id-1] === 'projects') {
+			if(pathNamePart[id-1] === 'teams') {
 				breadcrumbItems.push(projectsSampleData[parseInt(part)].name)
 			}
 
@@ -64,9 +64,9 @@ const MainLayout = (props) => {
 		if(key === "sub1") {
 			navigate("/dashboard");
 		} else if (key === "sub2") {
-			navigate("/teams");
+			navigate("/workspaces");
 		} else if (key === "sub3") {
-			navigate("/my-projects")
+			navigate("/my-teams")
 		} else if (key === 'sub4') {
 			navigate('/my-assignments')
 		} else if (key === 'sub5') {
@@ -100,7 +100,7 @@ const MainLayout = (props) => {
 							borderRight: 0,
 						}}
 						defaultSelectedKeys={'sub1'} 
-						selectedKeys={pathName === '/dashboard' ? ['sub1'] : (pathName.includes('/teams') ? ["sub2"] : (pathName.includes('projects') ? ['sub3'] : (pathName.includes('assignments') ? ['sub4'] : ['sub5'])))}
+						selectedKeys={pathName === '/dashboard' ? ['sub1'] : (pathName.includes('/workspaces') ? ["sub2"] : (pathName.includes('teams') ? ['sub3'] : (pathName.includes('assignments') ? ['sub4'] : ['sub5'])))}
 						items={menuItems}
 						onSelect={navigateHandler}
 					/>

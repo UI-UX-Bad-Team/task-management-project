@@ -79,8 +79,8 @@ const AvatarGroup = () => {
 
 const OverviewTab = (props) => {
 	const params = useParams();
-	const teamId = params.teamId;
-	const teamInfo = teamsSampleData[teamId];
+	const workspaceId = params.workspaceId;
+	const teamInfo = teamsSampleData[workspaceId];
 
 	const cardTemplate = (props) => {
 
@@ -161,7 +161,8 @@ const OverviewTab = (props) => {
 					<p className={styles.organizationText}>Found Date: <p className={styles.teamInfoText}>{teamInfo.foundDate}</p></p>
 					<p className={styles.organizationText}>Members number: <p className={styles.teamInfoText}>{teamInfo.memberNumber}</p></p>
 					<p className={styles.organizationText}>
-						Description: <p className={styles.teamInfoText} style={{fontWeight: 400}}> This is a funny teams :))). Enjoy it</p>
+						Description: <p className={styles.teamInfoText} style={{fontWeight: 400}}> We are a team specializing in providing fast solutions for software development.
+</p>
 					</p>
 				</div>
 			</div>
@@ -188,7 +189,7 @@ const openSucessfullyAddNotification = () => {
 					</svg>
 					  <p style={{color: '#2F88FF', fontWeight: 600}}>Welcome Tung!!</p>,
 				 </div>,
-	  description: 'You has been added to team !',
+	  description: 'You has been added to workspace !',
 	  onClick: () => {
 		console.log('Notification Clicked!');
 	  },
@@ -205,8 +206,8 @@ const ProjectsTab = () => {
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate(); 
 	const params = useParams();
-	const teamId = params.teamId;
-	const selectedTeam = teamsSampleData.filter(team => {return team.id === parseInt(teamId)});
+	const workspaceId = params.workspaceId;
+	const selectedTeam = teamsSampleData.filter(team => {return team.id === parseInt(workspaceId)});
 	const selectedTeamProjectIds = selectedTeam[0].projectIds;
 	const projectData = [];
 	projectsSampleData.forEach(project => {
@@ -251,9 +252,9 @@ const ProjectsTab = () => {
 
 	return (
 		<div>
-			<Modal title="Create your project" open={isCreateProjectModalOpen} onOk={handleCreateTeamOk} onCancel={handleCreateTeamCancel} okButtonProps={{disabled: createTeamConfirmButtonDisabled}}>
-					<p style={{marginBottom: '6px', color: '#3d5c98', fontWeight: 600}}>Project name: </p>
-					<Input placeholder="Enter team name" onChange={(e) => {
+			<Modal title="Create your team" open={isCreateProjectModalOpen} onOk={handleCreateTeamOk} onCancel={handleCreateTeamCancel} okButtonProps={{disabled: createTeamConfirmButtonDisabled}}>
+					<p style={{marginBottom: '6px', color: '#3d5c98', fontWeight: 600}}>Team name: </p>
+					<Input placeholder="Enter workspace name" onChange={(e) => {
 						if(e.target.value.length > 0) {setCreateTeamConfirmButtonDisabled(false)}
 						else {
 							setCreateTeamConfirmButtonDisabled(true);
@@ -264,19 +265,19 @@ const ProjectsTab = () => {
 					<p style={{marginBottom: '6px', marginTop: '10px', color: '#3d5c98', fontWeight: 600}}>Privacy: </p>
 					<Select
 						size={'middle'}
-						defaultValue= 'Private - Only team owners can add members'
+						defaultValue= 'Private - Only workspace owners can add members'
 						style={{
 							width: 470,
 						}}
 						options={[
 							{label: 'Public - Anyone in your organization can join', value : 1}, 
-							{label: 'Private - Only team member can see it', value : 2}, 
+							{label: 'Private - Only workspace member can see it', value : 2}, 
 						]}
 					/>
 			</Modal>
 			<Modal
 					open={open}
-					title="Join or create project"
+					title="Join or create team"
 					onOk={handleOk}
 					onCancel={handleCancel}
 					footer={[
@@ -284,18 +285,18 @@ const ProjectsTab = () => {
 				>
 					<div className={styles.addTeamModalContent}>
 						<div className={styles.createTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a project</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a team</p>
 							<AvatarGroup />
 							<p className={styles.sloganText} style={{textAlign: 'center'}}>Bring everyone together and get to work!!</p>
 							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: '80%'}} onClick={addTeamModal}>
 								<div className={styles.addButonContainer1} style={{paddingLeft: '8px'}} onClick={() => {showProjectCreateModal()}}>
 									<ProjectIcon />
-									<p>Create new project</p>
+									<p>Create new team</p>
 								</div>
 							</div>
 						</div>
 						<div className={styles.joinTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Join a project with a code</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Join with code</p>
 							<Input placeholder="Enter Code" onChange={(e) => {
 								if(e.target.value.length > 0) {setJoinButtonDisabled(false)}
 								else {
@@ -303,12 +304,12 @@ const ProjectsTab = () => {
 									}
 								}
 							}/>
-							<p className={styles.joinSloganText} style={{textAlign: 'center'}}>Got a code to join a team. Enter it above</p>
+							<p className={styles.joinSloganText} style={{textAlign: 'center'}}>Got a code to join a workspace. Enter it above</p>
 							<div className={styles.joinButton}>
 								<Button disabled={joinButtonDisabled} onClick={() => {
 									openSucessfullyAddNotification();
 									handleOk();
-								}}>Join Project</Button>
+								}}>Join Team</Button>
 							</div>
 						</div>
 					</div>
@@ -318,7 +319,7 @@ const ProjectsTab = () => {
 						<ProjectIcon color="#fff"/>
 						<p onClick={() => {
 							addTeamModal();
-						}}>Join or create project</p>
+						}}>Join or create team</p>
 					</div>
 					<Search
 							placeholder="search by name or id"
@@ -344,7 +345,7 @@ const ProjectsTab = () => {
 						}
 						title={
 							<div style={{display: 'flex', justifyContent: 'space-between'}}>
-								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}} onClick={() => {navigate(`/teams/${teamId}/projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
+								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}} onClick={() => {navigate(`/workspaces/${workspaceId}/teams/${item.id}`)}}>{item.name.toUpperCase()}</div>
 								<div style = {{display: 'flex', gap: '3px'}}>
 									<StarOutlined style={{fontSize: '19px', height: '100%'}}/>
 									<div style={{color: '#000', fontWeight: '600'}}>{item.starredNum}</div>
@@ -421,7 +422,7 @@ const MembersTab = () => {
 						</svg>
 			  			<p style={{color: '#2F88FF', fontWeight: 600}}>Sucessfully add !!</p>,
 			  	   </div>,
-		  description: 'These users has been added to this team.',
+		  description: 'These users has been added to this workspace.',
 		  onClick: () => {
 			console.log('Notification Clicked!');
 		  },
@@ -438,7 +439,7 @@ const MembersTab = () => {
 						</svg>
 			  			<p style={{color: '#2F88FF', fontWeight: 600}}>Sucessfully remove!!</p>,
 			  	   </div>,
-		  description: 'These users has been removed to this team.',
+		  description: 'These users has been removed to this workspace.',
 		  onClick: () => {
 		  },
 		});
@@ -454,8 +455,8 @@ const MembersTab = () => {
 
 	useEffect(() => {
 
-		const teamId = params.teamId;
-		const teamInfo = teamsSampleData[teamId];
+		const workspaceId = params.workspaceId;
+		const teamInfo = teamsSampleData[workspaceId];
 		const membersId = teamInfo.projectIds.reduce((acc, cur) => {
 		acc = acc.concat(projectsSampleData.filter(project => project.id === cur)[0].memberIds)
 				return acc;
@@ -705,7 +706,7 @@ const DiscussionTab = () => {
 	},
 	{
 		key: '2',
-		label: `Projects`,
+		label: `Teams`,
 		children: <ProjectsTab />,
 	  },
 	{
@@ -727,8 +728,8 @@ const DiscussionTab = () => {
 
 const TeamDetail = (props) => {
 	const params = useParams();
-	const teamId = params.teamId;
-	const teamInfo = teamsSampleData[teamId];
+	const workspaceId = params.workspaceId;
+	const teamInfo = teamsSampleData[workspaceId];
 	const tabChange = (key) => {
 
 	}

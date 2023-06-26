@@ -88,6 +88,14 @@ const events = [
 		type:'personal'
 	  },
 	  {
+		'title': 'Cloud learning',
+		'description' : 'Starting learning cloud',
+		'start': new Date(2023, 5, 27, 16, 20,0),
+		'end': new Date(2023, 5, 28, 18, 30, 0),
+		'priority': 'low',
+		type:'personal'
+	  },
+	  {
 		'title': 'Japanese learning',
 		'description' : 'Practice vocabulary and read JLPT N1 to prepare for the upcoming exam',
 		'start': new Date(2023, 5, 28, 19, 20,0),

@@ -2,7 +2,7 @@ import {useState} from 'react';
 import styles from './MyProjects.module.css';
 import MainLayout from '../../components/layout/MainLayout';
 import {List, Avatar, Tooltip, Input, Skeleton} from 'antd';
-import { StarOutlined, StarFilled, UserOutlined, AudioOutlined } from '@ant-design/icons';
+import { StarOutlined, UserOutlined, AudioOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 
 const { Search } = Input;
@@ -20,8 +20,8 @@ const suffix = (
 const sampleData = [
 	{
 		id: 0,
-		name: 'web-crawler-project',
-		description: 'The project that crawls historical data of many websites and render them into easy form.',
+		name: 'web-crawler-team',
+		description: 'The team that crawls historical data of many websites and render them into easy form.',
 		memberIds: [{0: 'Admin'}, {4: 'Read'}, {7: 'Write'}, {10: 'Maintain'}],
 		assignments: [{
 			description: '',
@@ -36,8 +36,8 @@ const sampleData = [
 	},
 	{
 		id: 1,
-		name: 'task-managemet-project',
-		description: 'The website project that supports tash management for personal uses.',
+		name: 'task-managemet-team',
+		description: 'The website team that supports tash management for personal uses.',
 		memberIds: [{1: 'Admin'}, {3:'Review'}, {5: 'Write'}, {7 : 'Read'}, {12:'Write'}, {11:'Write'}, {18:'Write'}],
 		assignments: [],
 		starredNum: 3,
@@ -70,7 +70,7 @@ const MyProjectTab = () => {
 
 	return (
 		<div className={styles.myProjectTab}>
-			<div style={{fontSize: '24px', fontWeight: 700, color: '#3d5c98', marginBottom: '30px' }}>My project list</div>
+			<div style={{fontSize: '24px', fontWeight: 700, color: '#3d5c98', marginBottom: '30px' }}>My team list</div>
 			<div className={styles.searchInputContainer}>
 				<Search
 						placeholder="search by name or id"
@@ -97,7 +97,7 @@ const MyProjectTab = () => {
 						}
 						title={
 							<div style={{display: 'flex', justifyContent: 'space-between'}}>
-								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}}  onClick={() => {navigate(`/my-projects/${item.id}`)}}>{item.name.toUpperCase()}</div>
+								<div className={styles.projectName} href="#" style={{color: '#3d5c98', fontWeight: '700', fontSize: '18px'}}  onClick={() => {navigate(`/my-teams/${item.id}`)}}>{item.name.toUpperCase()}</div>
 								<div style = {{display: 'flex', gap: '3px'}}>
 									<StarOutlined style={{fontSize: '19px', height: '100%'}}/>
 									<div style={{color: '#000', fontWeight: '600'}}>{item.starredNum}</div>

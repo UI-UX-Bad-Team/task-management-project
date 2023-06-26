@@ -1,10 +1,18 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './MonthEventBox.module.css';
-import {Modal, Button, notification, Avatar, DatePicker,Select, Input, Progress} from 'antd';
+import {Modal, Button, notification, Avatar, DatePicker,Select, Input, Progress, Rate} from 'antd';
 import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
 import lottie from 'lottie-web';
 import { useNavigate } from "react-router";
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusOutlined, PlusOutlined, FrownOutlined, MehOutlined, SmileOutlined } from '@ant-design/icons';
+
+const customIcons = {
+	1: <FrownOutlined />,
+	2: <FrownOutlined />,
+	3: <MehOutlined />,
+	4: <SmileOutlined />,
+	5: <SmileOutlined />,
+  };
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -240,10 +248,13 @@ const MonthEventBox = (props) => {
 					Detail
 			  	</Button>,
 			]}>	
-				<div style={{display: 'flex', gap: '5px', marginBottom: '20px', alignItems: 'center'}}>
-					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Time:</p>
-					{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
-					<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
+				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginTop: '10px'}}>
+					<div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
+						<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Time:</p>
+						{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
+						<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
+					</div>
+					{comparedDate === -1 ? <Rate defaultValue={3} character={({ index }) => customIcons[index + 1]} /> : ""}
 				</div>
 				{props.event.type === 'collaborative' ?<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Type:</p>

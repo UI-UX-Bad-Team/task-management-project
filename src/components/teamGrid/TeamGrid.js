@@ -51,7 +51,7 @@ const TeamGrid = () => {
 						</svg>
 			  			<p style={{color: '#2F88FF', fontWeight: 600}}>Welcome Tung!!</p>,
 			  	   </div>,
-		  description: 'You has been added to team !',
+		  description: 'You has been added to workspace !',
 		  onClick: () => {
 			console.log('Notification Clicked!');
 		  },
@@ -88,8 +88,8 @@ const TeamGrid = () => {
 	return (
 		<div className={styles.teamGrid}>
 				<Modal title="Create your team" open={isCreateTeamModalOpen} onOk={handleCreateTeamOk} onCancel={handleCreateTeamCancel} okButtonProps={{disabled: createTeamConfirmButtonDisabled}}>
-					<p style={{marginBottom: '6px', color: '#3d5c98', fontWeight: 600}}>Team name: </p>
-					<Input placeholder="Enter team name" onChange={(e) => {
+					<p style={{marginBottom: '6px', color: '#3d5c98', fontWeight: 600}}>Workspace name: </p>
+					<Input placeholder="Enter workspace name" onChange={(e) => {
 						if(e.target.value.length > 0) {setCreateTeamConfirmButtonDisabled(false)}
 						else {
 							setCreateTeamConfirmButtonDisabled(true);
@@ -100,19 +100,19 @@ const TeamGrid = () => {
 					<p style={{marginBottom: '6px', marginTop: '10px', color: '#3d5c98', fontWeight: 600}}>Privacy: </p>
 					<Select
 						size={'middle'}
-						defaultValue= 'Private - Only team owners can add members'
+						defaultValue= 'Private - Only workspace owners can add members'
 						style={{
 							width: 470,
 						}}
 						options={[
 							{label: 'Public - Anyone in your organization can join', value : 1}, 
-							{label: 'Private - Only team owners can add members', value : 2}, 
+							{label: 'Private - Only workspace owners can add members', value : 2}, 
 						]}
 					/>
 				</Modal>
 				<Modal
 					open={open}
-					title="Join or create team"
+					title="Join or create workspace"
 					onOk={handleOk}
 					onCancel={handleCancel}
 					footer={[
@@ -120,18 +120,18 @@ const TeamGrid = () => {
 				>
 					<div className={styles.addTeamModalContent}>
 						<div className={styles.createTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a team</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Create a workspace</p>
 							<AvatarGroup />
 							<p className={styles.sloganText} style={{textAlign: 'center'}}>Bring everyone together and get to work!!</p>
 							<div className={styles.createTeamButton} style={{display: 'flex', justifyContent: 'center', width: 'max-content'}} onClick={addTeamModal}>
 								<div className={styles.addButonContainer1} style={{marginLeft: '30px', paddingLeft: '20px', width: 'max-content'}} onClick={() => {showTeamCreateModal()}}>
 									<UsergroupAddOutlined />
-									<p>Create team</p>
+									<p>Create workspace</p>
 								</div>
 							</div>
 						</div>
 						<div className={styles.joinTab}>
-							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Join a team with a code</p>
+							<p style={{textAlign: 'center', fontSize: '18px', fontWeight: 600, color: '#3d5c98', marginTop: '20px'}}>Join with code</p>
 							<Input placeholder="Enter Code" onChange={(e) => {
 								if(e.target.value.length > 0) {setJoinButtonDisabled(false)}
 								else {
@@ -139,21 +139,21 @@ const TeamGrid = () => {
 									}
 								}
 							}/>
-							<p className={styles.joinSloganText} style={{textAlign: 'center'}}>Got a code to join a team. Enter it above</p>
+							<p className={styles.joinSloganText} style={{textAlign: 'center'}}>Got a code to join a workspace. Enter it above</p>
 							<div className={styles.joinButton}>
 								<Button disabled={joinButtonDisabled} onClick={() => {
 									openSucessfullyAddNotification();
 									handleOk();
-								}}>Join Team</Button>
+								}}>Join workspace</Button>
 							</div>
 						</div>
 					</div>
 				</Modal>
-			<Divider orientation="left" style={{color: '#3d5c98'}}>My Teams</Divider>
+			<Divider orientation="left" style={{color: '#3d5c98'}}>My Workspaces</Divider>
 				<div style={{display: 'flex', justifyContent: 'space-between'}}>
 					<div className={styles.addButonContainer} onClick={addTeamModal}>
 						<UsergroupAddOutlined />
-						<p>Join or create team</p>
+						<p>Join or create workspace</p>
 					</div>
 					<Search
 							placeholder="search by name or id"

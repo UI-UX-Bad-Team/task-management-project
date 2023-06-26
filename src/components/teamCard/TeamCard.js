@@ -9,8 +9,8 @@ const TeamCard = (props) => {
 
 	const navigate = useNavigate();
 
-	const seeTeamDetailHandler = (teamId) => {
-		navigate(`/teams/${teamId}`);
+	const seeTeamDetailHandler = (workspaceId) => {
+		navigate(`/workspaces/${workspaceId}`);
 	}
 
 	return (

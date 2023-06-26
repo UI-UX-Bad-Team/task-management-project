@@ -1,8 +1,8 @@
 const teamsSampleData =  [
 	{
 		id: 0, 
-		name: 'Frontend Developer',
-		description: 'A funny team',
+		name: 'CocCoc advertisement management',
+		description: 'Managing all problems about CocCoc advertisement. ',
 		organization: 'Sun asterisk VN',
 		department: 'Web development',
 		foundDate: '20/10/2010',
@@ -12,8 +12,8 @@ const teamsSampleData =  [
 	}, 
 	{
 		id: 1, 
-		name: 'Search Engineer',
-		description: 'A funny team',
+		name: 'Sun* Search Engineer',
+		description: 'We are Sun asterisk search engineer.',
 		organization: 'Sun asterisk VN',
 		department: 'Search Engine',
 		foundDate: '02/09/2013',
@@ -23,7 +23,7 @@ const teamsSampleData =  [
 	}, 
 	{
 		id: 2, 
-		name: 'Backend PHP team',
+		name: 'DAC Data analysis',
 		description: 'A funny team',
 		organization: 'CocCoc',
 		department: 'Advertisement Managment',
@@ -34,7 +34,7 @@ const teamsSampleData =  [
 	},
 	{
 		id: 3, 
-		name: 'Schooler developer',
+		name: 'Schooler frontend developer',
 		description: 'A funny team',
 		organization: 'Sun asterisk VN',
 		department: 'GEU',
