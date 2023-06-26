@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import Toolbar from 'react-big-calendar/lib/Toolbar';
-import {Popover, Calendar, Col, Row, Select, theme, ColorPicker, Divider} from 'antd';
+import {Popover, Calendar, Col, Row, Select, theme, ColorPicker, Divider, Switch} from 'antd';
 import {RightOutlined, LeftOutlined} from '@ant-design/icons';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
@@ -128,7 +128,8 @@ export default class CustomCalendarToolbar extends Toolbar {
 				teamTimeboxColor: '3d5c98',
 				showingMonth: 6,
 				showingYear: 2023,
-				isSetting: false
+				isSetting: false,
+				overlap: true,
 			};
 		this.changePersonalBackgroundColor = this.changePersonalBackgroundColor.bind(this);
 		this.changePersonalTextColor = this.changePersonalTextColor.bind(this);
@@ -137,7 +138,7 @@ export default class CustomCalendarToolbar extends Toolbar {
 		this.changePersonalTimeboxColor = this.changePersonalTimeboxColor.bind(this);
 		this.changeTeamTimeboxColor = this.changeTeamTimeboxColor.bind(this);
 		this.showColorSetting = this.showColorSetting.bind(this);
-		// this.getMonthHandler = this.getMonthHandler.bind(this);
+		this.changeOverlapHandler = this.changeOverlapHandler.bind(this);
 	}
 
 	componentDidMount() {
@@ -189,10 +190,21 @@ export default class CustomCalendarToolbar extends Toolbar {
 		}))
 	}
 
+	changeOverlapHandler() {
+		this.props.toggleOverLap()
+		this.setState((state) => ({
+			overlap: !state.overlap
+		}))
+	}
+
 render() {
 		return (
 		<div>
-			<div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 20, marginBottom: 15,}}>
+			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, marginBottom: 15,}}>
+				<div style={{display: 'flex', gap: 5}}>
+					<p>Events Overlap:   </p>
+					<Switch defaultChecked onChange={this.changeOverlapHandler}/>
+				</div>
 				{   !this.state.isSetting ?
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Customize event color</a> :
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Hide color picker</a>

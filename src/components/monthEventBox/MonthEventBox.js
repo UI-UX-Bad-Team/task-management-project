@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import styles from './MonthEventBox.module.css';
 import {Modal, Button, notification, Avatar, DatePicker,Select, Input, Progress} from 'antd';
-import { HighestIcon } from '../../data/priorityIcon';
+import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
 import lottie from 'lottie-web';
 import { useNavigate } from "react-router";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
@@ -259,7 +259,7 @@ const MonthEventBox = (props) => {
 					{!isEditting ? 
 					<div style={{display: 'flex', gap: '5px'}}>
 						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>{props.event.priority}</p>
-						<HighestIcon />
+						{props.event.priority === 'highest' ? <HighestIcon /> : (props.event.priority === 'high' ? <HighIcon /> : (props.event.priority === 'critical' ? <CriticalIcon /> : (props.event.priority === 'low' ? <LowIcon /> : <LowestIcon />)))}
 					</div> : <PriorityTypeSelect />
 					}
 				</div>
@@ -298,7 +298,6 @@ const MonthEventBox = (props) => {
 					<div className="bug-lottie-container" ref={container} style={{ width: '22px', height: '22px' }}></div>
 				</div>
 				<div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '3px'}}>
-					<p style={{color: '#666', fontWeight: 600, fontSize: '12px'}}>Tung</p>
 					<Avatar.Group>
 						<Avatar src='/images/avatar1.jpg' size={26}/>
 						<Avatar src='/images/avatar2.jpg' size={26}/>

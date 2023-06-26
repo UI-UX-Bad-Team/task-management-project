@@ -2,7 +2,7 @@
 import styles from './EventBox.module.css';
 import {useState, useEffect} from 'react';
 import {Modal,Button,notification, Avatar, Progress, DatePicker, Select,Input} from 'antd';
-import { HighestIcon } from '../../data/priorityIcon';
+import { HighestIcon, CriticalIcon, HighIcon, LowIcon, LowestIcon } from '../../data/priorityIcon';
 import { useNavigate } from "react-router";
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
@@ -156,6 +156,7 @@ const EventBox = (props) => {
       return newPercent;
     });
   };
+
   const decline = () => {
     setPercent((prevPercent) => {
       const newPercent = prevPercent - 10;
@@ -198,7 +199,8 @@ const EventBox = (props) => {
 					{!isEditting ? 
 					<div style={{display: 'flex', gap: '5px'}}>
 						<p style={{fontSize: '14px', fontWeight: 600, color: '#000'}}>{props.event.priority}</p>
-						<HighestIcon />
+						{/* <HighIcon /> */}
+						 {props.event.priority === 'highest' ? <HighestIcon /> : (props.event.priority === 'high' ? <HighIcon /> : (props.event.priority === 'critical' ? <CriticalIcon /> : (props.event.priority === 'low' ? <LowIcon /> : <LowestIcon />)))}
 					</div> : <PriorityTypeSelect />
 					}
 				</div>
