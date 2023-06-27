@@ -57,12 +57,20 @@ const GeneralTab = () => {
 
 	const selectedAssignment = db[assignmentId-1]
 
-	const addCommentHandler = (value) => {
-		setComments(prev => [...prev, value])
+	const addCommentHandler = () => {
+
+		// const content = getCommentValueHandler();
+
+		// setComments(prev => [...prev, {
+		// 	createdPerson: 'Bui Danh Tung',
+		// 	createdTime: new Date().toLocaleDateString(),
+		// 	isEditted: false,
+		// 	commentContent: value,
+		// }])
 	}
 
 	const getCommentValueHandler = (html) => {
-		setComments(prev => [...prev, html])
+		addCommentHandler(html);
 	}
 
 	return (

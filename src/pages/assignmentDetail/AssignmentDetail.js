@@ -1,9 +1,9 @@
 import styles from './AssignmentDetail.module.css';
 import AssignmentsDetailsTab from '../../components/assignmentDetailTab/AssignmentDetailTab';
 import MainLayout from '../../components/layout/MainLayout';
-import { EyeFilled, MoreOutlined, CloseOutlined, ClockCircleOutlined} from '@ant-design/icons';
+import { EyeFilled, MoreOutlined, CloseOutlined, ClockCircleOutlined, MinusCircleFilled,CheckCircleFilled } from '@ant-design/icons';
 import { ShareIcon } from '../../data/icon';
-import { Avatar, Select, Progress, Skeleton } from 'antd';
+import { Avatar, Select, Progress, Skeleton, Button, Dropdown } from 'antd';
 import {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
@@ -18,6 +18,32 @@ let db = [
 	{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
 ];
 
+const mergeItems = [
+	{
+	  key: '1',
+	  label: (
+		<a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+		  1st menu item
+		</a>
+	  ),
+	},
+	{
+	  key: '2',
+	  label: (
+		<a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+		  2nd menu item
+		</a>
+	  ),
+	},
+	{
+	  key: '3',
+	  label: (
+		<a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+		  3rd menu item
+		</a>
+	  ),
+	},
+  ];
 const priorityIcon = {
 	'Low' : <LowIcon />,
 	'Lowest' : <LowestIcon />,
@@ -40,6 +66,9 @@ const AssignmentDetail1 = () => {
 	const params = useParams();
 	const assignmentId = parseInt(params.assignmentId);
 	const selectedAssignment = db[assignmentId-1]
+	const [requestChange, setRequestChange] = useState(false);
+	const [approved, setApproved] = useState(false);
+
 
 	const hidePanelHandler = () => {
 		setIsHidePanel(true);
@@ -67,6 +96,11 @@ const AssignmentDetail1 = () => {
 							<MoreOutlined style={{fontSize: '20px', fontWeight: 700, transform: 'rotate(90deg)'}}/>
 							<CloseOutlined onClick={() => {hidePanelHandler()}}/>
 						</div>
+					</div>
+					<div style={{marginBottom: '10px'}}>
+						<Button size={"medium"} icon={<MinusCircleFilled />} style={{ background: !requestChange ? "#b1bd5b" : '#3d5c98', color: !requestChange ? '#1e2a59' : '#fff', fontWeight: 600}} onClick={() => {setRequestChange(true)}}> {!requestChange ?  'Request change' : 'Requested change'}</Button>
+						<Button size={"medium"} icon={<CheckCircleFilled />} style={{ background: !approved ? "#ccc" : '#3d5c98', color: !approved ? '#1e2a59' : '#fff', fontWeight: 600}} onClick={() => {setApproved(prev => !prev)}}>{!approved ? 'Approve' : 'Unapprove'}</Button>
+						
 					</div>
 					<p style={{fontSize: '14px', color: '#777', fontWeight: 600, marginBottom: '15px'}}>STATUS</p>
 					<Select
