@@ -5,10 +5,41 @@ import { EyeFilled, MoreOutlined, CloseOutlined, ClockCircleOutlined} from '@ant
 import { ShareIcon } from '../../data/icon';
 import { Avatar, Select, Progress, Skeleton } from 'antd';
 import {useState} from 'react';
-import {HighestIcon} from '../../data/priorityIcon'
+import {useParams} from 'react-router-dom';
+import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
+
+let db = [
+	{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1 },
+	{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Critical', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Reviewer:"Ta Duc Tien",Cc:"Dao Trong Hoan", RankId: 2  },
+	{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh",Cc:"Nguyen Duy Hung", RankId: 1 },
+	{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Reviewer: "Ta Duc Tien",Cc:"Bui Danh Tung", RankId: 1 },
+	{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1 },
+	{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
+];
+
+const priorityIcon = {
+	'Low' : <LowIcon />,
+	'Lowest' : <LowestIcon />,
+	'Critical' : <CriticalIcon />,
+	'High' : <HighIcon />,
+	'Highest' : <HighestIcon />,
+}
+
+const issueTypeIcon = {
+	'Bug' : <BugType />,
+	'Improvement' : <ImprovementType />,
+	'Story' : <StoryType />,
+	'NewFeature' : <NewFeatureType />,
+	'Subtask' : <SubtaskType />
+}
+
 const AssignmentDetail1 = () => {
 
 	const [isHidePanel, setIsHidePanel] = useState(false);
+	const params = useParams();
+	const assignmentId = parseInt(params.assignmentId);
+	const selectedAssignment = db[assignmentId-1]
 
 	const hidePanelHandler = () => {
 		setIsHidePanel(true);
@@ -93,8 +124,8 @@ const AssignmentDetail1 = () => {
 					</div>
 					<p style={{fontSize: '14px', color: '#777', fontWeight: 600, marginBottom: '10px', marginTop: '20px'}}>PRIORITY: </p>
 					<div className={styles.priority}>
-						<HighestIcon />
-						<p className={styles.priorityText}>Highest Priority</p>
+						{priorityIcon[selectedAssignment.Priority]}
+						<p className={styles.priorityText}>{selectedAssignment.Priority} Priority</p>
 					</div>
 				</div>
 				<div className={styles.createdTime}>

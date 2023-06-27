@@ -1,21 +1,36 @@
 import styles from './CommentBox.module.css';
 import {Avatar} from 'antd';
 
-const CommentBox = () => {
+const image = {
+	'Bui Danh Tung': '/images/avatar1.jpg',
+	'Dao Trong Hoan': '/images/avatar2.jpg',
+	'Dinh Trong Huy':'/images/avatar3.jpg',
+	'Ta Duc Tien':'/images/avatar4.jpg',
+	'Vu Minh Dang':'/images/avatar5.jpg',
+	'Nguyen Duy Hung' :'/images/avatar6.jpg',
+	'Pham Trung Dung' :'/images/avatar7.jpg',
+	'Mac Van Khanh' :'/images/avatar8.jpg',
+};
+
+
+const CommentBox = (props) => {
 
 	return (
 		<div className={styles.commentBox}>
 			<div className={styles.avatarContainer}>
-				<Avatar src='/images/avatar4.jpg'/>
+				<Avatar src={image[props.createdPerson]}/>
 			</div>
 			<div className={styles.commentContent}>
 				<div className={styles.commentHeader}>
-					<p className={styles.commentPerson}>Bui Danh Tung</p>
-					<p className={styles.commentTime}>Mar 13, 2023, 10:09AM</p>
-					<p className={styles.edited}>Edited</p>
+					<p className={styles.commentPerson}>{props.createdPerson}</p>
+					<p className={styles.commentTime}>{props.createdTime}</p>
+					{
+						props.isEditted ? 
+					<p className={styles.edited}>Editted</p> : ""
+					}
 				</div>
 				<div className={styles.commentText}>
-					<p>You should prepare document perfectly before making slide for presentation</p>
+					<p>{props.commentContent}</p>
 				</div>
 			</div>
 		</div>

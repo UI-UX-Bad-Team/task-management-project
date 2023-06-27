@@ -5,21 +5,44 @@ import {Tabs, Tag, Avatar, Modal, Image, Input, Button} from 'antd';
 import { SubnodeOutlined, LinkOutlined, MoreOutlined, PlusOutlined, ArrowUpOutlined } from '@ant-design/icons';
 import ImageUpload from '../imageUpload/ImageUpload';
 import CommentBox from '../commentBox/CommentBox';
-import { BugType } from '../../data/issueTypes';
+import {useParams} from 'react-router-dom';
+import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
+import 'react-quill/dist/quill.snow.css';
+import Editor from './Editor';
 
-const { TextArea } = Input;
+let db = [
+	{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1 },
+	{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Critical', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Reviewer:"Ta Duc Tien",Cc:"Dao Trong Hoan", RankId: 2  },
+	{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh",Cc:"Nguyen Duy Hung", RankId: 1 },
+	{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Reviewer: "Ta Duc Tien",Cc:"Bui Danh Tung", RankId: 1 },
+	{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1 },
+	{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
+];
 
-const sampleAssignment = {
-	title: 'Prepare ppt for tomorrow presentation',
-	description: 'Tomorrow we hava an important meeting, so please prepare a slide for presentation. ',
-	assignee: 'Dinh Trong Huy',
-	reviewer: 'Dao Trong Hoan'
+
+const issueTypeIcon = {
+	'Bug' : <BugType />,
+	'Improvement' : <ImprovementType />,
+	'Story' : <StoryType />,
+	'NewFeature' : <NewFeatureType />,
+	'Subtask' : <SubtaskType />
 }
-
+const initialComment = [
+	{
+		createdPerson : 'Dinh Trong Huy',
+		createdTime: new Date().toLocaleString(),
+		isEditted : true,
+		commentContent : "please read doc more carefully because there are some point that not clear."
+	}
+]
 
 const GeneralTab = () => {
+	const params = useParams();
+	const assignmentId = parseInt(params.assignmentId);
+	const [comments, setComments] = useState(initialComment);
 	const [uploadModalOpen, setUploadModalOpen] = useState(false);
-	
+
 	const openUploadImageModal = () => {
 		setUploadModalOpen(true);
 	}	
@@ -32,32 +55,41 @@ const GeneralTab = () => {
 		setUploadModalOpen(false);
 	};
 
+	const selectedAssignment = db[assignmentId-1]
+
+	const addCommentHandler = (value) => {
+		setComments(prev => [...prev, value])
+	}
+
+	const getCommentValueHandler = (html) => {
+		setComments(prev => [...prev, html])
+	}
+
 	return (
 		<div className={styles.generalTab}>
 			<Modal title="Basic Modal" open={uploadModalOpen} onOk={handleOk} onCancel={handleCancel} size={'large'} style={{maxWidth: '600px', maxHeight: '800px'}}>
 				<ImageUpload />
 			</Modal>
 			<p className={styles.descriptionTitle}> Description</p>
-			<p className={styles.description}>{sampleAssignment.description}</p>
+			<p className={styles.description}>{selectedAssignment.Summary}</p>
 			<div className={styles.assignee}>
 				<p className={styles.assigneeTitle}>Assignee: </p>
 				<div className={styles.assigneeName}>
 					<Avatar src={'/images/avatar1.jpg'} size={28} />
-					{sampleAssignment.assignee}
+					{selectedAssignment.Assignee}
 				</div>
 			</div>
 			<div className={styles.reviewer}>
 				<p className={styles.reviewerTitle}>Reviewer: </p>
 				<div className={styles.reviewerName}>
 					<Avatar src={'/images/avatar2.jpg'} size={28} />
-					{sampleAssignment.reviewer}
+					{selectedAssignment.Reviewer}
 				</div>
 			</div>
 			<div className={styles.components}>
 				<p className={styles.componentsTitle}>Components: </p>
 				<div className={styles.componentTags}>
-					<Tag color="#f50">ppt</Tag>
-					<Tag color="#2db7f5">presentation</Tag>
+					<Tag color="#2db7f5">{selectedAssignment.Tags}</Tag>
 				</div>
 			</div>
 			<div className={styles.attachment}>
@@ -141,14 +173,24 @@ const GeneralTab = () => {
 					</p>
 				</div>
 				<div className={styles.comments}>
-					<CommentBox />
-					<CommentBox />
-					<CommentBox />
-					<CommentBox />
+					{/* <CommentBox 
+						createdPerson="Dinh Trong Huy" 
+						createdTime={new Date().toLocaleString()}  
+						isEditted={false}
+						commentContent="please read doc more carefully because there are some point that not clear."
+						/> */}
+					{comments.map(comment => {
+						return <CommentBox 
+							createdPerson={comment.createdPerson} 
+							createdTime={comment.createdTime}  
+							isEditted={comment.isEditted}
+							commentContent={comment.commentContent}
+						/>
+					})}
 				</div>
 				<div className={styles.newComment}>
 					<Avatar src='/images/avatar1.jpg'/>
-					<TextArea showCount maxLength={300} placeholder={"Add a new comment"}/>
+					<Editor getValue={getCommentValueHandler}/>
 				</div>
 				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px'}}>
 					<div style={{display: 'flex', alignItems: 'center', gap: '5px', marginTop: '10px'}}>
@@ -157,7 +199,7 @@ const GeneralTab = () => {
 					</div>
 					<div style={{display: 'flex', gap: '5px'}}>
 						<Button size={'middle'}>Clear</Button>
-						<Button type="primary" size={'middle'}>
+						<Button type="primary" size={'middle'} onClick={addCommentHandler}>
 							Add
 						</Button>
 					</div>
@@ -187,7 +229,9 @@ const items = [
 
 const AssignmentsDetailsTab = (props) => {
 	const [uploadModalOpen, setUploadModalOpen] = useState(false);
-	
+	const params = useParams();
+	const assignmentId = parseInt(params.assignmentId);
+
 	const openUploadImageModal = () => {
 		setUploadModalOpen(true);
 	}	
@@ -199,6 +243,8 @@ const AssignmentsDetailsTab = (props) => {
 	const handleCancel = () => {
 		setUploadModalOpen(false);
 	};
+
+	const selectedAssignment = db[assignmentId-1];
 	
 	return (
 		<div className={styles.assignmentsDetailsTab}>
@@ -206,11 +252,11 @@ const AssignmentsDetailsTab = (props) => {
 				<ImageUpload />
 			</Modal>
 			<div style={{display: 'flex', gap: '5px'}}>
-				<BugType />
-				<p className={styles.assginmentId}>DEV-03</p>
+				{issueTypeIcon[selectedAssignment.Type]}
+				<p className={styles.assginmentId}>{selectedAssignment.Id}</p>
 			</div>
 			<p className={styles.title}>
-				{sampleAssignment.title}
+				{selectedAssignment.Title}
 			</p>
 			<div className={styles.utilCards}>
 				<div className={styles.attachCard} onClick={openUploadImageModal}>

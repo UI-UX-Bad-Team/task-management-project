@@ -6,7 +6,7 @@ import projectsSampleData from '../../data/projects';
 import { MembersIcon, ProjectIcon, OverviewIcon } from '../../data/icon';
 import { StarOutlined, StarFilled, AudioOutlined, PlusOutlined } from '@ant-design/icons';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
-import { Table, Tabs, Input, Avatar , Tooltip, Button, Modal, Skeleton, Select} from 'antd';
+import { Table, Tabs, Input, Avatar , Button, Modal, Skeleton, Select} from 'antd';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
 import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
 import {extend, registerLicense} from '@syncfusion/ej2-base';
@@ -14,6 +14,7 @@ import { updateSampleSection } from './sample-base';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import ImageUpload from '../../components/imageUpload/ImageUpload';
 import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+import { useNavigate } from "react-router";
 
 const image = {
 	'Bui Danh Tung': '/images/avatar1.jpg',
@@ -99,17 +100,25 @@ const suffix = (
     function onChange(args) {
         let key = args.target.name;
         let value = args.target.value;
-        setState({[key]: value });
+		setState({[key]: value });
+	
+		console.log(value);
     }
     let data = state;
 
+	// let ccDate = [
+    //    {label: 'Bui Danh Tung', value: 'Bui Danh Tung'}, 
+	//    {label : 'Dinh Trong Huy', value: 'Dinh Trong Huy'}, 
+	//    {label: 'Dao Trong Hoan', value: 'Dao Trong Hoan'},
+	//    {label: 'Ta Duc Tien', value: 'Ta Duc Tien'},
+	//    {label: 'Vu Minh Dang', value : 'Vu Minh Dang'}
+    // ];
+
 	let assigneeData = [
-       'Bui Danh Tung', 'Dinh Trong Huy', 'Dao Trong Hoan', 'Ta Duc Tien', 'Vu Minh Dang'
-    ];
+		'Bui Danh Tung', 'Dinh Trong Huy', 'Dao Trong Hoan','Ta Duc Tien','Vu Minh Dang'
+	]
     let statusData = ['To do', 'InProgress', 'Testing', 'Done'];
     let priorityData = ['Lowest', 'Low', 'Critical', 'High', 'Highest'];
-
-	console.log("Check: ", state);
 
     return (
 	<div>
@@ -140,9 +149,29 @@ const suffix = (
                         </td>
                     </tr>
 					<tr>
+                        <td className="e-label">Reviewer</td>
+                        <td>
+                            <DropDownListComponent id='Reviewer' name="Reviewer" className="e-field" dataSource={assigneeData} placeholder='Reviewer' value={data.Reviewer} onChange={onChange.bind(this)}></DropDownListComponent>
+                        </td>
+                    </tr>
+					<tr>
                         <td className="e-label">cc: </td>
                         <td>
 							<DropDownListComponent id='Cc' name="Cc" className="e-field" dataSource={assigneeData} placeholder='Cc' value={data.Cc} onChange={onChange.bind(this)}></DropDownListComponent>
+							{/* <Select
+								mode="multiple"	
+								name="Cc" 
+								className="e-field"
+								id='Cc'
+								allowClear
+								style={{
+									width: '100%',
+								}}
+								placeholder="Please select"
+								onChange={selectCcHandler}
+								options={assigneeData}
+								value={data.Cc}
+							/> */}
                         </td>
                     </tr>
                     <tr>
@@ -174,16 +203,18 @@ const suffix = (
 
   
 const OverviewTab = () => {
-
+	const navigate = useNavigate();
+	const params = useParams();
+	const teamId = params.teamId;
 	registerLicense('Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXlcdnRQR2VfUEd3WUQ=');
 
 	let kanbanData = [
-		{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Cc:["Dinh Trong Huy","Dao Trong Hoan"], RankId: 1 },
-		{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Critical', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Cc:["Dao Trong Hoan", "Ta Duc Tien"], RankId: 2  },
-		{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Cc:["Ta Duc Tien", "Nguyen Duy Hung", "Vu Minh Dang"], RankId: 1 },
-		{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Cc:["Bui Danh Tung", "Mac Van Khanh"], RankId: 1 },
-		{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Cc:["Vu Minh Dang", "Pham Trung Dung"], RankId: 1 },
-		{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Cc:["Vu Minh Dang","Dinh Trong Huy"], RankId: 1 },
+		{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1 },
+		{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Critical', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Reviewer:"Ta Duc Tien",Cc:"Dao Trong Hoan", RankId: 2  },
+		{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh",Cc:"Nguyen Duy Hung", RankId: 1 },
+		{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Reviewer: "Ta Duc Tien",Cc:"Bui Danh Tung", RankId: 1 },
+		{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1 },
+		{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
 	];
 
 	let data = extend([]. kanbanData, true);
@@ -193,7 +224,7 @@ const OverviewTab = () => {
 	const addTaskHandler = () => {
 		const cardIds = kanbanObj.kanbanData.map(obj => parseInt(obj.Id.replace("Task", ""), 10));
 		const cardCount = Math.max.apply(Math, cardIds) + 1;
-		const CardDetails = {Id : "Task" + cardCount,Title: "New title", Status : "Open", Priority: "Normal", Assignee: "Bui Danh Tung", Estimate: 0, Tags: "", Summary: ""};
+		const CardDetails = {Id : "Task " + cardCount,Title: "New title", Status : "Open", Priority: "Normal", Assignee: "Bui Danh Tung", Reviewer: '', Cc: '', Estimate: 0, Tags: "", Summary: ""};
 		kanbanObj.openDialog("Add", CardDetails);
 	}
 
@@ -202,31 +233,30 @@ const OverviewTab = () => {
 		return (<KanbanDialogFormTemplate {...props} />)
 	}
 
-
 	const cardTemplate = (props) => {
 
+		const navigateToDetailHandler = () => {
+	
+			navigate(`/my-teams/${teamId}/assignments/${parseInt(props.Id.replace("Task ", ""))}`)
+		}
+		
         return (
-			<div className="card-template" style={{backgroundColor: '#fff'}} >
+			<div className="card-template" style={{backgroundColor: '#fff'}} onClick={navigateToDetailHandler}>
 						<div className='e-card-content' style={{padding: '1px', backgroundColor: '#fff', boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
 							<table className="card-template-wrap" style={{backgroundColor: '#fff'}}>
 								<tbody style={{backgroundColor: '#fff'}}>
 									<tr>
-										{/* <td className="CardHeader writeBg" style={{fontWeight: 500, backgroundColor: '#fff'}}>summary:</td> */}
 										<td colspan="4" style={{color : '#000', fontWeight: 600, backgroundColor: '#fff'}}>{props.Title}</td>
 									</tr>
 									<tr>
 										<td style={{backgroundColor: '#fff', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '100%', paddingTop: '5px'}}>
 											{issueTypeIcon[props.Type]}
-											<div style={{fontWeight: 700, color: '#807e7e'}}>{props.Id}</div>
 											{priorityIcon[props.Priority]}
+											<div style={{fontWeight: 700, color: '#807e7e'}}>{props.Id}</div>
 										</td>
-										{/* <td style={{backgroundColor: '#fff'}}>
-										</td>
-										<td style={{backgroundColor: '#fff'}}>
-										</td> */}
 										<td style={{backgroundColor: '#fff'}}>
 											<Avatar.Group>
-												{props.Cc.map(person => {
+												{[props.Assignee,props.Reviewer, props.Cc].map(person => {
 													return (
 														<Avatar src={image[person]}/>
 													)
@@ -317,12 +347,12 @@ const OverviewTab = () => {
 						<Button shape="circle" icon={<PlusOutlined />} size={"large"} style={{backgroundColor: '#3d5c98', color: '#fff'}} onClick={addTaskHandler}/>
 					</div>
 				</div>
-			<KanbanComponent id="kanban" ref={(kanban) => { kanbanObj = kanban; }} keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }} dialogSettings={{ fields : fields, template: dialogTemplate.bind(this)}} swimlaneSettings={{ keyField: "Assignee", textField: 'AssigneeName' }}>
+			<KanbanComponent id="kanban" ref={(kanban) => { kanbanObj = kanban; }} keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }} dialogSettings={{ fields : fields, template: dialogTemplate.bind(this), buttons: [{ buttonModel: { content: 'OK', isPrimary: true } }]}} swimlaneSettings={{ keyField: "Assignee", textField: 'AssigneeName' }} >
                     <ColumnsDirective>
-                    <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} />
-                    <ColumnDirective headerText="In Progress" keyField="InProgress" template={columnTemplate}/>
-                    <ColumnDirective headerText="Testing" keyField="Testing" template={columnTemplate}/>
-                    <ColumnDirective headerText="Done" keyField="Done" template={columnTemplate}/>
+                    <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="In Progress" keyField="InProgress" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="Testing" keyField="Testing" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="Done" keyField="Done" template={columnTemplate} allowToggle={true}/>
                     </ColumnsDirective>
             </KanbanComponent>
 			</div>
