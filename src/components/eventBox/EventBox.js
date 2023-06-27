@@ -89,13 +89,13 @@ const EventBox = (props) => {
 	const [percent, setPercent] = useState(0);
 	const currentDate = new Date();
 	let comparedDate = 0;
-
-	if (props.event.start <= currentDate && currentDate <=  props.event.end) {
-		comparedDate = 0;
-	} else if (props.event.start > currentDate) {
+	
+	if (props.event.start > currentDate) {
 		comparedDate = 1;
-	} else {
+	} else if (props.event.end < currentDate) {
 		comparedDate = -1;
+	} else {
+		comparedDate = 0;
 	}
 
 

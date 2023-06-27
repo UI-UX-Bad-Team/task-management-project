@@ -90,7 +90,7 @@ const events = [
 	  {
 		'title': 'Cloud learning',
 		'description' : 'Starting learning cloud',
-		'start': new Date(2023, 5, 27, 16, 20,0),
+		'start': new Date(2023, 5, 27, 8, 20,0),
 		'end': new Date(2023, 5, 28, 18, 30, 0),
 		'priority': 'low',
 		type:'personal'
@@ -100,6 +100,14 @@ const events = [
 		'description' : 'Practice vocabulary and read JLPT N1 to prepare for the upcoming exam',
 		'start': new Date(2023, 5, 28, 19, 20,0),
 		'end': new Date(2023, 5, 29, 22, 30, 0),
+		'priority': 'low',
+		type:'personal'
+	  },
+	  {
+		'title': 'Japanese learning',
+		'description' : 'Practice vocabulary and read JLPT N1 to prepare for the upcoming exam',
+		'start': new Date(2023, 5, 28, 8, 20,0),
+		'end': new Date(2023, 5, 30, 10, 30, 0),
 		'priority': 'low',
 		type:'personal'
 	  },
@@ -120,10 +128,26 @@ const events = [
 		type:'collaborative',
 	  },
 	  {
+		'title': 'Improve I18n translator',
+		'description' : 'Translator in I18n works well but some function is not optimized. Please help me improve it ',
+		'start': new Date(2023, 6, 1, 17, 40,0),
+		'end': new Date(2023, 6, 3, 19, 30, 0),
+		'priority': 'critical',
+		type:'collaborative',
+	  },
+	  {
+		'title': 'Learn N1 moji goi',
+		'description' : 'JLPT exam is coming, go hard !! ',
+		'start': new Date(2023, 6, 1, 8, 40,0),
+		'end': new Date(2023, 6, 5, 10, 30, 0),
+		'priority': 'low',
+		type:'personal',
+	  },
+	  {
 		'title': 'Fix bug in UI-kit',
 		'description' : 'The color picker in Ui-kit is not showing properly. It show old value instead of new value. Please fix it. ',
-		'start': new Date(2023, 5, 30, 17, 40,0),
-		'end': new Date(2023, 5, 30, 20, 30, 0),
+		'start': new Date(2023, 6, 2, 17, 40,0),
+		'end': new Date(2023, 6, 5, 20, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
 	  },
