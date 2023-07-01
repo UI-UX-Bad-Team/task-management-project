@@ -2,7 +2,7 @@ import styles from './TeamDetail.module.css';
 import { useState, useRef, useEffect } from 'react';
 import { Select, Pagination, Table, Tag, Tabs, Input, Avatar, List , Tooltip, Button, Modal, notification } from 'antd';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
-import { AudioOutlined, StarOutlined, UserOutlined, UsergroupAddOutlined, AntDesignOutlined } from '@ant-design/icons';
+import { AudioOutlined, StarOutlined, UserOutlined, AntDesignOutlined, PlusOutlined } from '@ant-design/icons';
 import {useParams} from 'react-router-dom';
 import teamsSampleData from '../../data/team';
 import { useNavigate } from 'react-router';
@@ -10,15 +10,43 @@ import projectsSampleData from '../../data/projects';
 import usersSampleData from '../../data/users';
 import TopicBox from '../../components/topicBox/TopicBox';
 import dayjs from 'dayjs';
-import { HighestIcon } from '../../data/priorityIcon';
-import { BugType } from '../../data/issueTypes';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
 import { ProjectIcon } from '../../data/icon';
-import {registerLicense} from '@syncfusion/ej2-base';
-
+import {registerLicense, extend} from '@syncfusion/ej2-base';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+import ImageUpload from '../../components/imageUpload/ImageUpload';
+import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+import { updateSampleSection } from './sample-base';
+import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
 
 const { Search, TextArea } = Input;
 
+const image = {
+	'Bui Danh Tung': '/images/avatar1.jpg',
+	'Dao Trong Hoan': '/images/avatar2.jpg',
+	'Dinh Trong Huy':'/images/avatar3.jpg',
+	'Ta Duc Tien':'/images/avatar4.jpg',
+	'Vu Minh Dang':'/images/avatar5.jpg',
+	'Nguyen Duy Hung' :'/images/avatar6.jpg',
+	'Pham Trung Dung' :'/images/avatar7.jpg',
+	'Mac Van Khanh' :'/images/avatar8.jpg',
+};
+
+const priorityIcon = {
+	'Low' : <LowIcon />,
+	'Lowest' : <LowestIcon />,
+	'Critical' : <CriticalIcon />,
+	'High' : <HighIcon />,
+	'Highest' : <HighestIcon />,
+}
+
+const issueTypeIcon = {
+	'Bug' : <BugType />,
+	'Improvement' : <ImprovementType />,
+	'Story' : <StoryType />,
+	'NewFeature' : <NewFeatureType />,
+	'Subtask' : <SubtaskType />
+}
 const sampleTopics = [
 	{
 		id: 1,
@@ -77,64 +105,169 @@ const AvatarGroup = () => {
 		</div>
 	)
 }
+function KanbanDialogFormTemplate(props) {
+    useEffect(() => {
+        updateSampleSection();
+    }, []);
 
+    const [state, setState] = useState(extend({}, {}, props, true));
+
+    function onChange(args) {
+        let key = args.target.name;
+        let value = args.target.value;
+		setState({[key]: value });
+	
+		console.log(value);
+    }
+    let data = state;
+
+	let assigneeData = [
+		'Bui Danh Tung', 'Dinh Trong Huy', 'Dao Trong Hoan','Ta Duc Tien','Vu Minh Dang'
+	]
+    let statusData = ['To do', 'InProgress', 'Testing', 'Done'];
+    let priorityData = ['Lowest', 'Low', 'Critical', 'High', 'Highest'];
+
+    return (
+	<div>
+            <table style={{width: '500px', height: '300px'}}>
+                <tbody>
+                    <tr>
+                        <td className="e-label">Id</td>
+                        <td>
+							<input id="Id" name="Id" type="text" className="e-field" value={data.Id} disabled />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="e-label">Title</td>
+						<td>
+							<input id="Title" name="Title" type="text" className="e-field" value={data.Title} onChange={onChange.bind(this)}/> 
+						</td>
+                    </tr>
+					<tr>
+                        <td className="e-label">Type</td>
+                        <td>
+                            <DropDownListComponent id='Status' name="Status" dataSource={statusData} className="e-field" placeholder='Status' value={data.Status} onChange={onChange.bind(this)}></DropDownListComponent>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="e-label">Assignee</td>
+                        <td>
+                            <DropDownListComponent id='Assignee' name="Assignee" className="e-field" dataSource={assigneeData} placeholder='Assignee' value={data.Assignee} onChange={onChange.bind(this)}></DropDownListComponent>
+                        </td>
+                    </tr>
+					<tr>
+                        <td className="e-label">Reviewer</td>
+                        <td>
+                            <DropDownListComponent id='Reviewer' name="Reviewer" className="e-field" dataSource={assigneeData} placeholder='Reviewer' value={data.Reviewer} onChange={onChange.bind(this)}></DropDownListComponent>
+                        </td>
+                    </tr>
+					<tr>
+                        <td className="e-label">cc: </td>
+                        <td>
+							<DropDownListComponent id='Cc' name="Cc" className="e-field" dataSource={assigneeData} placeholder='Cc' value={data.Cc} onChange={onChange.bind(this)}></DropDownListComponent>
+							{/* <Select
+								mode="multiple"	
+								name="Cc" 
+								className="e-field"
+								id='Cc'
+								allowClear
+								style={{
+									width: '100%',
+								}}
+								placeholder="Please select"
+								onChange={selectCcHandler}
+								options={assigneeData}
+								value={data.Cc}
+							/> */}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="e-label">Priority</td>
+                        <td>
+                            <DropDownListComponent type="text" name="Priority" id="Priority" popupHeight='300px' className="e-field" value={data.Priority} dataSource={priorityData} placeholder='Priority' onChange={onChange.bind(this)}></DropDownListComponent>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="e-label">Summary</td>
+                        <td>
+                            <div className="e-float-input e-control-wrapper">
+                                <textarea name="Summary" className="e-field" value={data.Summary} onChange={onChange.bind(this)}></textarea>
+                            </div>
+                        </td>
+                    </tr>
+					 <tr>
+                        <td className="e-label">Attachment: </td>
+                        <td>
+							<div style={{display: 'flex', gap: 5}}>
+                            	<ImageUpload />
+							</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>);
+}
 const OverviewTab = (props) => {
+	const navigate = useNavigate();
 	registerLicense('Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXlcdnRQR2VfUEd3WUQ=');
 
 	const params = useParams();
 	const workspaceId = params.workspaceId;
 	const teamInfo = teamsSampleData[workspaceId];
 
+	let kanbanData = [
+		{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1 },
+		{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Critical', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Reviewer:"Ta Duc Tien",Cc:"Dao Trong Hoan", RankId: 2  },
+		{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh",Cc:"Nguyen Duy Hung", RankId: 1 },
+		{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Reviewer: "Ta Duc Tien",Cc:"Bui Danh Tung", RankId: 1 },
+		{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1 },
+		{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
+	];
+
+	let kanbanObj;
+
+	const addTaskHandler = () => {
+		const cardIds = kanbanObj.kanbanData.map(obj => parseInt(obj.Id.replace("Task", ""), 10));
+		const cardCount = Math.max.apply(Math, cardIds) + 1;
+		const CardDetails = {Id : "Task " + cardCount,Title: "New title", Status : "Open", Priority: "Normal", Assignee: "Bui Danh Tung", Reviewer: '', Cc: '', Estimate: 0, Tags: "", Summary: ""};
+		kanbanObj.openDialog("Add", CardDetails);
+	}
+
+	const dialogTemplate = (props) => {
+
+		return (<KanbanDialogFormTemplate {...props} />)
+	}
+
 	const cardTemplate = (props) => {
 
+		const navigateToDetailHandler = () => {
+	
+			navigate(`/workspaces/${workspaceId}/assignments/${parseInt(props.Id.replace("Task ", ""))}`)
+		}
+		
         return (
-			<div className="card-template" style={{backgroundColor: '#fff', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px!important'}} >
-						<div className='e-card-content' style={{padding: '1px', backgroundColor: '#fff'}}>
-							<table className="card-template-wrap" style={{backgroundColor: '#fff', paddingLeft: '10px'}}>
+			<div className="card-template" style={{backgroundColor: '#fff'}} onClick={navigateToDetailHandler}>
+						<div className='e-card-content' style={{padding: '1px', backgroundColor: '#fff', boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
+							<table className="card-template-wrap" style={{backgroundColor: '#fff'}}>
 								<tbody style={{backgroundColor: '#fff'}}>
 									<tr>
-										{/* <td className="CardHeader writeBg" style={{fontWeight: 500, backgroundColor: '#fff'}}>summary:</td> */}
-										<td colspan="4" style={{color : '#000', fontWeight: 600, backgroundColor: '#fff'}}>{props.Summary}</td>
+										<td colspan="4" style={{color : '#000', fontWeight: 600, backgroundColor: '#fff'}}>{props.Title}</td>
 									</tr>
 									<tr>
-										<td style={{backgroundColor: '#fff'}}y>
-											<BugType />
-										</td>
-										<td style={{backgroundColor: '#fff'}}>
-											<div style={{fontWeight: 700, color: '#807e7e'}}>DEV-013</div>
-										</td>
-										<td style={{backgroundColor: '#fff'}}>
-											<HighestIcon />
+										<td style={{backgroundColor: '#fff', display: 'flex', gap: '3px', alignItems: 'flex-end', height: '100%', paddingTop: '5px'}}>
+											{issueTypeIcon[props.Type]}
+											{priorityIcon[props.Priority]}
+											<div style={{fontWeight: 700, color: '#807e7e'}}>{props.Id}</div>
 										</td>
 										<td style={{backgroundColor: '#fff'}}>
-											<div style={{}}>
-												<Avatar.Group>
-													<Avatar src="/images/avatar1.jpg" />
-													<a href="https://ant.design">
-														<Avatar
-														style={{
-															backgroundColor: '#f56a00',
-														}}
-														>
-														K
-														</Avatar>
-													</a>
-													<Tooltip title="Ant User" placement="top">
-														<Avatar
-														style={{
-															backgroundColor: '#87d068',
-														}}
-														src="/images/avatar2.jpg"
-														/>
-													</Tooltip>
-													<Avatar
-														style={{
-															backgroundColor: '#1677ff',
-														}}
-														src="/images/avatar3.jpg"
-													/>
-												</Avatar.Group>
-											</div>
+											<Avatar.Group>
+												{[props.Assignee,props.Reviewer, props.Cc].map(person => {
+													return (
+														<Avatar src={image[person]}/>
+													)
+												})}
+												
+											</Avatar.Group>
 										</td>
 									</tr>
 						</tbody>
@@ -144,12 +277,24 @@ const OverviewTab = (props) => {
     }
 
 	const  columnTemplate = (props) => {
+		
         return (
-			<div className="header-template-wrap" style={{display: 'flex', gap: '6px', alignItems:"center"}}>
-                <div className={"header-icon e-icons" + props.keyField} style={{width: '14px', height: '14px', borderRadius: '2px'}}></div>
-                <div className="header-text" style={{fontSize: '14px', textTransform: 'uppercase'}}>{props.headerText} - {props.count} {props.count > 1 ? "items" : 'item'}</div>
+			<div className="header-template-wrap">
+                <div className={"header-icon e-icons " + props.keyField}></div>
+                <div className="header-text" style={{color : '#fff', fontSize: '16px'}}>{props.headerText} - {props.count} {props.count > 1 ? "items" : 'item'}</div>
             </div>);
     }
+
+	const changeSprintHandler = () => {
+
+	}
+
+	const fields = [
+		{ text: 'ID', key: 'Id', type: 'TextBox' },
+        { key: 'Status', type: 'DropDown' },
+        { key: 'Estimate', type: 'Numeric' },
+        { key: 'Summary', type: 'TextArea' }
+	]
 	return (
 		<div>
 			<div className={styles.overviewTab}>
@@ -170,15 +315,15 @@ const OverviewTab = (props) => {
 				</div>
 			</div>
 			<p style={{fontSize: "24px", fontWeight: "700", color: "#3d5c98", marginBottom: '20px'}}>Board</p>
-			<KanbanComponent id="kanban" keyField="Status" dataSource={data1} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }}>
+			<KanbanComponent id="kanban" ref={(kanban) => { kanbanObj = kanban; }} keyField="Status" dataSource={kanbanData} cardSettings={{ contentField: "Summary", headerField: "Id", template: cardTemplate }} dialogSettings={{ fields : fields, template: dialogTemplate.bind(this), buttons: [{ buttonModel: { content: 'OK', isPrimary: true } }]}} swimlaneSettings={{ keyField: "Assignee", textField: 'AssigneeName' }} >
                     <ColumnsDirective>
-                    <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} />
-                    <ColumnDirective headerText="In Progress" keyField="InProgress" template={columnTemplate}/>
-                    <ColumnDirective headerText="Testing" keyField="Testing" template={columnTemplate}/>
-                    <ColumnDirective headerText="Done" keyField="Done" template={columnTemplate}/>
+                    <ColumnDirective headerText="To Do" keyField="To Do" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="In Progress" keyField="InProgress" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="Testing" keyField="Testing" template={columnTemplate} allowToggle={true}/>
+                    <ColumnDirective headerText="Done" keyField="Done" template={columnTemplate} allowToggle={true}/>
                     </ColumnsDirective>
             </KanbanComponent>
-		</div>
+			</div>
 	)
 }
 

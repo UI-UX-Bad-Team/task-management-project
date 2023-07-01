@@ -65,7 +65,7 @@ const AssignmentDetail1 = () => {
 	const [isHidePanel, setIsHidePanel] = useState(false);
 	const params = useParams();
 	const assignmentId = parseInt(params.assignmentId);
-	const selectedAssignment = db[assignmentId-1]
+	const selectedAssignment = db[assignmentId-1];
 	const [requestChange, setRequestChange] = useState(false);
 	const [approved, setApproved] = useState(false);
 

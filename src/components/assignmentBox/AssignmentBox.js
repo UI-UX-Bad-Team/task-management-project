@@ -4,6 +4,24 @@ import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { Button, Progress, notification } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
+import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
+
+const priorityIcon = {
+	'Low' : <LowIcon />,
+	'Lowest' : <LowestIcon />,
+	'Critical' : <CriticalIcon />,
+	'High' : <HighIcon />,
+	'Highest' : <HighestIcon />,
+}
+
+const issueTypeIcon = {
+	'Bug' : <BugType />,
+	'Improvement' : <ImprovementType />,
+	'Story' : <StoryType />,
+	'NewFeature' : <NewFeatureType />,
+	'Subtask' : <SubtaskType />
+}
 
 const openSucessfullyAddNotification = () => {
 	notification.open({
@@ -65,10 +83,14 @@ const AssignmentBox = (props) => {
 					/>
 					<div>
 						<div className={styles.assignmentTitle} onClick={() => {
-							navigate(`assignments/${props.assignmentId}`);
+							navigate(`${props.assignmentId.replace("Task ", "")}`);
 						}}>{props.assignmentTitle}</div>
 						<p className={styles.assignmentDueTime}>{props.assignmentDueTime}</p>
-						<p className={styles.assignmentTeam}>{props.assignmentTeam}</p>
+						<div style={{display: 'flex', gap: '4px'}}>
+							{issueTypeIcon[props.type]}
+							{priorityIcon[props.priority]}
+							<p className={styles.assignmentTeam}>{props.assignmentTeam}</p>
+						</div>
 					</div>
 				</div>
 				<div>

@@ -53,7 +53,7 @@ registerLicense('Mgo+DSMBaFt+QHJqXU1hXk5Hd0BLVGpAblJ3T2ZQdVt5ZDU7a15RRnVfRF1mSX1
 					<Route path="/workspaces/:workspaceId" element={<Team />} />
 					<Route path="/my-assignments" element={<Assignments />} />
 					<Route path="/workspaces/:workspaceId/teams/:teamId" element={<Project />} />
-					<Route path="/my-assignments/assignments/:assignmentId" element={<AssignmentDetail />} />
+					<Route path="/my-assignments/:assignmentId" element={<AssignmentDetail />} />
 					<Route path="/my-teams/:teamId/assignments/:assignmentId" element={<AssignmentDetail />} />
 					<Route path="/workspaces/:workspaceId/teams/:teamId/assignments/:assignmentId" element={<AssignmentDetail />} />
 					<Route path="/my-teams/" element={<MyProject />} />

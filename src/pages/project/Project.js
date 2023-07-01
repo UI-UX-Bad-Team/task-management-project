@@ -15,6 +15,7 @@ import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import ImageUpload from '../../components/imageUpload/ImageUpload';
 import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
 import { useNavigate } from "react-router";
+import usersSampleData from '../../data/users';
 
 const image = {
 	'Bui Danh Tung': '/images/avatar1.jpg',
@@ -105,14 +106,6 @@ const suffix = (
 		console.log(value);
     }
     let data = state;
-
-	// let ccDate = [
-    //    {label: 'Bui Danh Tung', value: 'Bui Danh Tung'}, 
-	//    {label : 'Dinh Trong Huy', value: 'Dinh Trong Huy'}, 
-	//    {label: 'Dao Trong Hoan', value: 'Dao Trong Hoan'},
-	//    {label: 'Ta Duc Tien', value: 'Ta Duc Tien'},
-	//    {label: 'Vu Minh Dang', value : 'Vu Minh Dang'}
-    // ];
 
 	let assigneeData = [
 		'Bui Danh Tung', 'Dinh Trong Huy', 'Dao Trong Hoan','Ta Duc Tien','Vu Minh Dang'
@@ -216,8 +209,6 @@ const OverviewTab = () => {
 		{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Critical', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1 },
 		{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'Critical', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1 },
 	];
-
-	let data = extend([]. kanbanData, true);
 
 	let kanbanObj;
 
@@ -366,23 +357,49 @@ const MembersTab = () => {
 	const [selectedAccountName, setSelectedAccountName] = useState('')
 	const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 	const [confirmRemoveButtonDisabled, setConfirmRemoveButtonDisabled] = useState(true);
+	const params = useParams();
+	const teamId = params.teamId;
+	const selectedTeam = projectsSampleData[parseInt(teamId)];
+	const usersArray = selectedTeam.memberIds.map(obj => Object.keys(obj)[0]);
 
 	const dataSource = [
-		{
-		  key: '1',
-		  name: 'Mike',
-		  age: 32,
-		  address: '10 Downing Street',
-		},
-		{
-		  key: '2',
-		  name: 'John',
-		  age: 42,
-		  address: '10 Downing Street',
-		},
+		// {
+		//   key: '1',
+		//   name: 'Mike',
+		//   age: 32,
+		//   address: '10 Downing Street',
+		// },
+		// {
+		//   key: '2',
+		//   name: 'John',
+		//   age: 42,
+		//   address: '10 Downing Street',
+		// },
 	];
 
+	usersArray.forEach(id => dataSource.push({
+		key: usersSampleData[id].id + "",
+		accountName:  usersSampleData[id].accountName,
+		name:  usersSampleData[id].name
+	}))
+
 	const columns = [
+		{
+			title: 'Account ',
+			dataIndex: 'accountName',
+			key: 'accountName',
+			render: (text) => 
+				(
+			  <div>
+				  <p style={{color: "#3d5c98", fontWeight: 600}}>{text}</p>
+				  <p style={{}}></p>
+			  </div>
+			  ),
+			onFilter: (value, record) => record.accountName.indexOf(value) === 0,
+			sorter: (a, b) =>  a.accountName.split(' ')[a.accountName.split(' ').length - 1].localeCompare(b.accountName.split(' ')[b.accountName.split(' ').length - 1]),
+			sortDirections: ['descend', 'ascend'],
+			width: '35%',
+		  },
 		{
 		  title: 'Name',
 		  dataIndex: 'name',
@@ -397,7 +414,7 @@ const MembersTab = () => {
 		  onFilter: (value, record) => record.name.indexOf(value) === 0,
 		  sorter: (a, b) =>  a.name.split(' ')[a.name.split(' ').length - 1].localeCompare(b.name.split(' ')[b.name.split(' ').length - 1]),
 		  sortDirections: ['descend', 'ascend'],
-		  width: '70%',
+		  width: '35%',
 		},
 		{
 			title: 'Role',
@@ -564,7 +581,7 @@ const ProjectDetail = () => {
 					</span>
 					),
 					key: id,
-					children: id === '1' ? <OverviewTab /> : (id === '2' ? <MembersTab /> : <ProjectIcon color="#3d5c98" />)
+					children: id === '1' ? <OverviewTab /> : (id === '2' ? <MembersTab /> : <AssignmentsTab />)
 				};
 				})}
   			/>
