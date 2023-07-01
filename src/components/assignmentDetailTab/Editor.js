@@ -1,24 +1,33 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import ReactQuill from 'react-quill';
+import ReactQuill,{ Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom'
+import ImageResize from 'quill-image-resize-module-react';
+
+Quill.register('modules/imageResize', ImageResize);
 
 export default class Editor extends React.Component {
 	constructor (props) {
 	  super(props)
 	  this.state = { editorHtml: '', theme: 'snow' }
 	  this.handleChange = this.handleChange.bind(this)
+	  this.refreshEditor = this.handleChange.bind(this)
 	}
 	
 	handleChange (html) {
 		this.setState({ editorHtml: html });
+		this.props.getValue({ editorHtml: html })
 	}
 	
 	handleThemeChange (newTheme) {
 	  if (newTheme === "core") newTheme = null;
 	  this.setState({ theme: newTheme })
+	}
+
+	refreshEditor () {
+		this.props.getValue({ editorHtml: "" })
 	}
 	
 	render () {
@@ -64,6 +73,10 @@ export default class Editor extends React.Component {
 	clipboard: {
 	  // toggle to add extra line breaks when pasting HTML:
 	  matchVisual: false,
+	},
+	imageResize: {
+		parchment: Quill.import('parchment'),
+		modules: ['Resize', 'DisplaySize']
 	}
   }
   /* 

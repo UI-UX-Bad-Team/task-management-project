@@ -14,6 +14,7 @@ import { HighestIcon } from '../../data/priorityIcon';
 import { BugType } from '../../data/issueTypes';
 import AssignmentBox from '../../components/assignmentBox/AssignmentBox';
 import { ProjectIcon } from '../../data/icon';
+import {registerLicense} from '@syncfusion/ej2-base';
 
 
 const { Search, TextArea } = Input;
@@ -78,6 +79,8 @@ const AvatarGroup = () => {
 }
 
 const OverviewTab = (props) => {
+	registerLicense('Ngo9BigBOggjHTQxAR8/V1NGaF5cXmdCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdgWXlcdnRQR2VfUEd3WUQ=');
+
 	const params = useParams();
 	const workspaceId = params.workspaceId;
 	const teamInfo = teamsSampleData[workspaceId];

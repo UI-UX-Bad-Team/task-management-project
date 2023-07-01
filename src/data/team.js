@@ -8,7 +8,7 @@ const teamsSampleData =  [
 		foundDate: '20/10/2010',
 		memberNumber: 8,
 		image: '/images/team1.jpg',
-		projectIds: [0, 1, 2]
+		projectIds: [0, 1, 2, 3, 4]
 	}, 
 	{
 		id: 1, 
@@ -19,7 +19,7 @@ const teamsSampleData =  [
 		foundDate: '02/09/2013',
 		memberNumber: 10,
 		image: '/images/team2.jpg',
-		projectIds: [3, 4, 5]
+		projectIds: [3, 4, 5, 10, 11]
 	}, 
 	{
 		id: 2, 
@@ -30,7 +30,7 @@ const teamsSampleData =  [
 		foundDate: '22/05/2009',
 		memberNumber: 9,
 		image: '/images/team3.jpg',
-		projectIds: [6, 7]
+		projectIds: [6, 7, 9, 10, 12]
 	},
 	{
 		id: 3, 
@@ -41,7 +41,7 @@ const teamsSampleData =  [
 		foundDate: '20/10/2010',
 		memberNumber: 15,
 		image: '/images/team4.jpg',
-		projectIds: [8, 9, 10, 11]
+		projectIds: [8, 9, 10, 11, 13, 14, 15]
 	}, 
 	{
 		id: 4, 
@@ -52,7 +52,7 @@ const teamsSampleData =  [
 		foundDate: '08/12/2019',
 		memberNumber: 12,
 		image: '/images/team5.jpg',
-		projectIds: [12, 13],
+		projectIds: [12, 13, 1, 3],
 	},
 	{
 		id: 5, 
@@ -63,7 +63,7 @@ const teamsSampleData =  [
 		foundDate: '20/05/2008',
 		memberNumber: 30,
 		image: '/images/team6.jpg',
-		projectIds: [14, 15],
+		projectIds: [14, 15, 6, 5, 7],
 	}
 
 ]

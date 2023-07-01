@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React, {useState} from 'react';
 import styles from './AssignmentDetailTab.module.css';
 import { AttachIcon } from '../../data/icon';
 import {Tabs, Tag, Avatar, Modal, Image, Input, Button} from 'antd';
@@ -6,10 +6,13 @@ import { SubnodeOutlined, LinkOutlined, MoreOutlined, PlusOutlined, ArrowUpOutli
 import ImageUpload from '../imageUpload/ImageUpload';
 import CommentBox from '../commentBox/CommentBox';
 import {useParams} from 'react-router-dom';
-import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';
 import {BugType, ImprovementType, NewFeatureType, SubtaskType, StoryType} from '../../data/issueTypes';
 import 'react-quill/dist/quill.snow.css';
 import Editor from './Editor';
+import ReactDOMServer from 'react-dom/server';
+import 'react-quill/dist/quill.snow.css';
+
+
 
 let db = [
 	{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1 },
@@ -42,6 +45,7 @@ const GeneralTab = () => {
 	const assignmentId = parseInt(params.assignmentId);
 	const [comments, setComments] = useState(initialComment);
 	const [uploadModalOpen, setUploadModalOpen] = useState(false);
+	const  [lastComment, setLastComment] = useState("")
 
 	const openUploadImageModal = () => {
 		setUploadModalOpen(true);
@@ -56,21 +60,24 @@ const GeneralTab = () => {
 	};
 
 	const selectedAssignment = db[assignmentId-1]
+	const createMarkup = (htmlString) => {
+    return { __html: htmlString };
+  }	;
 
 	const addCommentHandler = () => {
 
-		// const content = getCommentValueHandler();
 
-		// setComments(prev => [...prev, {
-		// 	createdPerson: 'Bui Danh Tung',
-		// 	createdTime: new Date().toLocaleDateString(),
-		// 	isEditted: false,
-		// 	commentContent: value,
-		// }])
+		setComments(prev => [...prev, {
+			createdPerson: 'Bui Danh Tung',
+			createdTime: new Date().toLocaleDateString(),
+			isEditted: false,
+			commentContent: lastComment,
+		}])
 	}
 
-	const getCommentValueHandler = (html) => {
-		addCommentHandler(html);
+	const getCommentValueHandler = ({editorHtml: html}) => {
+		console.log(html);
+		setLastComment(html);
 	}
 
 	return (

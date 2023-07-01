@@ -3,7 +3,7 @@ import AssignmentsDetailsTab from '../../components/assignmentDetailTab/Assignme
 import MainLayout from '../../components/layout/MainLayout';
 import { EyeFilled, MoreOutlined, CloseOutlined, ClockCircleOutlined, MinusCircleFilled,CheckCircleFilled } from '@ant-design/icons';
 import { ShareIcon } from '../../data/icon';
-import { Avatar, Select, Progress, Skeleton, Button, Dropdown } from 'antd';
+import { Avatar, Select, Progress, Skeleton, Button } from 'antd';
 import {useState} from 'react';
 import {useParams} from 'react-router-dom';
 import { HighestIcon , CriticalIcon, HighIcon, LowIcon, LowestIcon} from '../../data/priorityIcon';

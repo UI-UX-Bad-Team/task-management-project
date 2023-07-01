@@ -117,7 +117,8 @@ const events = [
 		'start': new Date(2023, 5, 29, 12, 40,0),
 		'end': new Date(2023, 5, 30, 15, 30, 0),
 		'priority': 'low',
-		type:'collaborative'
+		type:'collaborative',
+		teamName: 'advertisement-management',
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
@@ -126,6 +127,7 @@ const events = [
 		'end': new Date(2023, 5, 30, 20, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
+		teamName: 'ui-kit',
 	  },
 	  {
 		'title': 'Improve I18n translator',
@@ -134,6 +136,7 @@ const events = [
 		'end': new Date(2023, 6, 3, 19, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
+		teamName: 'advertisement-management',
 	  },
 	  {
 		'title': 'Learn N1 moji goi',
@@ -142,6 +145,7 @@ const events = [
 		'end': new Date(2023, 6, 5, 10, 30, 0),
 		'priority': 'low',
 		type:'personal',
+		teamName: 'advertisement-management',
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
@@ -151,6 +155,23 @@ const events = [
 		'priority': 'critical',
 		type:'collaborative',
 	  },
+	  {
+		'title': 'Improve I18n translator',
+		'description' : 'Translator in I18n works well but some function is not optimized. Please help me improve it ',
+		'start': new Date(2023, 6, 4, 17, 40,0),
+		'end': new Date(2023, 6, 5, 19, 30, 0),
+		'priority': 'critical',
+		type:'collaborative',
+	  },
+	  {
+		'title': 'Optimizing Utils I18n',
+		'description' : 'In i18n there are some regex that not optimized. Optimize them to Util work more efficent!',
+		'start': new Date(2023,6, 29, 12, 40,0),
+		'end': new Date(2023, 7, 30, 15, 30, 0),
+		'priority': 'low',
+		type:'collaborative'
+	  },
+
 ]
 
 export default events;

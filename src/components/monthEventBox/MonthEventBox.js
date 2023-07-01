@@ -248,13 +248,21 @@ const MonthEventBox = (props) => {
 					Detail
 			  	</Button>,
 			]}>	
+				{ props.event.type === 'collaborative' ?
+				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginTop: '10px'}}>
+					<div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
+						<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Team : </p>
+						<p style={{fontSize: '14px', fontWeight: 600, color: '#555'}}>{props.event.teamName}</p>
+					</div>
+				</div> : ""
+				}	
 				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginTop: '10px'}}>
 					<div style={{display: 'flex', gap: '5px', alignItems: 'center'}}>
 						<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Time:</p>
 						{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
 						<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
 					</div>
-					{comparedDate === -1 ? <Rate defaultValue={3} character={({ index }) => customIcons[index + 1]} /> : ""}
+					{comparedDate === -1 && props.event.type === 'personal' ? <Rate defaultValue={3} character={({ index }) => customIcons[index + 1]} /> : ""}
 				</div>
 				{props.event.type === 'collaborative' ?<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Type:</p>

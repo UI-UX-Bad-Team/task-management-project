@@ -11,7 +11,9 @@ const image = {
 	'Pham Trung Dung' :'/images/avatar7.jpg',
 	'Mac Van Khanh' :'/images/avatar8.jpg',
 };
-
+const createMarkup = (htmlString) => {
+    return { __html: htmlString };
+  }	;
 
 const CommentBox = (props) => {
 
@@ -30,7 +32,7 @@ const CommentBox = (props) => {
 					}
 				</div>
 				<div className={styles.commentText}>
-					<p>{props.commentContent}</p>
+					<div dangerouslySetInnerHTML={createMarkup(props.commentContent)}></div>
 				</div>
 			</div>
 		</div>
