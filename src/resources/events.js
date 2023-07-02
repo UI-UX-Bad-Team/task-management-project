@@ -145,7 +145,6 @@ const events = [
 		'end': new Date(2023, 6, 5, 10, 30, 0),
 		'priority': 'low',
 		type:'personal',
-		teamName: 'advertisement-management',
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
@@ -166,12 +165,61 @@ const events = [
 	  {
 		'title': 'Optimizing Utils I18n',
 		'description' : 'In i18n there are some regex that not optimized. Optimize them to Util work more efficent!',
-		'start': new Date(2023,6, 29, 12, 40,0),
-		'end': new Date(2023, 7, 30, 15, 30, 0),
+		'start': new Date(2023, 6, 29, 12, 40,0),
+		'end': new Date(2023, 7, 1, 15, 30, 0),
 		'priority': 'low',
 		type:'collaborative'
 	  },
-
+	  {
+		'title': 'Leanring Azure cloud',
+		'description' : 'See video in udemy and practice',
+		'start': new Date(2023, 7, 1, 8, 30,0),
+		'end': new Date(2023, 7, 1, 10, 30, 0),
+		'priority': 'low',
+		type:'personal',
+	  },
+	  {
+		'title': 'Practice Docker',
+		'description' : 'Following to QA sending document and practice docker',
+		'start': new Date(2023, 7, 1, 11, 40,0),
+		'end': new Date(2023, 7,  2, 20, 30, 0),
+		'priority': 'low',
+		type:'personal',
+	  },
+	  {
+		'title': 'Learn N1 moji goi',
+		'description' : 'JLPT exam is coming, go hard !! ',
+		'start': new Date(2023, 7, 2, 15, 40,0),
+		'end': new Date(2023, 7, 5, 16, 30, 0),
+		'priority': 'low',
+		type:'personal',
+	  },
+	  {
+		'title': 'Fix bug in UI-kit',
+		'description' : 'The color picker in Ui-kit is not showing properly. It show old value instead of new value. Please fix it. ',
+		'start': new Date(2023, 7, 3, 17, 40,0),
+		'end': new Date(2023, 5, 4, 20, 30, 0),
+		'priority': 'critical',
+		type:'collaborative',
+		teamName: 'advertisement-management',
+	  },
+	  {
+		'title': 'Update ui operation tool',
+		'description' : 'Php team ui operation tool is outdated. Plase update this ',
+		'start': new Date(2023, 7, 5, 17, 40,0),
+		'end': new Date(2023, 7, 6, 20, 30, 0),
+		'priority': 'critical',
+		type:'collaborative',
+		teamName: 'ui-kit',
+	  },
+	  {
+		'title': 'Sending mendan document script',
+		'description' : ' 8/7/2023 is mendan day. Sending document in previous day',
+		'start': new Date(2023, 7, 7, 8, 40,0),
+		'end': new Date(2023, 7, 7, 17, 30, 0),
+		'priority': 'critical',
+		type:'collaborative',
+	  },
 ]
 
 export default events;

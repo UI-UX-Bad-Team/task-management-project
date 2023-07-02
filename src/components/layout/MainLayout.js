@@ -8,7 +8,7 @@ import projectsSampleData from "../../data/projects";
 import usersSampleData from "../../data/users";
 
 const {Content, Sider} = Layout;
-const navBarLabels = ['Dashboard', 'Workspaces', 'My teams', 'My assignments', 'Chat'];
+const navBarLabels = ['Dashboard', 'Workspaces', 'My teams', 'My Works', 'Chat'];
 
 
 const menuItems = [HomeOutlined, LaptopOutlined,ProjectOutlined, NotificationOutlined, MessageOutlined].map((icon, index) => {
@@ -68,7 +68,7 @@ const MainLayout = (props) => {
 		} else if (key === "sub3") {
 			navigate("/my-teams")
 		} else if (key === 'sub4') {
-			navigate('/my-assignments')
+			navigate('/my-works')
 		} else if (key === 'sub5') {
 			navigate('/chat')
 		}
@@ -100,7 +100,7 @@ const MainLayout = (props) => {
 							borderRight: 0,
 						}}
 						defaultSelectedKeys={'sub1'} 
-						selectedKeys={pathName === '/dashboard' ? ['sub1'] : (pathName.includes('/workspaces') ? ["sub2"] : (pathName.includes('teams') ? ['sub3'] : (pathName.includes('assignments') ? ['sub4'] : ['sub5'])))}
+						selectedKeys={pathName === '/dashboard' ? ['sub1'] : (pathName.includes('/workspaces') ? ["sub2"] : (pathName.includes('teams') ? ['sub3'] : (pathName.includes('works') ? ['sub4'] : ['sub5'])))}
 						items={menuItems}
 						onSelect={navigateHandler}
 					/>
