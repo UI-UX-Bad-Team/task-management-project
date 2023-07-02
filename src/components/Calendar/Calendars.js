@@ -381,7 +381,7 @@ const Calendars = (props) => {
 					day : {
 						event: EventBox,
 					},
-					toolbar: props => (<CustomCalendarToolbar {...props} getShowingMonth={getShowingMonthHandler} toggleOverLap={toggleOverLapHandler}/>),
+					toolbar: props => (<CustomCalendarToolbar {...props} getShowingMonth={getShowingMonthHandler} toggleOverLap={toggleOverLapHandler} overLapFromParent={overLap} />),
 					// toolbarProps: {getShowingMonth: getShowingMonthHandler}
 				}}
 				messages={{

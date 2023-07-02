@@ -191,19 +191,17 @@ export default class CustomCalendarToolbar extends Toolbar {
 	}
 
 	changeOverlapHandler() {
-		this.props.toggleOverLap()
-		this.setState((state) => ({
-			overlap: !state.overlap
-		}))
-	}
 
+		this.props.toggleOverLap()
+	}
 render() {
+		
 		return (
 		<div>
-			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, marginBottom: 15,}}>
+			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, marginBottom: 15}}>
 				<div style={{display: 'flex', gap: 5}} id="step-5">
 					<p>Events Overlap:   </p>
-					<Switch defaultChecked onChange={this.changeOverlapHandler}/>
+					<Switch onChange={() => {this.changeOverlapHandler()}} checked={this.props.overLapFromParent}/>
 				</div>
 				{   !this.state.isSetting ?
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting} id="step-4">Customize event color</a> :
