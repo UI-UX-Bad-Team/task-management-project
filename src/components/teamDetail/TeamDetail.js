@@ -359,6 +359,9 @@ const ProjectsTab = () => {
 	const selectedTeam = teamsSampleData.filter(team => {return team.id === parseInt(workspaceId)});
 	const selectedTeamProjectIds = selectedTeam[0].projectIds;
 	const projectData = [];
+	const [projectSearchValue, setProjectSearchValue] = useState('');
+	const [filteredProjects, setFilteredProjects] = useState([]);
+
 	projectsSampleData.forEach(project => {
 		if(selectedTeamProjectIds.includes(project.id))
 			{
@@ -398,6 +401,14 @@ const ProjectsTab = () => {
 		setOpen(false);
 	};
 
+	useEffect(() => {
+		setFilteredProjects(projectData.filter(project => project.name.includes(projectSearchValue)));
+
+	}, [projectSearchValue])
+
+	const projectSearchHandler = (event) => {
+		setProjectSearchValue(event.target.value);
+	}
 
 	return (
 		<div>
@@ -477,6 +488,7 @@ const ProjectsTab = () => {
 							size="middle"
 							allowClear={true}
 							className={styles.searchInput}
+							onChange={projectSearchHandler}
 					/>
 				</div>
 				<List
@@ -485,7 +497,7 @@ const ProjectsTab = () => {
 					align,
 					}}
 					loading={loading}
-					dataSource={projectData}
+					dataSource={projectSearchValue === '' ? projectData : filteredProjects}
 					renderItem={(item, index) => (
 					<List.Item>
 						<List.Item.Meta
@@ -549,8 +561,8 @@ const MembersTab = () => {
 	const [members, setMembers] = useState([])
 	const searchRef = useRef();
 	const [confirmText, setConfirmText] = useState('');
-	const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-	// const [loading, setLoading] = useState(false);
+	const [memberSearchValue, setMemberSearchValue] = useState('');
+	const [filteredMembers, setFilteredMembers] = useState([]);
 
 	const options = [
 		{label: 'Bui Danh Tung', value: 'Bui Danh Tung'},
@@ -625,6 +637,12 @@ const MembersTab = () => {
 		setMembers(members1);
 	}, [])
 
+	useEffect(() => {
+		
+		setFilteredMembers(members.filter(members=> members.name.includes(memberSearchValue)));
+
+	}, [memberSearchValue])
+
 	const [confirmModalOpen, setConfirmModalOpen] = useState(false);
 
 	const columns = [
@@ -662,7 +680,7 @@ const MembersTab = () => {
 
 	const searchHandler = (event) => {
 		const searchValue = event.target.value;
-		console.log(members.filter(member => member.name.includes(searchValue) || String(member.id).includes((searchValue))));
+		setMemberSearchValue(searchValue);
 	}
 
 	const handleChange = (value) => {
@@ -673,8 +691,6 @@ const MembersTab = () => {
 		setConfirmText(e.target.value);
 	}
 	
-	const hasSelected = selectedRowKeys.length > 0;
-
 	return (
 		<div>
 			<Modal
@@ -729,7 +745,7 @@ const MembersTab = () => {
 					onChange={searchHandler}
 				/>
 			</div>
-			<Table columns={columns} dataSource={members} loading={members.length > 0 ? false : true} />
+			<Table columns={columns} dataSource={memberSearchValue === '' ? members : filteredMembers} loading={members.length > 0 ? false : true} />
 		</div>
 	)
 }

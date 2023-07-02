@@ -361,27 +361,25 @@ const MembersTab = () => {
 	const teamId = params.teamId;
 	const selectedTeam = projectsSampleData[parseInt(teamId)];
 	const usersArray = selectedTeam.memberIds.map(obj => Object.keys(obj)[0]);
+	const [memberSearchValue, setMemberSearchValue] = useState('');
+	const [filteredMembers, setFilteredMembers] = useState([]);
 
 	const dataSource = [
-		// {
-		//   key: '1',
-		//   name: 'Mike',
-		//   age: 32,
-		//   address: '10 Downing Street',
-		// },
-		// {
-		//   key: '2',
-		//   name: 'John',
-		//   age: 42,
-		//   address: '10 Downing Street',
-		// },
 	];
+
+	const memberSearchHandler = (e) => {
+		setMemberSearchValue(e.target.value);
+	}
 
 	usersArray.forEach(id => dataSource.push({
 		key: usersSampleData[id].id + "",
 		accountName:  usersSampleData[id].accountName,
 		name:  usersSampleData[id].name
 	}))
+
+	useEffect(() => {
+		setFilteredMembers(dataSource.filter(member => member.name.includes(memberSearchValue)));
+	}, [memberSearchValue])
 
 	const columns = [
 		{
@@ -481,10 +479,11 @@ const MembersTab = () => {
 						suffix={suffix}
 						size="middle"
 						allowClear={true}
+						onChange={memberSearchHandler}
 					
 				/>
 			</div>
-			<Table dataSource={dataSource} columns={columns} />			
+			<Table dataSource={memberSearchValue === '' ? dataSource : filteredMembers} columns={columns} />			
 		</div>
 	)
 }

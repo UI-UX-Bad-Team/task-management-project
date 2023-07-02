@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import styles from './MyProjects.module.css';
 import MainLayout from '../../components/layout/MainLayout';
 import {List, Avatar, Tooltip, Input, Skeleton} from 'antd';
@@ -63,10 +63,20 @@ const sampleData = [
 const MyProjectTab = () => {
 	const [loading, setLoading] = useState(true);
 	const navigate = useNavigate();
-	
+	const [teamSearchValue, setTeamSearchValue] = useState('');
+	const [filteredTeams, setFilteredTeams] = useState([]);
+
+	useEffect(() => {
+		setFilteredTeams(sampleData.filter(team => team.name.includes(teamSearchValue)));
+	}, [teamSearchValue])
+
 	setTimeout(() => {
 		setLoading(false);
 	}, 1000)
+
+	const searchHandler = (e) => {
+		setTeamSearchValue(e.target.value);
+	}
 
 	return (
 		<div className={styles.myProjectTab}>
@@ -78,8 +88,7 @@ const MyProjectTab = () => {
 						suffix={suffix}
 						size="middle"
 						allowClear={true}
-						// ref={searchRef}
-						// onChange={searchHandler}
+						onChange={searchHandler}
 				/>
 			</div>
 			<List
@@ -88,7 +97,7 @@ const MyProjectTab = () => {
 						align:'center',
 					}}
 					loading={loading}
-					dataSource={sampleData}
+					dataSource={teamSearchValue === '' ? sampleData : filteredTeams}
 					renderItem={(item, index) => (
 					<List.Item>
 						<List.Item.Meta
