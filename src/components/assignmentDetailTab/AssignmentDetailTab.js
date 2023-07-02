@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import styles from './AssignmentDetailTab.module.css';
 import { AttachIcon } from '../../data/icon';
 import {Tabs, Tag, Avatar, Modal, Image, Input, Button} from 'antd';
@@ -46,6 +46,7 @@ const GeneralTab = () => {
 	const [comments, setComments] = useState(initialComment);
 	const [uploadModalOpen, setUploadModalOpen] = useState(false);
 	const  [lastComment, setLastComment] = useState("")
+	const childRef = useRef();
 
 	const openUploadImageModal = () => {
 		setUploadModalOpen(true);
@@ -66,13 +67,16 @@ const GeneralTab = () => {
 
 	const addCommentHandler = () => {
 
-
 		setComments(prev => [...prev, {
 			createdPerson: 'Bui Danh Tung',
 			createdTime: new Date().toLocaleDateString(),
 			isEditted: false,
 			commentContent: lastComment,
 		}])
+
+		if (childRef.current) {
+			childRef.current.refreshEditor();
+		}
 	}
 
 	const getCommentValueHandler = ({editorHtml: html}) => {
@@ -205,7 +209,7 @@ const GeneralTab = () => {
 				</div>
 				<div className={styles.newComment}>
 					<Avatar src='/images/avatar1.jpg'/>
-					<Editor getValue={getCommentValueHandler}/>
+					<Editor getValue={getCommentValueHandler} ref={childRef}/>
 				</div>
 				<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px'}}>
 					<div style={{display: 'flex', alignItems: 'center', gap: '5px', marginTop: '10px'}}>
