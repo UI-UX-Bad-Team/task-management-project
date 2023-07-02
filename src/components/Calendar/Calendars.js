@@ -1,4 +1,4 @@
-import React, {useState, useRef, useCallback, useMemo} from 'react';
+import React, {useState, useRef, useCallback, useMemo, useEffect} from 'react';
 import { Modal, Progress, Button, DatePicker, Form, Input, Checkbox, notification, Select} from 'antd';
 import { MinusOutlined, PlusOutlined, RightOutlined, LeftOutlined } from '@ant-design/icons';
 import EventBox from '../eventBox/EventBox';
@@ -80,8 +80,34 @@ const Calendars = (props) => {
 	const [scrollEnd, setScrollEnd] = useState(null);
 	const [scrolled, setScrolled] = useState(false);
 	const [overLap, setOverLap] = useState(true);
+	const [isTourRunning, setIsTourRunning] = useState(true);
+
+	const handleJoyrideCallback = (data) => {
+		const { status } = data;
+	
+		// Check if joyride is completed or skipped
+		if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+		  setIsTourRunning(false);
+		}
+	  };
+
+	useEffect(() => {
+		// Check if joyride has been shown before
+		const hasJoyrideShown = localStorage.getItem('hasJoyrideShown');
+	
+		if (hasJoyrideShown) {
+		  setIsTourRunning(false);
+		}
+	}, []);
+
+	useEffect(() => {
+		// Store in local storage that joyride has been shown
+		if (!isTourRunning) {
+		  localStorage.setItem('hasJoyrideShown', 'true');
+		}
+	  }, [isTourRunning]);
+
 	const [{run, steps}, setState] = useState({
-		run: true,
 		steps: [
 			{
 				content: <h2>Welcome to taskiller !! Let's go to kill all task</h2>,
@@ -199,8 +225,8 @@ const Calendars = (props) => {
 		>
 			<Joyride 
 				continuous
-				callback={() => {}}
-				run={run}
+				callback={handleJoyrideCallback}
+				run={isTourRunning}
 				steps={steps}
 				hideCloseButton
 				scrollToFirstStep

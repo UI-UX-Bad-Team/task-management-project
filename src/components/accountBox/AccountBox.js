@@ -9,6 +9,7 @@ const AccountBox = ({name: accountName}) => {
 
 	const logoutHandler = () => {
 		navigate('/')
+		localStorage.removeItem('hasJoyrideShown');
 	}
 
 	const seeProfileHandler = () => {
