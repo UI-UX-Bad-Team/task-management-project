@@ -67,7 +67,7 @@ const MyProjectTab = () => {
 	const [filteredTeams, setFilteredTeams] = useState([]);
 
 	useEffect(() => {
-		setFilteredTeams(sampleData.filter(team => team.name.includes(teamSearchValue)));
+		setFilteredTeams(sampleData.filter(team => team.name.includes(teamSearchValue.toLowerCase())));
 	}, [teamSearchValue])
 
 	setTimeout(() => {

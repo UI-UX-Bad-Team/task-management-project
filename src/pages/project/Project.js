@@ -379,7 +379,7 @@ const MembersTab = () => {
 	}))
 
 	useEffect(() => {
-		setFilteredMembers(dataSource.filter(member => member.name.includes(memberSearchValue)));
+		setFilteredMembers(dataSource.filter(member => member.name.includes(memberSearchValue.toLowerCase())));
 	}, [memberSearchValue])
 
 	const columns = [

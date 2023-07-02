@@ -639,7 +639,7 @@ const MembersTab = () => {
 
 	useEffect(() => {
 		
-		setFilteredMembers(members.filter(members=> members.name.includes(memberSearchValue)));
+		setFilteredMembers(members.filter(members=> members.name.includes(memberSearchValue.toLowerCase())));
 
 	}, [memberSearchValue])
 
