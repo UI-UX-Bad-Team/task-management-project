@@ -63,7 +63,6 @@ const initialItems = [
 					assignmentDueDate={assignment.assignmentDueDate}
 					assignmentTitle={assignment.Title}
 					assignmentDueTime={assignment.assignmentDueTime}
-					// assignmentTeam={assignment.assignmentTeam}
 					image={assignment.image}
 				/>
 			)

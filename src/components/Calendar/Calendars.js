@@ -10,6 +10,7 @@ import MonthEventBox from '../monthEventBox/MonthEventBox';
 import events from '../../resources/events';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types'
+import Joyride, {STATUS} from 'react-joyride';
 
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
@@ -79,6 +80,49 @@ const Calendars = (props) => {
 	const [scrollEnd, setScrollEnd] = useState(null);
 	const [scrolled, setScrolled] = useState(false);
 	const [overLap, setOverLap] = useState(true);
+	const [{run, steps}, setState] = useState({
+		run: true,
+		steps: [
+			{
+				content: <h2>Welcome to taskiller !! Let's go to kill all task</h2>,
+				locale: {
+					skip: <strong>SKIP</strong>
+				},
+				placement: "center",
+				target: "body"
+			},
+			{
+				content: <h2>You can select month and see this month calendar!!</h2>,
+				placement: "bottom",
+				target: "#step-1",
+				title: 'Switch month'
+			},
+			{
+				content: <h2>Click button and switch view type here!</h2>,
+				placement: "bottom",
+				target: "#step-2",
+				title: 'Switch view type'
+			},
+			{
+				content: <h2>Click this button and add your personal event</h2>,
+				placement: "bottom",
+				target: "#step-3",
+				title: 'Add personal event'
+			},
+			{
+				content: <h2>You also customize your event box color here !!</h2>,
+				placement: "bottom",
+				target: "#step-4",
+				title: 'Customize eventbox color'
+			},
+			{
+				content: <h2>You can switch event overlaped or not</h2>,
+				placement: "bottom",
+				target: "#step-5",
+				title: 'Switch overlap state'
+			}
+		]
+	})
 
 	const openSucessfullyAddNotification = () => {
 		notification.open({
@@ -151,10 +195,21 @@ const Calendars = (props) => {
 		setOverLap(state => !state);
 	 }
 	return (
-		<div>
+		<div
+		>
+			<Joyride 
+				continuous
+				callback={() => {}}
+				run={run}
+				steps={steps}
+				hideCloseButton
+				scrollToFirstStep
+				showSkipButton
+				showProgress
+			/>
 			<div style={{display: 'flex', justifyContent: 'space-between'}}>
 				<p style={{fontSize: '25px', fontWeight: 600, color: '#3d5c98', marginBottom: '20px', letterSpacing: '1px'}}>My schedule</p>
-				<div style={{right: '40px', top: '258px'}}>
+				<div style={{right: '40px', top: '258px'}} id="step-3">
 					<Button type="primary" shape="circle" icon={<PlusOutlined style={{display: 'inline-flex', alignItems: 'center'}} />} size={'large'} onClick={openAdModaldEventHandler} />
 				</div>
 			</div>
@@ -272,6 +327,7 @@ const Calendars = (props) => {
 			<Modal title={selectedDate} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} okText="Save">
 				{selectDateTasks.map(task => { return <TaskProgess taskName={task.content} percent={task.percent}/>}) }
       		</Modal>
+			<div>
 			<Calendar
 			    dayLayoutAlgorithm={!overLap ? 'no-overlap' : 'overlap'}
 			  	localizer={localizer}
@@ -314,6 +370,7 @@ const Calendars = (props) => {
 				scrollToTime={scrollToTime}
 				resizable	  
 			/>,
+			</div>
 		</div>
 	)
 }

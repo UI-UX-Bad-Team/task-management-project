@@ -28,7 +28,7 @@ const PopoverContent = (props) => {
 		setSelectedDate(dayjs(`${yearText}-${monthText}-01`))
 		props.getMonth(yearText, monthText)
 	}
-	console.log('selectDate: ',selectedDate)
+
 	return (
 	  <div style={wrapperStyle}>
 		<Calendar
@@ -201,12 +201,12 @@ render() {
 		return (
 		<div>
 			<div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 20, marginBottom: 15,}}>
-				<div style={{display: 'flex', gap: 5}}>
+				<div style={{display: 'flex', gap: 5}} id="step-5">
 					<p>Events Overlap:   </p>
 					<Switch defaultChecked onChange={this.changeOverlapHandler}/>
 				</div>
 				{   !this.state.isSetting ?
-					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Customize event color</a> :
+					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting} id="step-4">Customize event color</a> :
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Hide color picker</a>
 				}
 				{/* <SettingOutlined style={{fontSize: '24px', color: '#3d5c98'}}/> */}
@@ -248,11 +248,13 @@ render() {
 						<RightOutlined style={{color: '#3d5c98', fontSize: '20px'}}/>
 					</button>
 				</div>
-				<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent getMonth={this.props.getShowingMonth}/>} trigger="click">
-        			{this.props.label}
-					<CalendarLogo />
-      			</Popover>
-				<div className="rbc-btn-group">
+				<div id="step-1">
+					<Popover className="rbc-toolbar-label" placement="bottom" content={<PopoverContent getMonth={this.props.getShowingMonth}/>} trigger="click">
+						{this.props.label}
+						<CalendarLogo />
+					</Popover>
+				</div>
+				<div className="rbc-btn-group" id="step-2">
 					<button type="button" onClick={this.view.bind(null, 'month')}>Month</button>
 					<button type="button" onClick={this.view.bind(null, 'week')}>Week</button>
 					<button type="button" onClick={this.view.bind(null, 'day')}>Day</button>
