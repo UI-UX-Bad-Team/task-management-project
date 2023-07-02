@@ -50,19 +50,21 @@ const initialItems = [
 	{
 		label: 'Upcomming',
 		children: [
-					{id: 'DEV-011', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer', assignee: 'Bui Danh Tung'},
-					{id: 'DEV-012', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer', assignee: 'Dinh Trong Huy'},
-					{id: 'DEV-013', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer',  assignee: 'Bui Danh Tung'},
-					{id: 'DEV-014', assignmentDueDate: 'Jun 1st Thurs Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '6:45 AM', assignmentTeam: 'Frontend developer',  assignee: 'Dao Trong Hoan'},
-					{id: 'DEV-015', assignmentDueDate: 'Jun 2nd Fri Day', assignmentTitle: 'Powerpoint submiting', assignmentDueTime: '7:45 AM', assignmentTeam: 'Frontend 1',  assignee: 'Dao Trong Hoan'},
+					{ Id: 'Task 1', Title:"New requirements gathered from the customer", Status: 'Open', Summary: 'Analyze the new requirements gathered from the customer.', Type: 'Story', Priority: 'Low', Tags: 'Analyze,Customer', Estimate: 3.5, Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh", Cc:"Dinh Trong Huy", RankId: 1, assignmentTeam: 'Frontend developer', assignmentDueDate: '06/07/2023',  assignmentDueTime: '06:45', image: '/images/team1.jpg' },
+					{ Id: 'Task 2', Title:"Fix IE browser's issues", Status: 'InProgress', Summary: 'Fix the issues reported in the IE browser.', Type: 'Bug', Priority: 'Highest', Tags: 'IE', Estimate: 2.5, Assignee: 'Dinh Trong Huy',Reviewer:"Ta Duc Tien",Cc:"Dao Trong Hoan", RankId: 2, assignmentTeam: 'Frontend developer',assignmentDueDate: '02/07/2023',assignmentDueTime: '12:15',image: '/images/team2.jpg'},
+					{ Id: 'Task 3', Title:"Fix customer reporting issues",Status: 'Testing', Summary: 'Fix the issues reported by the customer.', Type: 'Bug', Priority: 'High', Tags: 'Customer', Estimate: '3.5', Assignee: 'Bui Danh Tung',Reviewer:"Mac Van Khanh",Cc:"Nguyen Duy Hung", RankId: 1, assignmentTeam: 'Frontend developer',assignmentDueDate: '04/07/2023',assignmentDueTime: '06:45',image: '/images/team5.jpg'},
+					{ Id: 'Task 4', Title:"Arrange a web meeting", Status: 'Done', Summary: 'Arrange a web meeting with the customer to get the login page requirements.', Type: 'NewFeature', Priority: 'Low', Tags: 'Meeting', Estimate: 2, Assignee: 'Dinh Trong Huy',Reviewer: "Ta Duc Tien",Cc:"Bui Danh Tung", RankId: 1, assignmentTeam: 'Frontend developer',assignmentDueDate: '02/07/2023',assignmentDueTime: '08:00',image: '/images/team3.jpg'},
+					{ Id: 'Task 5', Title:"Validate new requirements", Status: 'Testing', Summary: 'Validate new requirements', Type: 'Improvement', Priority: 'Low', Tags: 'Validation', Estimate: 1.5, Assignee: 'Bui Danh Tung',Reviewer:"Pham Trung Dung",Cc:"Vu Minh Dang", RankId: 1, assignmentTeam: 'Frontend developer', assignmentDueDate: '06/07/2023',assignmentDueTime: '09:15',image: '/images/team3.jpg'  },
+					{ Id: 'Task 6', Title:"Testing I18n translator new feature", Status: 'Testing', Summary: 'We developed I18n new translator feature for advertisement page. Please test to confirm it work properly!', Type: 'Improvement', Priority: 'High', Tags: 'Test', Estimate: 1.5, Assignee: 'Dao Trong Hoan',Reviewer:"Ta Duc Tien",Cc:"Dinh Trong Huy", RankId: 1, assignmentTeam: 'Frontend developer', assignmentDueDate: '04/07/2023',assignmentDueTime: '07:45',image: '/images/team2.jpg'},
 				].map(assignment => {
 			return (
 				<AssignmentBox
-					assignmentId={assignment.id}
+					assignmentId={assignment.Id}
 					assignmentDueDate={assignment.assignmentDueDate}
-					assignmentTitle={assignment.assignmentTitle}
+					assignmentTitle={assignment.Title}
 					assignmentDueTime={assignment.assignmentDueTime}
-					assignmentTeam={assignment.assignmentTeam}
+					// assignmentTeam={assignment.assignmentTeam}
+					image={assignment.image}
 				/>
 			)
 		}),
