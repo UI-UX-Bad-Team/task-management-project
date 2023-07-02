@@ -35,7 +35,7 @@ const teamsSampleData =  [
 	{
 		id: 3, 
 		name: 'Schooler frontend developer',
-		description: 'A funny team',
+		description: 'We has responsibility of developer education in VietNam',
 		organization: 'Sun asterisk VN',
 		department: 'GEU',
 		foundDate: '20/10/2010',
@@ -46,7 +46,7 @@ const teamsSampleData =  [
 	{
 		id: 4, 
 		name: 'SCP developer',
-		description: 'A funny team',
+		description: 'We are SCP developer team',
 		organization: 'Sun asterisk VN',
 		department: 'GEU',
 		foundDate: '08/12/2019',
@@ -57,7 +57,7 @@ const teamsSampleData =  [
 	{
 		id: 5, 
 		name: 'Sale team',
-		description: 'A funny team',
+		description: 'We are Sun asterisk sale team. We has power to do awesome things',
 		organization: 'Sun asterisk VN',
 		department: 'Bussiness',
 		foundDate: '20/05/2008',
