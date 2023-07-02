@@ -173,7 +173,7 @@ const EventBox = (props) => {
 					Remove
 			  	</Button>,
 				<Button onClick={editEventBoxHandler}>
-				  Edit
+				  {!isEditting ? 'Edit' : 'Save'}
 				</Button>,
 				<Button onClick={() => {navigate('/my-assignments/assignments/0')}}>
 					Detail
@@ -231,7 +231,7 @@ const EventBox = (props) => {
 				
 				
 				<div className={styles.timeBox} style={{backgroundColor:  comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}` : (comparedDate === -1 ? '#555' : '#17783f')}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent} style={{color: `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}`}}>{props.title}</div>
+				<div className={styles.eventContent} style={{color: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}` : (comparedDate === -1 ? "#222" : "#173d1d")}}>{props.title}</div>
 			</div>
 		</div>
 	)

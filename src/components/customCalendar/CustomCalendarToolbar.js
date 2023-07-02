@@ -207,7 +207,6 @@ render() {
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting} id="step-4">Customize event color</a> :
 					<a className={styles.customizeColorText} style={{fontWeight: 600, textDecoration: 'underline'}} onClick={this.showColorSetting}>Hide color picker</a>
 				}
-				{/* <SettingOutlined style={{fontSize: '24px', color: '#3d5c98'}}/> */}
 			</div>
 			{this.state.isSetting ? <div style={{width: '100%'}}>				
 				<div className="rbc-btn-group" style={{display: 'flex', gap: '20px', marginBottom: '20px', justifyContent: 'flex-start', alignItems: 'center', overflowX: 'scroll'}}>

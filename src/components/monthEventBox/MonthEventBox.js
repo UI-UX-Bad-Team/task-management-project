@@ -231,7 +231,7 @@ const MonthEventBox = (props) => {
 		});
 	  };
 	return (
-		<div className={styles.monthEventBox} onMouseEnter={showEventDetailHandler} onMouseLeave={hideEventDetailHandler}>
+		<div className={styles.monthEventBox} onMouseEnter={showEventDetailHandler} onMouseLeave={hideEventDetailHandler} >
 			<Modal title={`${props.title}`} open={isModalOpen} onOk={handleOk} onCancel={handleCancel} footer={[
 				<Button danger onClick={warning}>
 					Remove
@@ -262,7 +262,7 @@ const MonthEventBox = (props) => {
 						{isEditting ? <RangePicker format="YYYY-MM-DD HH:mm:ss" /> :
 						<div style={{fontSize: '12px', fontWeight: 600, color: '#fff', backgroundColor: '#3d5c98', padding: '3px 5px', borderRadius: '50px'}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>}
 					</div>
-					{comparedDate === -1 && props.event.type === 'personal' ? <Rate defaultValue={3} character={({ index }) => customIcons[index + 1]} /> : ""}
+					{comparedDate === -1 && props.event.type === 'personal' && !isEditting ? <Rate defaultValue={3} character={({ index }) => customIcons[index + 1]} /> : ""}
 				</div>
 				{props.event.type === 'collaborative' ?<div style={{display: 'flex', gap: '5px', marginBottom: '20px'}}>
 					<p style={{fontSize: '14px', fontWeight: 700, color: '#3d5c98'}}>Type:</p>
@@ -308,7 +308,7 @@ const MonthEventBox = (props) => {
 			</Modal>
 			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}` : (comparedDate === -1 ? "#ccc" : "#8bc9a5")}}>
 				<div className={styles.timeBox} style={{backgroundColor:  comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}` : (comparedDate === -1 ? '#555' : '#17783f')}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent} style={{color: `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}`}}>{props.title}</div>
+				<div className={styles.eventContent} style={{color: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}` : (comparedDate === -1 ? "#222" : "#173d1d")}}>{props.title}</div>
 			</div>
 			{showDetail && props.event.type === 'collaborative' ? <div className={styles.eventDetail} >
 				<div style={{display: 'flex', gap: '3px'}}>
