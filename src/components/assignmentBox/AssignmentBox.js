@@ -79,7 +79,7 @@ const AssignmentBox = (props) => {
 				<div className={styles.flex}>
 					<Image
 						width={60}
-						src="/images/team1.jpg"
+						src={props.image}
 					/>
 					<div>
 						<div className={styles.assignmentTitle} onClick={() => {
