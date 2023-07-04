@@ -5,7 +5,7 @@ const events = [
 		'start': new Date(2023, 5, 6, 14, 0, 0),
 		'end': new Date(2023, 5, 6, 15, 0, 0),
 		'priority': 'critical',
-		type:'personal'
+		type:'personal',
 	  },
 	  {
 		'title': 'Document softskill team',
@@ -119,6 +119,7 @@ const events = [
 		'priority': 'low',
 		type:'collaborative',
 		teamName: 'advertisement-management',
+		icon : 2,
 	  },
 	  {
 		'title': 'Fix bug in UI-kit',
@@ -128,6 +129,7 @@ const events = [
 		'priority': 'critical',
 		type:'collaborative',
 		teamName: 'ui-kit',
+		icon : 3,
 	  },
 	  {
 		'title': 'Improve I18n translator',
@@ -137,6 +139,7 @@ const events = [
 		'priority': 'critical',
 		type:'collaborative',
 		teamName: 'advertisement-management',
+		icon : 1,
 	  },
 	  {
 		'title': 'Learn N1 moji goi',
@@ -153,6 +156,7 @@ const events = [
 		'end': new Date(2023, 6, 5, 20, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
+		icon : 2,
 	  },
 	  {
 		'title': 'Improve I18n translator',
@@ -161,6 +165,7 @@ const events = [
 		'end': new Date(2023, 6, 5, 19, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
+		icon : 3,
 	  },
 	  {
 		'title': 'Optimizing Utils I18n',
@@ -168,7 +173,8 @@ const events = [
 		'start': new Date(2023, 6, 29, 12, 40,0),
 		'end': new Date(2023, 7, 1, 15, 30, 0),
 		'priority': 'low',
-		type:'collaborative'
+		type:'collaborative',
+		icon : 1,
 	  },
 	  {
 		'title': 'Leanring Azure cloud',
@@ -202,6 +208,7 @@ const events = [
 		'priority': 'critical',
 		type:'collaborative',
 		teamName: 'advertisement-management',
+		icon : 3,
 	  },
 	  {
 		'title': 'Update ui operation tool',
@@ -211,6 +218,7 @@ const events = [
 		'priority': 'critical',
 		type:'collaborative',
 		teamName: 'ui-kit',
+		icon : 3,
 	  },
 	  {
 		'title': 'Sending mendan document script',
@@ -219,6 +227,7 @@ const events = [
 		'end': new Date(2023, 7, 7, 17, 30, 0),
 		'priority': 'critical',
 		type:'collaborative',
+		icon : 2,
 	  },
 ]
 

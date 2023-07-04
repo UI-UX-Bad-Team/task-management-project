@@ -311,7 +311,7 @@ const MonthEventBox = (props) => {
 					{props.event.type === 'personal' ? "" :
 					<Avatar 
 						size={22}
-						src={`/images/teamIcon${Math.floor(Math.random() * 3) + 1}.png`}
+						src={`/images/teamIcon${props.event.icon}.png`}
 					/>
 					}
 					<div className={styles.eventContent} style={{color: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}` : (comparedDate === -1 ? "#222" : "#173d1d")}}>{props.title}</div>
