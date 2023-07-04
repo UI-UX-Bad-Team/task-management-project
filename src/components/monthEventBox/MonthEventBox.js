@@ -307,8 +307,14 @@ const MonthEventBox = (props) => {
 				</div> : ''}
 			</Modal>
 			<div className={styles.eventBox} onClick={showDetailHandler} style={{backgroundColor: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalBackgroundColor : teamBackgroundColor}` : (comparedDate === -1 ? "#ccc" : "#8bc9a5")}}>
-				<div className={styles.timeBox} style={{backgroundColor:  comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}` : (comparedDate === -1 ? '#555' : '#17783f')}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
-				<div className={styles.eventContent} style={{color: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}` : (comparedDate === -1 ? "#222" : "#173d1d")}}>{props.title}</div>
+					<div className={styles.timeBox} style={{backgroundColor:  comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTimeboxColor : teamTimeboxColor}` : (comparedDate === -1 ? '#555' : '#17783f')}}>{props.event.start.getHours() + ':' + props.event.start.getMinutes()} - {props.event.end.getHours() + ':' + props.event.end.getMinutes()}</div>
+					{props.event.type === 'personal' ? "" :
+					<Avatar 
+						size={22}
+						src={`/images/teamIcon${Math.floor(Math.random() * 3) + 1}.png`}
+					/>
+					}
+					<div className={styles.eventContent} style={{color: comparedDate === 1 ? `#${props.event.type === 'personal' ? personalTextColor : teamTextColor}` : (comparedDate === -1 ? "#222" : "#173d1d")}}>{props.title}</div>
 			</div>
 			{showDetail && props.event.type === 'collaborative' ? <div className={styles.eventDetail} >
 				<div style={{display: 'flex', gap: '3px'}}>
